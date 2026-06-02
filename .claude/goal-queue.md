@@ -122,7 +122,12 @@ visible conforme a sus términos.
 - Test de persistencia de watchlist (guardar símbolo → recargar → sigue) exit 0
 - `pnpm build` exit 0 · `git log --oneline -1`
 **No tocar:** cero funcionalidad de ejecución de órdenes; solo visualización.
-**Evidencia:**
+**Evidencia:** Widget oficial TradingView Advanced Real-Time Chart embebido (iframe con WebSocket),
+tema sincronizado, locale es. Selector de 7 intervalos + selector de símbolos vía watchlist.
+Migración watchlists aplicada (RLS propia por usuario) + types actualizados + server actions zod.
+Atribución "Gráficos by TradingView" visible (link). E2E 3/3 passed: iframe presente con src
+tradingview, cambio de intervalo regenera widget, watchlist agregar→recargar→persiste→eliminar.
+Suite completa: 14 unit + 10 E2E passed. pnpm lint+build exit 0. Commit 4e71144.
 
 ## [pending] 6. Stripe — planes, checkout y customer portal
 **Condición:** productos/precios creados en Stripe TEST mode (Bronce 1500, Plata 2800,
