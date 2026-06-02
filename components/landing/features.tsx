@@ -1,23 +1,23 @@
-import { CandlestickChart, Globe2, ShieldCheck } from "lucide-react"
+import { ArrowLeftRight, CandlestickChart, Wallet } from "lucide-react"
 
 const FEATURES = [
   {
     icon: CandlestickChart,
-    title: "Gráficos profesionales",
+    title: "Mercados en tiempo real",
     description:
-      "Velas, indicadores técnicos e intervalos desde 1 minuto hasta 1 mes, con la precisión de TradingView.",
+      "Gráficos profesionales de acciones, índices y cripto, con los datos que de verdad importan.",
   },
   {
-    icon: Globe2,
-    title: "Todos los mercados",
+    icon: Wallet,
+    title: "Tu portafolio, unificado",
     description:
-      "Acciones, divisas, índices, materias primas y criptomonedas de América y Europa en una sola vista.",
+      "Conecta tus wallets y exchanges y mira tu patrimonio fiat + cripto en un solo tablero.",
   },
   {
-    icon: ShieldCheck,
-    title: "Tu cuenta, protegida",
+    icon: ArrowLeftRight,
+    title: "Del peso al dólar digital",
     description:
-      "Sesiones cifradas, pagos procesados por Stripe y datos personales bajo políticas de acceso estrictas.",
+      "Entra y sal entre tu moneda local y stablecoins de forma simple, vía socios regulados.",
   },
 ] as const
 
