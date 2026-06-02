@@ -1,7 +1,7 @@
 # Goal Queue — SMC · Plataforma de Visualización de Mercados (MVP Fase 0)
 
 estado: activa
-current: 3
+current: 4
 turn_cap_por_item: 25
 
 <!-- Supabase proyecto: czpegpattyvspxjigvij (smc-platform, us-east-1) -->
@@ -72,7 +72,7 @@ get_advisors: 0 críticos (1 INFO intencional + 1 WARN intencional de is_admin).
 generado. pnpm build exit 0. Commit f010466 en develop. NOTA: el proyecto preexistente
 wtxxapniroedkmxjvvuw es de otra app (legal) — no se tocó.
 
-## [in-progress] 3. Autenticación completa (Supabase Auth)
+## [done] 3. Autenticación completa (Supabase Auth)
 **Condición:** registro con email/contraseña + verificación, login, logout, recuperación
 de contraseña y OAuth Google funcionando con `@supabase/ssr` (cookies httpOnly);
 middleware que protege `/dashboard/*`; RBAC con roles `user`/`admin` en `profiles`;
@@ -83,7 +83,13 @@ páginas de auth construidas con shadcn/ui.
   redirige a `/login` — resultado exit 0 visible
 - `pnpm build` exit 0 · `git log --oneline -1`
 **No tocar:** nada de tokens en localStorage; sesión solo en cookies httpOnly.
-**Evidencia:**
+**Evidencia:** Vitest 14/14 passed (validación zod). Playwright: proxy-redirect ✓, login→dashboard→
+logout→redirect ✓, credenciales inválidas ✓ (3 passed; registro skipped por rate limit de 2
+emails/hora del free tier — flujo verificado contra Supabase, se resuelve con Resend en T8).
+pnpm lint+build exit 0 — proxy.ts (Next 16) detectado, rutas /login /registro /recuperar
+/actualizar-password /auth/callback /auth/confirm /dashboard. Sesión en cookies httpOnly vía
+@supabase/ssr. RBAC con getProfile/isAdmin. OAuth Google implementado (requiere credenciales en
+dashboard Supabase para activarse). Fixture e2e@smc.test confirmado en BD. Commits cf29ef7 + 8827779.
 
 ## [pending] 4. Diseño base — landing + shell del dashboard (impeccable + emil-design-eng)
 **Condición:** landing pública (hero, sección de planes con los 4 precios exactos del
