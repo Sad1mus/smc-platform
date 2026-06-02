@@ -167,7 +167,7 @@ invoice.paid / customer.subscription.updated/deleted, sync a subscriptions, lib/
 se activa cuando haya suscripciones reales. PARA DESBLOQUEAR: claves + stripe listen/trigger +
 tests de gating.
 
-## [pending] 8. Seguridad (OWASP) + emails transaccionales
+## [in-progress] 8. Seguridad (OWASP) + emails transaccionales
 **Condición:** headers de seguridad (CSP, HSTS, X-Frame-Options, Referrer-Policy),
 rate limiting en rutas de auth y API, mitigación CSRF/XSS, `/security-review` ejecutado
 con 0 hallazgos críticos sin resolver; emails transaccionales con Resend (bienvenida y

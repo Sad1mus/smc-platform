@@ -1,6 +1,9 @@
 import type { Metadata } from "next"
+import { redirect } from "next/navigation"
 
 import { getProfile, getUser } from "@/lib/auth/profile"
+import { isStripeConfigured } from "@/lib/stripe/client"
+import { hasActiveAccess } from "@/lib/subscription/queries"
 import { createClient } from "@/lib/supabase/server"
 import { MarketView } from "@/components/dashboard/market-view"
 
@@ -10,6 +13,17 @@ export const metadata: Metadata = {
 }
 
 export default async function DashboardPage() {
+  // ── Gating por suscripción (muro de pago) ──────────────────
+  // Con Stripe configurado, los mercados exigen suscripción activa.
+  // Sin Stripe (entorno de desarrollo/demo) el muro queda desactivado
+  // porque comprar un plan es imposible.
+  if (isStripeConfigured()) {
+    const hasAccess = await hasActiveAccess()
+    if (!hasAccess) {
+      redirect("/dashboard/plan")
+    }
+  }
+
   const [user, profile, supabase] = await Promise.all([
     getUser(),
     getProfile(),

@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 
 import { createClient } from "@/lib/supabase/server"
+import { safeRedirectPath } from "@/lib/auth/safe-redirect"
 import {
   forgotPasswordSchema,
   loginSchema,
@@ -81,9 +82,10 @@ export async function signIn(
     return { error: translateAuthError(error.message) }
   }
 
-  const next = (formData.get("next") as string) || "/dashboard"
+  // safeRedirectPath evita open redirects (//evil.com, /\evil.com).
+  const next = safeRedirectPath(formData.get("next") as string | null)
   revalidatePath("/", "layout")
-  redirect(next.startsWith("/") ? next : "/dashboard")
+  redirect(next)
 }
 
 /** Login con Google (OAuth2 / OIDC). */

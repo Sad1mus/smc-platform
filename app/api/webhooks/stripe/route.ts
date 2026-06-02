@@ -2,6 +2,7 @@ import { headers } from "next/headers"
 import { NextResponse } from "next/server"
 import type Stripe from "stripe"
 
+import { sendPaymentConfirmationEmail } from "@/lib/email/send"
 import { getStripe } from "@/lib/stripe/client"
 import { createAdminClient } from "@/lib/supabase/admin"
 
@@ -47,10 +48,19 @@ export async function POST(request: Request) {
   const supabase = createAdminClient()
 
   // ── Idempotencia ───────────────────────────────────────────
+  // Solo se guarda una referencia mínima del evento (no el payload
+  // completo) para evitar retener PII innecesaria del cliente.
+  const eventObject = event.data.object as { id?: string; customer?: unknown }
   const { error: insertError } = await supabase.from("payment_events").insert({
     stripe_event_id: event.id,
     event_type: event.type,
-    payload: JSON.parse(body),
+    payload: {
+      object_id: eventObject.id ?? null,
+      customer:
+        typeof eventObject.customer === "string" ? eventObject.customer : null,
+      created: event.created,
+      livemode: event.livemode,
+    },
   })
 
   if (insertError) {
@@ -115,6 +125,15 @@ async function handleCheckoutCompleted(
       .from("profiles")
       .update({ stripe_customer_id: session.customer })
       .eq("id", userId)
+  }
+
+  // Email de confirmación de pago (stub si Resend no está configurado).
+  const [{ data: profile }, { data: plan }] = await Promise.all([
+    supabase.from("profiles").select("email").eq("id", userId).single(),
+    supabase.from("plans").select("name").eq("id", planId).single(),
+  ])
+  if (profile?.email) {
+    await sendPaymentConfirmationEmail(profile.email, plan?.name ?? planId)
   }
 
   if (session.mode === "subscription" && session.subscription) {
