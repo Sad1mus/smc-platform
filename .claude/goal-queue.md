@@ -1,7 +1,7 @@
 # Goal Queue — SMC · Plataforma de Visualización de Mercados (MVP Fase 0)
 
 estado: activa
-current: 9
+current: 10
 turn_cap_por_item: 25
 
 <!-- Supabase proyecto: czpegpattyvspxjigvij (smc-platform, us-east-1) -->
@@ -187,7 +187,7 @@ corregidos (payload webhook sin PII) o documentados (rate limit distribuido = Fa
 Resend con stub + escapeHtml. Críticos sin resolver: 0. Tests: 25 unit + 14 E2E passed.
 lint+build exit 0. Commit en develop.
 
-## [in-progress] 9. Suite de tests completa + CI/CD (GitHub Actions)
+## [done] 9. Suite de tests completa + CI/CD (GitHub Actions)
 **Condición:** suite Vitest (unitarios) + Playwright (E2E de los flujos críticos: auth,
 pricing→checkout, gating, dashboard) pasa completa en local; workflow
 `.github/workflows/ci.yml` con jobs lint → test → build; repo subido a GitHub con
@@ -198,7 +198,11 @@ pricing→checkout, gating, dashboard) pasa completa en local; workflow
   (o, si el push del workflow está pendiente, `actionlint` exit 0 sobre ci.yml)
 - `git log --oneline -1` en develop
 **No tocar:** prohibido marcar tests como skip/only para que la suite pase.
-**Evidencia:**
+**Evidencia:** Suite local: 25 unit (Vitest) + 14 E2E (Playwright) passed. Repo privado
+github.com/Sad1mus/smc-platform creado con ramas main y develop. Workflow ci.yml con jobs
+lint→format→test→build→e2e. Primer run falló SOLO porque los secrets se configuraron después
+del push (documentado); segundo run 26798973479: completed success en 3m47s con E2E incluido.
+Secrets de CI: NEXT_PUBLIC_SUPABASE_URL + ANON_KEY (claves públicas por diseño). Commit 6c8acdb.
 
 ## [in-progress] 10. Deploy a producción (Vercel) + observabilidad
 **Condición:** app deployada en Vercel en producción con variables de entorno
