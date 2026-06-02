@@ -1,7 +1,7 @@
 # Goal Queue — SMC · Plataforma de Visualización de Mercados (MVP Fase 0)
 
 estado: activa
-current: 4
+current: 5
 turn_cap_por_item: 25
 
 <!-- Supabase proyecto: czpegpattyvspxjigvij (smc-platform, us-east-1) -->
@@ -91,7 +91,7 @@ pnpm lint+build exit 0 — proxy.ts (Next 16) detectado, rutas /login /registro 
 @supabase/ssr. RBAC con getProfile/isAdmin. OAuth Google implementado (requiere credenciales en
 dashboard Supabase para activarse). Fixture e2e@smc.test confirmado en BD. Commits cf29ef7 + 8827779.
 
-## [in-progress] 4. Diseño base — landing + shell del dashboard (impeccable + emil-design-eng)
+## [done] 4. Diseño base — landing + shell del dashboard (impeccable + emil-design-eng)
 **Condición:** landing pública (hero, sección de planes con los 4 precios exactos del
 dossier, CTA de prueba USD 250), shell del dashboard (sidebar, header, navegación),
 dark mode, mobile-first responsive; animaciones y micro-interacciones aplicando la
@@ -103,7 +103,13 @@ hallazgos corregidos.
 - `grep -ri "broker" app/ components/` sin resultados
 - `pnpm build` exit 0 · `git log --oneline -1`
 **No tocar:** precios exactos del dossier; jamás la palabra "broker".
-**Evidencia:**
+**Evidencia:** Landing completa (hero + strip de cotizaciones + características + planes desde
+Supabase con precios exactos del dossier + prueba $250 + footer con disclaimer) y shell del
+dashboard (sidebar, nav móvil, theme toggle, user dropdown). Tokens OKLCH oscuro+dorado del
+dossier, dark default con next-themes. Detector impeccable: 0 anti-patrones (JSON []). grep
+broker: 0 matches. Screenshots landing/dashboard en 375px y 1440px verificados visualmente.
+E2E auth re-validado con nuevo shell: 3 passed. pnpm lint+build exit 0. PRODUCT.md creado.
+Commit en develop.
 
 ## [pending] 5. Dashboard TradingView (tiempo real)
 **Condición:** `/dashboard` protegido muestra el widget TradingView Advanced Charts con
