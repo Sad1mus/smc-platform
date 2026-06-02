@@ -72,7 +72,7 @@ get_advisors: 0 críticos (1 INFO intencional + 1 WARN intencional de is_admin).
 generado. pnpm build exit 0. Commit f010466 en develop. NOTA: el proyecto preexistente
 wtxxapniroedkmxjvvuw es de otra app (legal) — no se tocó.
 
-## [pending] 3. Autenticación completa (Supabase Auth)
+## [in-progress] 3. Autenticación completa (Supabase Auth)
 **Condición:** registro con email/contraseña + verificación, login, logout, recuperación
 de contraseña y OAuth Google funcionando con `@supabase/ssr` (cookies httpOnly);
 middleware que protege `/dashboard/*`; RBAC con roles `user`/`admin` en `profiles`;
