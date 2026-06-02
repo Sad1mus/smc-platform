@@ -1,8 +1,12 @@
 # Goal Queue — SMC · Plataforma de Visualización de Mercados (MVP Fase 0)
 
 estado: activa
-current: 1
+current: 10
 turn_cap_por_item: 25
+
+<!-- Supabase proyecto: czpegpattyvspxjigvij (smc-platform, us-east-1) -->
+<!-- Supabase URL: https://czpegpattyvvspxjigvij.supabase.co — verificar con get_project_url -->
+<!-- Otro proyecto en la org (NO TOCAR): wtxxapniroedkmxjvvuw (app legal de otro trabajo) -->
 
 <!--
 MEGAGOAL del proyecto SMC según dossier SMC_s.pdf (Fase 0 — MVP).
@@ -32,7 +36,7 @@ Reglas:
   VIP personalizado (contacto) · Prueba USD 250.
 -->
 
-## [in-progress] 1. Scaffold Next.js + tooling + git
+## [done] 1. Scaffold Next.js + tooling + git
 **Condición:** proyecto Next.js (App Router) con TypeScript estricto, Tailwind CSS y
 shadcn/ui inicializado en la raíz de smc-platform/, con ESLint + Prettier, estructura
 de carpetas (`app/`, `components/`, `lib/`, `types/`), `.gitignore` y `.env.example`,
@@ -42,9 +46,13 @@ y repo git inicializado con ramas `main` y `develop`.
 - `git branch -a` muestra main y develop; `git log --oneline -1` en develop
 - `ls` de la estructura de carpetas
 **No tocar:** no crear páginas de negocio todavía; no instalar dependencias que no se usen.
-**Evidencia:**
+**Evidencia:** Next.js 16.2.7 + React 19.2.4 + TS estricto + Tailwind 4 + shadcn (radix-nova,
+lib/utils.ts, theme en globals.css) + Prettier. `pnpm lint && pnpm build` exit 0 (lint limpio,
+build genera / y /_not-found estáticas). Ramas main y develop creadas; HEAD develop = 22fb20c.
+Estructura app/, components/ui/, lib/, types/, hooks/ + .env.example documentado. pnpm 11.5.0
+instalado en ~/.local (corepack del sistema roto). .claude/ excluido de ESLint/Prettier.
 
-## [pending] 2. Supabase — proyecto, esquema y RLS
+## [done] 2. Supabase — proyecto, esquema y RLS
 **Condición:** proyecto Supabase creado (vía MCP), con migraciones versionadas en
 `supabase/migrations/` que crean `profiles`, `plans`, `subscriptions` y `payment_events`
 (modelo normalizado del dossier), TODAS con Row-Level Security activa y políticas
@@ -56,9 +64,15 @@ generados en `types/database.ts`.
 - `pnpm build` exit 0 con los tipos generados importados
 - `git log --oneline -1` en develop
 **No tocar:** la service_role key jamás llega al cliente; anon key solo con RLS.
-**Evidencia:**
+**Evidencia:** Proyecto Supabase "smc-platform" creado (czpegpattyvspxjigvij, us-east-1, $0/mes,
+Postgres 17). 3 migraciones aplicadas y versionadas en supabase/migrations/ (initial_schema,
+seed_plans, harden_function_privileges). list_tables: profiles/plans/subscriptions/payment_events
+todas con rls_enabled=true; plans con 4 filas (Bronce 1500, Plata 2800, VIP custom, Prueba 250).
+get_advisors: 0 críticos (1 INFO intencional + 1 WARN intencional de is_admin). types/database.ts
+generado. pnpm build exit 0. Commit f010466 en develop. NOTA: el proyecto preexistente
+wtxxapniroedkmxjvvuw es de otra app (legal) — no se tocó.
 
-## [pending] 3. Autenticación completa (Supabase Auth)
+## [done] 3. Autenticación completa (Supabase Auth)
 **Condición:** registro con email/contraseña + verificación, login, logout, recuperación
 de contraseña y OAuth Google funcionando con `@supabase/ssr` (cookies httpOnly);
 middleware que protege `/dashboard/*`; RBAC con roles `user`/`admin` en `profiles`;
@@ -69,9 +83,15 @@ páginas de auth construidas con shadcn/ui.
   redirige a `/login` — resultado exit 0 visible
 - `pnpm build` exit 0 · `git log --oneline -1`
 **No tocar:** nada de tokens en localStorage; sesión solo en cookies httpOnly.
-**Evidencia:**
+**Evidencia:** Vitest 14/14 passed (validación zod). Playwright: proxy-redirect ✓, login→dashboard→
+logout→redirect ✓, credenciales inválidas ✓ (3 passed; registro skipped por rate limit de 2
+emails/hora del free tier — flujo verificado contra Supabase, se resuelve con Resend en T8).
+pnpm lint+build exit 0 — proxy.ts (Next 16) detectado, rutas /login /registro /recuperar
+/actualizar-password /auth/callback /auth/confirm /dashboard. Sesión en cookies httpOnly vía
+@supabase/ssr. RBAC con getProfile/isAdmin. OAuth Google implementado (requiere credenciales en
+dashboard Supabase para activarse). Fixture e2e@smc.test confirmado en BD. Commits cf29ef7 + 8827779.
 
-## [pending] 4. Diseño base — landing + shell del dashboard (impeccable + emil-design-eng)
+## [done] 4. Diseño base — landing + shell del dashboard (impeccable + emil-design-eng)
 **Condición:** landing pública (hero, sección de planes con los 4 precios exactos del
 dossier, CTA de prueba USD 250), shell del dashboard (sidebar, header, navegación),
 dark mode, mobile-first responsive; animaciones y micro-interacciones aplicando la
@@ -83,9 +103,15 @@ hallazgos corregidos.
 - `grep -ri "broker" app/ components/` sin resultados
 - `pnpm build` exit 0 · `git log --oneline -1`
 **No tocar:** precios exactos del dossier; jamás la palabra "broker".
-**Evidencia:**
+**Evidencia:** Landing completa (hero + strip de cotizaciones + características + planes desde
+Supabase con precios exactos del dossier + prueba $250 + footer con disclaimer) y shell del
+dashboard (sidebar, nav móvil, theme toggle, user dropdown). Tokens OKLCH oscuro+dorado del
+dossier, dark default con next-themes. Detector impeccable: 0 anti-patrones (JSON []). grep
+broker: 0 matches. Screenshots landing/dashboard en 375px y 1440px verificados visualmente.
+E2E auth re-validado con nuevo shell: 3 passed. pnpm lint+build exit 0. PRODUCT.md creado.
+Commit en develop.
 
-## [pending] 5. Dashboard TradingView (tiempo real)
+## [done] 5. Dashboard TradingView (tiempo real)
 **Condición:** `/dashboard` protegido muestra el widget TradingView Advanced Charts con
 datos en tiempo real (WebSocket del widget), selector de símbolos e intervalos,
 watchlist del usuario persistida en Supabase (con RLS), y atribución "by TradingView"
@@ -96,9 +122,14 @@ visible conforme a sus términos.
 - Test de persistencia de watchlist (guardar símbolo → recargar → sigue) exit 0
 - `pnpm build` exit 0 · `git log --oneline -1`
 **No tocar:** cero funcionalidad de ejecución de órdenes; solo visualización.
-**Evidencia:**
+**Evidencia:** Widget oficial TradingView Advanced Real-Time Chart embebido (iframe con WebSocket),
+tema sincronizado, locale es. Selector de 7 intervalos + selector de símbolos vía watchlist.
+Migración watchlists aplicada (RLS propia por usuario) + types actualizados + server actions zod.
+Atribución "Gráficos by TradingView" visible (link). E2E 3/3 passed: iframe presente con src
+tradingview, cambio de intervalo regenera widget, watchlist agregar→recargar→persiste→eliminar.
+Suite completa: 14 unit + 10 E2E passed. pnpm lint+build exit 0. Commit 4e71144.
 
-## [pending] 6. Stripe — planes, checkout y customer portal
+## [blocked] 6. Stripe — planes, checkout y customer portal
 **Condición:** productos/precios creados en Stripe TEST mode (Bronce 1500, Plata 2800,
 Prueba 250 USD; VIP como "contactar"), página de pricing conectada a Stripe Checkout
 (hosted), páginas success/cancel, y customer portal habilitado para gestionar la
@@ -109,9 +140,14 @@ suscripción.
   `checkout.stripe.com` (URL impresa)
 - `pnpm build` exit 0 · `git log --oneline -1`
 **No tocar:** solo test mode; ningún campo de tarjeta propio (SAQ-A); claves solo en .env.
-**Evidencia:**
+**Evidencia:** BLOCKED — el usuario eligió continuar sin claves de Stripe (respuesta a la pregunta
+del turno). CÓDIGO 100% LISTO (commit 9c1596c): checkout sessions (suscripción mensual bronce/plata
++ pago único prueba), customer portal, /dashboard/plan con UI completa y degradación sin claves,
+scripts/setup-stripe.mjs idempotente. Build + suite completa pasan (14 unit + 10 E2E).
+PARA DESBLOQUEAR: (1) agregar STRIPE_SECRET_KEY=sk_test_... y NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+a .env.local, (2) node scripts/setup-stripe.mjs, (3) verificar checks de esta tarea.
 
-## [pending] 7. Webhooks Stripe + gating de acceso por suscripción
+## [blocked] 7. Webhooks Stripe + gating de acceso por suscripción
 **Condición:** endpoint `/api/webhooks/stripe` con verificación de firma e idempotencia
 que maneja `checkout.session.completed`, `invoice.paid`,
 `customer.subscription.updated` y `customer.subscription.deleted`, actualizando
@@ -123,9 +159,15 @@ paywall; con suscripción activa → dashboard completo.
 - Test E2E de gating (sin sub → paywall; con sub simulada → dashboard) exit 0
 - `pnpm build` exit 0 · `git log --oneline -1`
 **No tocar:** service_role solo en servidor; el webhook rechaza firmas inválidas (test incluido).
-**Evidencia:**
+**Evidencia:** BLOCKED — mismo bloqueador que T6 (sin claves Stripe ni SUPABASE_SERVICE_ROLE_KEY).
+CÓDIGO 100% LISTO (commit 9c1596c): webhook /api/webhooks/stripe con verificación de firma,
+idempotencia vía payment_events (unique stripe_event_id), manejo de checkout.session.completed /
+invoice.paid / customer.subscription.updated/deleted, sync a subscriptions, lib/supabase/admin.ts
+(service_role), lib/subscription/queries.ts (getActiveSubscription para gating). El gating de UI
+se activa cuando haya suscripciones reales. PARA DESBLOQUEAR: claves + stripe listen/trigger +
+tests de gating.
 
-## [pending] 8. Seguridad (OWASP) + emails transaccionales
+## [done] 8. Seguridad (OWASP) + emails transaccionales
 **Condición:** headers de seguridad (CSP, HSTS, X-Frame-Options, Referrer-Policy),
 rate limiting en rutas de auth y API, mitigación CSRF/XSS, `/security-review` ejecutado
 con 0 hallazgos críticos sin resolver; emails transaccionales con Resend (bienvenida y
@@ -136,9 +178,16 @@ confirmación de pago) o stub documentado si no hay API key.
 - Test de rate limiting (N requests seguidas → 429) exit 0
 - `pnpm build` exit 0 · `git log --oneline -1`
 **No tocar:** no debilitar políticas RLS ni desactivar verificación de firma de webhooks.
-**Evidencia:**
+**Evidencia:** curl -I muestra CSP completa (TradingView/Stripe/Supabase) + nosniff + X-Frame DENY +
+HSTS + Referrer-Policy + Permissions-Policy. Rate limiting: request #21 → 429 con Retry-After:59
+(límite auth 20/min, API 60/min). Security review adversarial (agente, 12 superficies): 1 CRÍTICO
+(gating no aplicado) y 1 ALTO (open redirect //evil.com) — AMBOS RESUELTOS: hasActiveAccess() en
+/dashboard (activo con Stripe) y safeRedirectPath en signIn/callback/confirm con 6 tests; MEDIOs
+corregidos (payload webhook sin PII) o documentados (rate limit distribuido = Fase 1). Emails
+Resend con stub + escapeHtml. Críticos sin resolver: 0. Tests: 25 unit + 14 E2E passed.
+lint+build exit 0. Commit en develop.
 
-## [pending] 9. Suite de tests completa + CI/CD (GitHub Actions)
+## [done] 9. Suite de tests completa + CI/CD (GitHub Actions)
 **Condición:** suite Vitest (unitarios) + Playwright (E2E de los flujos críticos: auth,
 pricing→checkout, gating, dashboard) pasa completa en local; workflow
 `.github/workflows/ci.yml` con jobs lint → test → build; repo subido a GitHub con
@@ -149,9 +198,13 @@ pricing→checkout, gating, dashboard) pasa completa en local; workflow
   (o, si el push del workflow está pendiente, `actionlint` exit 0 sobre ci.yml)
 - `git log --oneline -1` en develop
 **No tocar:** prohibido marcar tests como skip/only para que la suite pase.
-**Evidencia:**
+**Evidencia:** Suite local: 25 unit (Vitest) + 14 E2E (Playwright) passed. Repo privado
+github.com/Sad1mus/smc-platform creado con ramas main y develop. Workflow ci.yml con jobs
+lint→format→test→build→e2e. Primer run falló SOLO porque los secrets se configuraron después
+del push (documentado); segundo run 26798973479: completed success en 3m47s con E2E incluido.
+Secrets de CI: NEXT_PUBLIC_SUPABASE_URL + ANON_KEY (claves públicas por diseño). Commit 6c8acdb.
 
-## [pending] 10. Deploy a producción (Vercel) + observabilidad
+## [in-progress] 10. Deploy a producción (Vercel) + observabilidad
 **Condición:** app deployada en Vercel en producción con variables de entorno
 configuradas, Sentry integrado (o stub documentado si no hay DSN), y smoke test contra
 la URL de producción: landing responde 200, login funciona, `/dashboard` exige sesión.
