@@ -200,7 +200,7 @@ pricing→checkout, gating, dashboard) pasa completa en local; workflow
 **No tocar:** prohibido marcar tests como skip/only para que la suite pase.
 **Evidencia:**
 
-## [pending] 10. Deploy a producción (Vercel) + observabilidad
+## [in-progress] 10. Deploy a producción (Vercel) + observabilidad
 **Condición:** app deployada en Vercel en producción con variables de entorno
 configuradas, Sentry integrado (o stub documentado si no hay DSN), y smoke test contra
 la URL de producción: landing responde 200, login funciona, `/dashboard` exige sesión.
