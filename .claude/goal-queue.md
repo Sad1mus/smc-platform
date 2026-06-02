@@ -1,8 +1,12 @@
 # Goal Queue — SMC · Plataforma de Visualización de Mercados (MVP Fase 0)
 
 estado: activa
-current: 2
+current: 3
 turn_cap_por_item: 25
+
+<!-- Supabase proyecto: czpegpattyvspxjigvij (smc-platform, us-east-1) -->
+<!-- Supabase URL: https://czpegpattyvvspxjigvij.supabase.co — verificar con get_project_url -->
+<!-- Otro proyecto en la org (NO TOCAR): wtxxapniroedkmxjvvuw (app legal de otro trabajo) -->
 
 <!--
 MEGAGOAL del proyecto SMC según dossier SMC_s.pdf (Fase 0 — MVP).
@@ -48,7 +52,7 @@ build genera / y /_not-found estáticas). Ramas main y develop creadas; HEAD dev
 Estructura app/, components/ui/, lib/, types/, hooks/ + .env.example documentado. pnpm 11.5.0
 instalado en ~/.local (corepack del sistema roto). .claude/ excluido de ESLint/Prettier.
 
-## [in-progress] 2. Supabase — proyecto, esquema y RLS
+## [done] 2. Supabase — proyecto, esquema y RLS
 **Condición:** proyecto Supabase creado (vía MCP), con migraciones versionadas en
 `supabase/migrations/` que crean `profiles`, `plans`, `subscriptions` y `payment_events`
 (modelo normalizado del dossier), TODAS con Row-Level Security activa y políticas
@@ -60,7 +64,13 @@ generados en `types/database.ts`.
 - `pnpm build` exit 0 con los tipos generados importados
 - `git log --oneline -1` en develop
 **No tocar:** la service_role key jamás llega al cliente; anon key solo con RLS.
-**Evidencia:**
+**Evidencia:** Proyecto Supabase "smc-platform" creado (czpegpattyvspxjigvij, us-east-1, $0/mes,
+Postgres 17). 3 migraciones aplicadas y versionadas en supabase/migrations/ (initial_schema,
+seed_plans, harden_function_privileges). list_tables: profiles/plans/subscriptions/payment_events
+todas con rls_enabled=true; plans con 4 filas (Bronce 1500, Plata 2800, VIP custom, Prueba 250).
+get_advisors: 0 críticos (1 INFO intencional + 1 WARN intencional de is_admin). types/database.ts
+generado. pnpm build exit 0. Commit f010466 en develop. NOTA: el proyecto preexistente
+wtxxapniroedkmxjvvuw es de otra app (legal) — no se tocó.
 
 ## [pending] 3. Autenticación completa (Supabase Auth)
 **Condición:** registro con email/contraseña + verificación, login, logout, recuperación
