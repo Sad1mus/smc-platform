@@ -68,7 +68,8 @@ test.describe("Autenticación", () => {
     await page.waitForURL(/\/dashboard/, { timeout: 20_000 })
     await expect(page.getByTestId("dashboard-title")).toBeVisible()
 
-    // 3. Logout
+    // 3. Logout (desde el menú de usuario)
+    await page.getByTestId("user-menu").click()
     await page.getByTestId("logout-button").click()
     await page.waitForURL(/\/login/, { timeout: 20_000 })
 

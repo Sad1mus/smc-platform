@@ -1,10 +1,6 @@
 import type { Metadata } from "next"
-import { redirect } from "next/navigation"
 
-import { signOut } from "@/lib/auth/actions"
-import { getProfile, getUser } from "@/lib/auth/profile"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+import { getProfile } from "@/lib/auth/profile"
 import {
   Card,
   CardContent,
@@ -14,45 +10,45 @@ import {
 } from "@/components/ui/card"
 
 export const metadata: Metadata = {
-  title: "Dashboard — SMC",
+  title: "Mercados",
   description: "Tu panel de visualización de mercados.",
 }
 
 export default async function DashboardPage() {
-  const user = await getUser()
-  if (!user) {
-    redirect("/login?next=/dashboard")
-  }
-
   const profile = await getProfile()
+  const firstName = profile?.full_name?.split(" ")[0]
 
   return (
-    <main className="mx-auto flex min-h-svh max-w-3xl flex-col gap-6 p-6 md:p-10">
-      <header className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold tracking-tight" data-testid="dashboard-title">
-          Dashboard
+    <div className="mx-auto flex max-w-5xl flex-col gap-6">
+      <header>
+        <h1
+          className="text-2xl font-bold tracking-tight"
+          data-testid="dashboard-title"
+        >
+          Mercados
         </h1>
-        <form action={signOut}>
-          <Button type="submit" variant="outline" data-testid="logout-button">
-            Cerrar sesión
-          </Button>
-        </form>
+        <p className="text-muted-foreground mt-1 text-sm">
+          {firstName ? `Hola, ${firstName}. ` : ""}Aquí verás tus gráficos en
+          tiempo real.
+        </p>
       </header>
 
       <Card>
         <CardHeader>
-          <CardTitle>Hola, {profile?.full_name || user.email}</CardTitle>
+          <CardTitle>Gráficos en camino</CardTitle>
           <CardDescription>
-            Sesión activa con rol{" "}
-            <Badge variant="secondary">{profile?.role ?? "user"}</Badge>
+            Los gráficos de mercado en tiempo real estarán disponibles aquí en
+            la siguiente actualización de la plataforma.
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <p className="text-muted-foreground text-sm">
-            Los gráficos de mercado en tiempo real estarán disponibles aquí.
-          </p>
+          <div className="border-border/60 bg-secondary/40 grid h-64 place-items-center rounded-lg border border-dashed">
+            <p className="text-muted-foreground font-mono text-sm">
+              Área del gráfico — TradingView
+            </p>
+          </div>
         </CardContent>
       </Card>
-    </main>
+    </div>
   )
 }

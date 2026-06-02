@@ -91,7 +91,7 @@ pnpm lint+build exit 0 — proxy.ts (Next 16) detectado, rutas /login /registro 
 @supabase/ssr. RBAC con getProfile/isAdmin. OAuth Google implementado (requiere credenciales en
 dashboard Supabase para activarse). Fixture e2e@smc.test confirmado en BD. Commits cf29ef7 + 8827779.
 
-## [pending] 4. Diseño base — landing + shell del dashboard (impeccable + emil-design-eng)
+## [in-progress] 4. Diseño base — landing + shell del dashboard (impeccable + emil-design-eng)
 **Condición:** landing pública (hero, sección de planes con los 4 precios exactos del
 dossier, CTA de prueba USD 250), shell del dashboard (sidebar, header, navegación),
 dark mode, mobile-first responsive; animaciones y micro-interacciones aplicando la
