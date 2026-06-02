@@ -1,7 +1,7 @@
 # Goal Queue — SMC · Plataforma de Visualización de Mercados (MVP Fase 0)
 
 estado: activa
-current: 8
+current: 9
 turn_cap_por_item: 25
 
 <!-- Supabase proyecto: czpegpattyvspxjigvij (smc-platform, us-east-1) -->
@@ -167,7 +167,7 @@ invoice.paid / customer.subscription.updated/deleted, sync a subscriptions, lib/
 se activa cuando haya suscripciones reales. PARA DESBLOQUEAR: claves + stripe listen/trigger +
 tests de gating.
 
-## [in-progress] 8. Seguridad (OWASP) + emails transaccionales
+## [done] 8. Seguridad (OWASP) + emails transaccionales
 **Condición:** headers de seguridad (CSP, HSTS, X-Frame-Options, Referrer-Policy),
 rate limiting en rutas de auth y API, mitigación CSRF/XSS, `/security-review` ejecutado
 con 0 hallazgos críticos sin resolver; emails transaccionales con Resend (bienvenida y
@@ -178,7 +178,14 @@ confirmación de pago) o stub documentado si no hay API key.
 - Test de rate limiting (N requests seguidas → 429) exit 0
 - `pnpm build` exit 0 · `git log --oneline -1`
 **No tocar:** no debilitar políticas RLS ni desactivar verificación de firma de webhooks.
-**Evidencia:**
+**Evidencia:** curl -I muestra CSP completa (TradingView/Stripe/Supabase) + nosniff + X-Frame DENY +
+HSTS + Referrer-Policy + Permissions-Policy. Rate limiting: request #21 → 429 con Retry-After:59
+(límite auth 20/min, API 60/min). Security review adversarial (agente, 12 superficies): 1 CRÍTICO
+(gating no aplicado) y 1 ALTO (open redirect //evil.com) — AMBOS RESUELTOS: hasActiveAccess() en
+/dashboard (activo con Stripe) y safeRedirectPath en signIn/callback/confirm con 6 tests; MEDIOs
+corregidos (payload webhook sin PII) o documentados (rate limit distribuido = Fase 1). Emails
+Resend con stub + escapeHtml. Críticos sin resolver: 0. Tests: 25 unit + 14 E2E passed.
+lint+build exit 0. Commit en develop.
 
 ## [pending] 9. Suite de tests completa + CI/CD (GitHub Actions)
 **Condición:** suite Vitest (unitarios) + Playwright (E2E de los flujos críticos: auth,
