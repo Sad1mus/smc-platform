@@ -1,7 +1,7 @@
 # Goal Queue — SMC · Plataforma de Visualización de Mercados (MVP Fase 0)
 
 estado: activa
-current: 1
+current: 2
 turn_cap_por_item: 25
 
 <!--
@@ -32,7 +32,7 @@ Reglas:
   VIP personalizado (contacto) · Prueba USD 250.
 -->
 
-## [in-progress] 1. Scaffold Next.js + tooling + git
+## [done] 1. Scaffold Next.js + tooling + git
 **Condición:** proyecto Next.js (App Router) con TypeScript estricto, Tailwind CSS y
 shadcn/ui inicializado en la raíz de smc-platform/, con ESLint + Prettier, estructura
 de carpetas (`app/`, `components/`, `lib/`, `types/`), `.gitignore` y `.env.example`,
@@ -42,7 +42,11 @@ y repo git inicializado con ramas `main` y `develop`.
 - `git branch -a` muestra main y develop; `git log --oneline -1` en develop
 - `ls` de la estructura de carpetas
 **No tocar:** no crear páginas de negocio todavía; no instalar dependencias que no se usen.
-**Evidencia:**
+**Evidencia:** Next.js 16.2.7 + React 19.2.4 + TS estricto + Tailwind 4 + shadcn (radix-nova,
+lib/utils.ts, theme en globals.css) + Prettier. `pnpm lint && pnpm build` exit 0 (lint limpio,
+build genera / y /_not-found estáticas). Ramas main y develop creadas; HEAD develop = 22fb20c.
+Estructura app/, components/ui/, lib/, types/, hooks/ + .env.example documentado. pnpm 11.5.0
+instalado en ~/.local (corepack del sistema roto). .claude/ excluido de ESLint/Prettier.
 
 ## [pending] 2. Supabase — proyecto, esquema y RLS
 **Condición:** proyecto Supabase creado (vía MCP), con migraciones versionadas en
