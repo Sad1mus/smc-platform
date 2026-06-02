@@ -1,25 +1,33 @@
 import type { Metadata } from "next"
 
-import { getProfile } from "@/lib/auth/profile"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import { getProfile, getUser } from "@/lib/auth/profile"
+import { createClient } from "@/lib/supabase/server"
+import { MarketView } from "@/components/dashboard/market-view"
 
 export const metadata: Metadata = {
   title: "Mercados",
-  description: "Tu panel de visualización de mercados.",
+  description: "Tu panel de visualización de mercados en tiempo real.",
 }
 
 export default async function DashboardPage() {
-  const profile = await getProfile()
+  const [user, profile, supabase] = await Promise.all([
+    getUser(),
+    getProfile(),
+    createClient(),
+  ])
+
+  const { data: watchlist } = await supabase
+    .from("watchlists")
+    .select("symbol")
+    .eq("user_id", user!.id)
+    .order("sort_order")
+    .order("created_at")
+
+  const symbols = watchlist?.map((item) => item.symbol) ?? []
   const firstName = profile?.full_name?.split(" ")[0]
 
   return (
-    <div className="mx-auto flex max-w-5xl flex-col gap-6">
+    <div className="flex flex-col gap-6">
       <header>
         <h1
           className="text-2xl font-bold tracking-tight"
@@ -28,27 +36,12 @@ export default async function DashboardPage() {
           Mercados
         </h1>
         <p className="text-muted-foreground mt-1 text-sm">
-          {firstName ? `Hola, ${firstName}. ` : ""}Aquí verás tus gráficos en
-          tiempo real.
+          {firstName ? `Hola, ${firstName}. ` : ""}Datos en tiempo real, en tu
+          zona horaria.
         </p>
       </header>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Gráficos en camino</CardTitle>
-          <CardDescription>
-            Los gráficos de mercado en tiempo real estarán disponibles aquí en
-            la siguiente actualización de la plataforma.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="border-border/60 bg-secondary/40 grid h-64 place-items-center rounded-lg border border-dashed">
-            <p className="text-muted-foreground font-mono text-sm">
-              Área del gráfico — TradingView
-            </p>
-          </div>
-        </CardContent>
-      </Card>
+      <MarketView watchlistSymbols={symbols} />
     </div>
   )
 }

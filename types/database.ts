@@ -187,6 +187,38 @@ export type Database = {
           },
         ]
       }
+      watchlists: {
+        Row: {
+          created_at: string
+          id: string
+          sort_order: number
+          symbol: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          sort_order?: number
+          symbol: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          sort_order?: number
+          symbol?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "watchlists_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -331,3 +363,4 @@ export type Profile = Tables<"profiles">
 export type Plan = Tables<"plans">
 export type Subscription = Tables<"subscriptions">
 export type PaymentEvent = Tables<"payment_events">
+export type WatchlistItem = Tables<"watchlists">

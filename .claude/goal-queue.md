@@ -111,7 +111,7 @@ broker: 0 matches. Screenshots landing/dashboard en 375px y 1440px verificados v
 E2E auth re-validado con nuevo shell: 3 passed. pnpm lint+build exit 0. PRODUCT.md creado.
 Commit en develop.
 
-## [pending] 5. Dashboard TradingView (tiempo real)
+## [in-progress] 5. Dashboard TradingView (tiempo real)
 **Condición:** `/dashboard` protegido muestra el widget TradingView Advanced Charts con
 datos en tiempo real (WebSocket del widget), selector de símbolos e intervalos,
 watchlist del usuario persistida en Supabase (con RLS), y atribución "by TradingView"
