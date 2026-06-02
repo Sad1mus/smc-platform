@@ -8,7 +8,12 @@ import { updateSession } from "@/lib/supabase/proxy"
  *  - Rutas de autenticación (POST): mitigación de fuerza bruta.
  *  - API: abuso general.
  */
-const AUTH_ROUTES = ["/login", "/registro", "/recuperar", "/actualizar-password"]
+const AUTH_ROUTES = [
+  "/login",
+  "/registro",
+  "/recuperar",
+  "/actualizar-password",
+]
 const AUTH_LIMIT = 20
 const API_LIMIT = 60
 const WINDOW_MS = 60_000

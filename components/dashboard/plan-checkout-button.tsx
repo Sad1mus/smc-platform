@@ -3,7 +3,10 @@
 import { useTransition } from "react"
 import { toast } from "sonner"
 
-import { createCheckoutSession, createPortalSession } from "@/lib/stripe/actions"
+import {
+  createCheckoutSession,
+  createPortalSession,
+} from "@/lib/stripe/actions"
 import { Button } from "@/components/ui/button"
 
 /** Botón que inicia el checkout de Stripe para un plan. */

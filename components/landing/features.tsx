@@ -25,7 +25,7 @@ export function Features() {
   return (
     <section
       id="caracteristicas"
-      className="border-border/60 border-t scroll-mt-14"
+      className="border-border/60 scroll-mt-14 border-t"
     >
       <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
         <div className="max-w-xl">

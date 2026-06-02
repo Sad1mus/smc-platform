@@ -64,8 +64,8 @@ export default async function PlanPage({
           className="border-market-up/40 bg-market-up/10 text-foreground flex items-center gap-3 rounded-lg border p-4 text-sm"
         >
           <CheckCircle2 className="text-market-up size-5 shrink-0" />
-          Pago confirmado. Tu acceso se activará en unos segundos (cuando
-          Stripe confirme el evento).
+          Pago confirmado. Tu acceso se activará en unos segundos (cuando Stripe
+          confirme el evento).
         </div>
       ) : null}
       {estado === "cancelado" ? (
@@ -87,7 +87,9 @@ export default async function PlanPage({
                 <CardTitle className="flex items-center gap-2">
                   Plan {subscription.plan?.name ?? subscription.plan_id}
                   <Badge className="bg-market-up/15 text-market-up border-market-up/30">
-                    {subscription.status === "trialing" ? "En prueba" : "Activo"}
+                    {subscription.status === "trialing"
+                      ? "En prueba"
+                      : "Activo"}
                   </Badge>
                 </CardTitle>
                 <CardDescription className="mt-1">
@@ -141,9 +143,9 @@ export default async function PlanPage({
           </div>
 
           <p className="text-muted-foreground/80 text-xs leading-relaxed">
-            ¿Necesitas el plan VIP personalizado? Escríbenos y lo configuramos
-            a tu medida. Pagos procesados por Stripe (PCI-DSS SAQ-A): ningún
-            dato de tarjeta toca los servidores de SMC.
+            ¿Necesitas el plan VIP personalizado? Escríbenos y lo configuramos a
+            tu medida. Pagos procesados por Stripe (PCI-DSS SAQ-A): ningún dato
+            de tarjeta toca los servidores de SMC.
           </p>
         </>
       )}

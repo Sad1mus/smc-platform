@@ -38,8 +38,8 @@ export async function Plans() {
             Planes de acceso
           </h2>
           <p className="text-muted-foreground mt-3 leading-relaxed">
-            Tres niveles de acceso a la plataforma, en USD. Elige el tuyo y
-            paga de forma segura con Stripe.
+            Tres niveles de acceso a la plataforma, en USD. Elige el tuyo y paga
+            de forma segura con Stripe.
           </p>
         </div>
 
@@ -52,7 +52,7 @@ export async function Plans() {
                 className={cn(
                   "bg-card relative flex flex-col gap-5 rounded-xl border p-6 transition-all duration-200 ease-out",
                   isVip
-                    ? "border-gold/50 shadow-[0_0_40px_-12px] shadow-gold/20"
+                    ? "border-gold/50 shadow-gold/20 shadow-[0_0_40px_-12px]"
                     : "hover:border-border hover:-translate-y-0.5"
                 )}
               >
@@ -81,7 +81,10 @@ export async function Plans() {
                 </header>
                 <ul className="flex flex-1 flex-col gap-2.5">
                   {planFeatures(plan).map((feature) => (
-                    <li key={feature} className="flex items-start gap-2 text-sm">
+                    <li
+                      key={feature}
+                      className="flex items-start gap-2 text-sm"
+                    >
                       <Check
                         aria-hidden="true"
                         className="text-gold mt-0.5 size-4 shrink-0"
@@ -97,7 +100,9 @@ export async function Plans() {
                 >
                   <Link
                     href={
-                      plan.is_custom ? "/registro?plan=vip" : `/registro?plan=${plan.id}`
+                      plan.is_custom
+                        ? "/registro?plan=vip"
+                        : `/registro?plan=${plan.id}`
                     }
                   >
                     {plan.is_custom ? "Hablar con SMC" : `Elegir ${plan.name}`}

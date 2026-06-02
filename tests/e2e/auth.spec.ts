@@ -14,9 +14,7 @@ test.describe("Autenticación", () => {
     await page.goto("/dashboard")
     await page.waitForURL(/\/login/, { timeout: 15_000 })
     await expect(page).toHaveURL(/\/login/)
-    await expect(
-      page.getByRole("button", { name: "Ingresar" })
-    ).toBeVisible()
+    await expect(page.getByRole("button", { name: "Ingresar" })).toBeVisible()
   })
 
   test("registro: crea cuenta y muestra confirmación de correo", async ({

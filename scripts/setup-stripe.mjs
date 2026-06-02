@@ -38,12 +38,19 @@ const stripeKey = process.env.STRIPE_SECRET_KEY
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
-if (!stripeKey || (!stripeKey.startsWith("sk_test_") && !stripeKey.startsWith("rk_test_"))) {
-  console.error("✗ STRIPE_SECRET_KEY falta o no es de test (sk_test_/rk_test_).")
+if (
+  !stripeKey ||
+  (!stripeKey.startsWith("sk_test_") && !stripeKey.startsWith("rk_test_"))
+) {
+  console.error(
+    "✗ STRIPE_SECRET_KEY falta o no es de test (sk_test_/rk_test_)."
+  )
   process.exit(1)
 }
 if (!supabaseUrl || !serviceRoleKey) {
-  console.error("✗ Faltan NEXT_PUBLIC_SUPABASE_URL o SUPABASE_SERVICE_ROLE_KEY.")
+  console.error(
+    "✗ Faltan NEXT_PUBLIC_SUPABASE_URL o SUPABASE_SERVICE_ROLE_KEY."
+  )
   process.exit(1)
 }
 
@@ -78,7 +85,10 @@ async function main() {
     }
 
     // Precio: crear si el producto no tiene uno activo equivalente.
-    const prices = await stripe.prices.list({ product: product.id, active: true })
+    const prices = await stripe.prices.list({
+      product: product.id,
+      active: true,
+    })
     let price = prices.data.find(
       (p) =>
         p.unit_amount === plan.amountUsd &&
@@ -94,7 +104,9 @@ async function main() {
       })
       console.log(`✓ Precio creado: $${plan.amountUsd / 100} USD (${price.id})`)
     } else {
-      console.log(`= Precio existente: $${plan.amountUsd / 100} USD (${price.id})`)
+      console.log(
+        `= Precio existente: $${plan.amountUsd / 100} USD (${price.id})`
+      )
     }
 
     // Guardar IDs en Supabase.
@@ -104,13 +116,18 @@ async function main() {
       .eq("id", plan.id)
 
     if (error) {
-      console.error(`✗ Error guardando IDs en Supabase para ${plan.id}:`, error.message)
+      console.error(
+        `✗ Error guardando IDs en Supabase para ${plan.id}:`,
+        error.message
+      )
       process.exit(1)
     }
     console.log(`✓ Supabase actualizado: plans.${plan.id}\n`)
   }
 
-  console.log("Listo. Verifica con: stripe prices list --limit 10 (o el Dashboard).")
+  console.log(
+    "Listo. Verifica con: stripe prices list --limit 10 (o el Dashboard)."
+  )
 }
 
 main().catch((error) => {

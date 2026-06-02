@@ -187,7 +187,7 @@ corregidos (payload webhook sin PII) o documentados (rate limit distribuido = Fa
 Resend con stub + escapeHtml. Críticos sin resolver: 0. Tests: 25 unit + 14 E2E passed.
 lint+build exit 0. Commit en develop.
 
-## [pending] 9. Suite de tests completa + CI/CD (GitHub Actions)
+## [in-progress] 9. Suite de tests completa + CI/CD (GitHub Actions)
 **Condición:** suite Vitest (unitarios) + Playwright (E2E de los flujos críticos: auth,
 pricing→checkout, gating, dashboard) pasa completa en local; workflow
 `.github/workflows/ci.yml` con jobs lint → test → build; repo subido a GitHub con

@@ -87,9 +87,9 @@ describe("registerSchema", () => {
   })
 
   it("rechaza nombres demasiado cortos", () => {
-    expect(
-      registerSchema.safeParse({ ...base, fullName: "A" }).success
-    ).toBe(false)
+    expect(registerSchema.safeParse({ ...base, fullName: "A" }).success).toBe(
+      false
+    )
   })
 })
 

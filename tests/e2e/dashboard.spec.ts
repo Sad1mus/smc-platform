@@ -20,7 +20,9 @@ test.describe("Dashboard — TradingView y watchlist", () => {
     expect(iframeSrc).toContain("tradingview")
 
     // Atribución exigida por los términos de TradingView.
-    await expect(page.getByRole("link", { name: "by TradingView" })).toBeVisible()
+    await expect(
+      page.getByRole("link", { name: "by TradingView" })
+    ).toBeVisible()
   })
 
   test("selector de intervalos cambia el gráfico", async ({ page }) => {
