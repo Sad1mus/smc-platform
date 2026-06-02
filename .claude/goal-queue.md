@@ -1,7 +1,7 @@
 # Goal Queue — SMC · Plataforma de Visualización de Mercados (MVP Fase 0)
 
 estado: activa
-current: 6
+current: 8
 turn_cap_por_item: 25
 
 <!-- Supabase proyecto: czpegpattyvspxjigvij (smc-platform, us-east-1) -->
@@ -129,7 +129,7 @@ Atribución "Gráficos by TradingView" visible (link). E2E 3/3 passed: iframe pr
 tradingview, cambio de intervalo regenera widget, watchlist agregar→recargar→persiste→eliminar.
 Suite completa: 14 unit + 10 E2E passed. pnpm lint+build exit 0. Commit 4e71144.
 
-## [pending] 6. Stripe — planes, checkout y customer portal
+## [blocked] 6. Stripe — planes, checkout y customer portal
 **Condición:** productos/precios creados en Stripe TEST mode (Bronce 1500, Plata 2800,
 Prueba 250 USD; VIP como "contactar"), página de pricing conectada a Stripe Checkout
 (hosted), páginas success/cancel, y customer portal habilitado para gestionar la
@@ -140,9 +140,14 @@ suscripción.
   `checkout.stripe.com` (URL impresa)
 - `pnpm build` exit 0 · `git log --oneline -1`
 **No tocar:** solo test mode; ningún campo de tarjeta propio (SAQ-A); claves solo en .env.
-**Evidencia:**
+**Evidencia:** BLOCKED — el usuario eligió continuar sin claves de Stripe (respuesta a la pregunta
+del turno). CÓDIGO 100% LISTO (commit 9c1596c): checkout sessions (suscripción mensual bronce/plata
++ pago único prueba), customer portal, /dashboard/plan con UI completa y degradación sin claves,
+scripts/setup-stripe.mjs idempotente. Build + suite completa pasan (14 unit + 10 E2E).
+PARA DESBLOQUEAR: (1) agregar STRIPE_SECRET_KEY=sk_test_... y NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+a .env.local, (2) node scripts/setup-stripe.mjs, (3) verificar checks de esta tarea.
 
-## [pending] 7. Webhooks Stripe + gating de acceso por suscripción
+## [blocked] 7. Webhooks Stripe + gating de acceso por suscripción
 **Condición:** endpoint `/api/webhooks/stripe` con verificación de firma e idempotencia
 que maneja `checkout.session.completed`, `invoice.paid`,
 `customer.subscription.updated` y `customer.subscription.deleted`, actualizando
@@ -154,7 +159,13 @@ paywall; con suscripción activa → dashboard completo.
 - Test E2E de gating (sin sub → paywall; con sub simulada → dashboard) exit 0
 - `pnpm build` exit 0 · `git log --oneline -1`
 **No tocar:** service_role solo en servidor; el webhook rechaza firmas inválidas (test incluido).
-**Evidencia:**
+**Evidencia:** BLOCKED — mismo bloqueador que T6 (sin claves Stripe ni SUPABASE_SERVICE_ROLE_KEY).
+CÓDIGO 100% LISTO (commit 9c1596c): webhook /api/webhooks/stripe con verificación de firma,
+idempotencia vía payment_events (unique stripe_event_id), manejo de checkout.session.completed /
+invoice.paid / customer.subscription.updated/deleted, sync a subscriptions, lib/supabase/admin.ts
+(service_role), lib/subscription/queries.ts (getActiveSubscription para gating). El gating de UI
+se activa cuando haya suscripciones reales. PARA DESBLOQUEAR: claves + stripe listen/trigger +
+tests de gating.
 
 ## [pending] 8. Seguridad (OWASP) + emails transaccionales
 **Condición:** headers de seguridad (CSP, HSTS, X-Frame-Options, Referrer-Policy),
