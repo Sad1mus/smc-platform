@@ -48,7 +48,7 @@ build genera / y /_not-found estáticas). Ramas main y develop creadas; HEAD dev
 Estructura app/, components/ui/, lib/, types/, hooks/ + .env.example documentado. pnpm 11.5.0
 instalado en ~/.local (corepack del sistema roto). .claude/ excluido de ESLint/Prettier.
 
-## [pending] 2. Supabase — proyecto, esquema y RLS
+## [in-progress] 2. Supabase — proyecto, esquema y RLS
 **Condición:** proyecto Supabase creado (vía MCP), con migraciones versionadas en
 `supabase/migrations/` que crean `profiles`, `plans`, `subscriptions` y `payment_events`
 (modelo normalizado del dossier), TODAS con Row-Level Security activa y políticas
