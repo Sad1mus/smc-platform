@@ -1,6 +1,6 @@
 # Goal Queue — SMC · Plataforma de Visualización de Mercados (MVP Fase 0)
 
-estado: activa
+estado: completada (8 done + 2 blocked)
 current: 10
 turn_cap_por_item: 25
 
@@ -204,7 +204,7 @@ lint→format→test→build→e2e. Primer run falló SOLO porque los secrets se
 del push (documentado); segundo run 26798973479: completed success en 3m47s con E2E incluido.
 Secrets de CI: NEXT_PUBLIC_SUPABASE_URL + ANON_KEY (claves públicas por diseño). Commit 6c8acdb.
 
-## [in-progress] 10. Deploy a producción (Vercel) + observabilidad
+## [done] 10. Deploy a producción (Vercel) + observabilidad
 **Condición:** app deployada en Vercel en producción con variables de entorno
 configuradas, Sentry integrado (o stub documentado si no hay DSN), y smoke test contra
 la URL de producción: landing responde 200, login funciona, `/dashboard` exige sesión.
@@ -214,4 +214,14 @@ la URL de producción: landing responde 200, login funciona, `/dashboard` exige 
 - Smoke test Playwright contra producción (landing, login, gating) exit 0
 - `git log --oneline -1` · tag `v0.1.0-mvp` creado
 **No tocar:** claves de producción jamás en el repo; el deploy sale de la rama main vía PR.
-**Evidencia:**
+**Evidencia:** PR #1 (develop→main) con CI verde mergeado; deploy desde main vía Vercel CLI
+(usuario autenticado como smartmoney4). URL producción:
+https://smc-platform-smart-money-s-projects.vercel.app → HTTP 200 con CSP completa.
+MCP get_deployment: state READY, target production (dpl_HyjufNawdPba8vcFnAwujhgtm4gQ).
+Deployment Protection (SSO) desactivada vía API para acceso público. Env vars Production:
+SUPABASE_URL + ANON_KEY + APP_URL (solo claves públicas). Smoke test Playwright contra
+producción: 6/6 passed (auth, gating, TradingView, watchlist). Sentry integrado condicional
+al DSN (stub documentado). Tag v0.1.0-mvp creado y pusheado. NOTA: integración Git de Vercel
+(auto-deploy) requiere instalar la app de Vercel en GitHub — documentado para el usuario.
+
+<!-- ESTADO FINAL DE LA COLA: 8 done + 2 blocked (Stripe sin claves) = condición global cumplida -->
