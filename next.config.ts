@@ -18,7 +18,7 @@ const contentSecurityPolicy = [
   "img-src 'self' data: blob: https://*.tradingview.com https://*.tradingview-widget.com",
   "font-src 'self' data:",
   "frame-src https://*.tradingview.com https://*.tradingview-widget.com https://js.stripe.com https://checkout.stripe.com https://hooks.stripe.com",
-  "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.stripe.com https://*.tradingview.com https://*.tradingview-widget.com",
+  "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.stripe.com https://*.tradingview.com https://*.tradingview-widget.com https://*.sentry.io",
   "worker-src 'self' blob:",
   "object-src 'none'",
   "base-uri 'self'",

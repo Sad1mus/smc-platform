@@ -5,6 +5,7 @@ import type Stripe from "stripe"
 import { sendPaymentConfirmationEmail } from "@/lib/email/send"
 import { getStripe } from "@/lib/stripe/client"
 import { createAdminClient } from "@/lib/supabase/admin"
+import { captureError, log } from "@/lib/observability/logger"
 
 /**
  * Webhook de Stripe — firmado e idempotente.
@@ -46,6 +47,11 @@ export async function POST(request: Request) {
   }
 
   const supabase = createAdminClient()
+
+  log.info("stripe_webhook_received", {
+    eventId: event.id,
+    eventType: event.type,
+  })
 
   // ── Idempotencia ───────────────────────────────────────────
   // Solo se guarda una referencia mínima del evento (no el payload
@@ -98,7 +104,10 @@ export async function POST(request: Request) {
         break
     }
   } catch (error) {
-    console.error("Error procesando webhook de Stripe:", error)
+    await captureError("stripe_webhook_processing_error", error, {
+      eventId: event.id,
+      eventType: event.type,
+    })
     return NextResponse.json(
       { error: "Error procesando el evento" },
       { status: 500 }

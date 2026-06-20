@@ -4,6 +4,7 @@ import { redirect } from "next/navigation"
 
 import { getProfile } from "@/lib/auth/profile"
 import { getStripe, isStripeConfigured } from "@/lib/stripe/client"
+import { log } from "@/lib/observability/logger"
 import { createAdminClient } from "@/lib/supabase/admin"
 import { createClient } from "@/lib/supabase/server"
 
@@ -110,6 +111,11 @@ export async function createCheckoutSession(
     return { error: "No se pudo iniciar el pago. Intenta de nuevo." }
   }
 
+  log.info("checkout_session_created", {
+    planId: plan.id,
+    userId: profile.id,
+    mode: isOneTime ? "payment" : "subscription",
+  })
   redirect(session.url)
 }
 
