@@ -90,6 +90,18 @@ pnpm test:watch     # Vitest en watch
 pnpm test:e2e       # Playwright (e2e)
 ```
 
+Scripts operativos (Node):
+
+```bash
+node scripts/setup-stripe.mjs   # aprovisiona productos/precios en Stripe (test mode)
+node scripts/preflight.mjs      # pre-flight de go-live: valida claves + salud de integraciones
+```
+
+El **pre-flight** verifica que todas las variables de `.env.example` estén presentes y que
+Supabase/Stripe/Resend/Sentry respondan. No imprime secretos (solo presente/ausente). Sale con
+código `0` solo si todo está listo; de lo contrario lista lo que falta. Corrélo antes de
+cada go-live.
+
 ## Estructura
 
 ```
