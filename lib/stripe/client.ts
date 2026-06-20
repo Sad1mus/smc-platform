@@ -2,6 +2,8 @@ import "server-only"
 
 import Stripe from "stripe"
 
+import { isStripeTestKeyConfigured } from "@/lib/subscription/paywall"
+
 /**
  * Cliente de Stripe (solo servidor).
  *
@@ -34,8 +36,5 @@ export function getStripe(): Stripe {
 
 /** true si hay clave de Stripe configurada (para degradar la UI con gracia). */
 export function isStripeConfigured(): boolean {
-  const key = process.env.STRIPE_SECRET_KEY
-  return Boolean(
-    key && (key.startsWith("sk_test_") || key.startsWith("rk_test_"))
-  )
+  return isStripeTestKeyConfigured()
 }

@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import { redirect } from "next/navigation"
 
 import { getProfile, getUser } from "@/lib/auth/profile"
-import { isStripeConfigured } from "@/lib/stripe/client"
+import { shouldEnforcePaywall } from "@/lib/subscription/paywall"
 import { hasActiveAccess } from "@/lib/subscription/queries"
 import { createClient } from "@/lib/supabase/server"
 import { MarketView } from "@/components/dashboard/market-view"
@@ -14,10 +14,11 @@ export const metadata: Metadata = {
 
 export default async function DashboardPage() {
   // ── Gating por suscripción (muro de pago) ──────────────────
-  // Con Stripe configurado, los mercados exigen suscripción activa.
-  // Sin Stripe (entorno de desarrollo/demo) el muro queda desactivado
-  // porque comprar un plan es imposible.
-  if (isStripeConfigured()) {
+  // Falla CERRADO: en producción los mercados SIEMPRE exigen suscripción
+  // activa, aunque falte la clave de Stripe (una mala config no debe regalar
+  // el acceso). Solo en dev/test sin Stripe el muro se desactiva, porque ahí
+  // comprar un plan es imposible. Ver lib/subscription/paywall.ts.
+  if (shouldEnforcePaywall()) {
     const hasAccess = await hasActiveAccess()
     if (!hasAccess) {
       redirect("/dashboard/plan")
