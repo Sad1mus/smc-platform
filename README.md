@@ -8,7 +8,7 @@ de pago vía Stripe.
 > asesoría de inversión**. No es un broker. La comunicación se limita a la
 > visualización de datos de mercado (restricción regulatoria del producto).
 
-La documentación de producto, marca y decisiones es **[`PRODUCT.md`](./PRODUCT.md)**
+La documentación de producto, marca y decisiones es **[`docs/specs/product.md`](./docs/specs/product.md)**
 (fuente de verdad). Este README cubre el stack y cómo correr el proyecto.
 
 ## Producto en una línea
@@ -25,7 +25,7 @@ Público hispanohablante (LATAM y Europa), **español primero**, cifras en USD.
 
 Terminal financiero: fondo casi negro, acento dorado, tipografía Geist (Sans para
 UI, Mono para precios y datos). Detalle completo de marca, colores, planes y
-principios en [`PRODUCT.md`](./PRODUCT.md).
+principios en [`docs/specs/product.md`](./docs/specs/product.md).
 
 ## Stack
 
@@ -133,4 +133,4 @@ MVP Fase 0: plataforma completa y desplegada en Vercel.
   verificar de extremo a extremo**. Con las claves cargadas en `.env.local`, el
   código está listo para probarse.
 
-Detalle de producto, planes y marca: **[`PRODUCT.md`](./PRODUCT.md)**.
+Detalle de producto, planes y marca: **[`docs/specs/product.md`](./docs/specs/product.md)**.

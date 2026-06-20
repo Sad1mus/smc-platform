@@ -1,4 +1,6 @@
-# PRODUCT.md — SMC Platform
+# Spec de producto — SMC Platform
+
+> Fuente de verdad de producto, marca y decisiones (convención SDD: la spec vive en `docs/specs/`).
 
 ## Register
 
