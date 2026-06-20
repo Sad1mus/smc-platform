@@ -4,6 +4,7 @@ import { redirect } from "next/navigation"
 
 import { getProfile } from "@/lib/auth/profile"
 import { getStripe, isStripeConfigured } from "@/lib/stripe/client"
+import { createAdminClient } from "@/lib/supabase/admin"
 import { createClient } from "@/lib/supabase/server"
 
 export type CheckoutActionResult = {
@@ -66,10 +67,16 @@ export async function createCheckoutSession(
     })
     customerId = customer.id
 
-    // Guardar el customer id (vía service no disponible: el perfil propio
-    // no permite editar stripe_customer_id con la sesión del usuario, así
-    // que se guarda al confirmar el pago en el webhook). Metadata del
-    // checkout lleva el user id como fuente de verdad.
+    // Persistir el customer id de INMEDIATO, no al confirmar el pago: si el
+    // usuario abandona el checkout, el próximo intento reutiliza este customer
+    // en vez de crear uno duplicado en Stripe. La RLS no deja al usuario editar
+    // esta columna, así que se usa el cliente admin (service_role). El webhook
+    // vuelve a escribir el mismo valor de forma idempotente, como red de apoyo.
+    const admin = createAdminClient()
+    await admin
+      .from("profiles")
+      .update({ stripe_customer_id: customerId })
+      .eq("id", profile.id)
   }
 
   const isOneTime = plan.id === "prueba"
