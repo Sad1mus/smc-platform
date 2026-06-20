@@ -1,36 +1,136 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SMC Platform
 
-## Getting Started
+Plataforma web de **visualización de mercados financieros** en tiempo real:
+gráficos interactivos (TradingView), cuentas de usuario y planes de suscripción
+de pago vía Stripe.
 
-First, run the development server:
+> **Solo visualización.** SMC **no ejecuta órdenes, no custodia fondos y no es
+> asesoría de inversión**. No es un broker. La comunicación se limita a la
+> visualización de datos de mercado (restricción regulatoria del producto).
+
+La documentación de producto, marca y decisiones es **[`PRODUCT.md`](./PRODUCT.md)**
+(fuente de verdad). Este README cubre el stack y cómo correr el proyecto.
+
+## Producto en una línea
+
+Dos superficies separadas:
+
+- **Brand** (`/`): landing que comunica y convierte. El diseño ES el producto.
+- **Product** (`/dashboard/*`, `/(auth)`): la plataforma sirve datos de mercado.
+  El diseño SIRVE al producto.
+
+Público hispanohablante (LATAM y Europa), **español primero**, cifras en USD.
+
+### Estética
+
+Terminal financiero: fondo casi negro, acento dorado, tipografía Geist (Sans para
+UI, Mono para precios y datos). Detalle completo de marca, colores, planes y
+principios en [`PRODUCT.md`](./PRODUCT.md).
+
+## Stack
+
+- **[Next.js 16](https://nextjs.org)** (App Router) + **React 19** + **TypeScript**
+- **[Tailwind CSS 4](https://tailwindcss.com)** + **[shadcn/ui](https://ui.shadcn.com)** (Radix) + `motion`
+- **[Supabase](https://supabase.com)** — Auth + PostgreSQL (con RLS), vía `@supabase/ssr`
+- **[Stripe](https://stripe.com)** — suscripciones y webhooks (ver estado abajo)
+- **[TradingView](https://www.tradingview.com)** — gráficos de mercado en el dashboard
+- **[Resend](https://resend.com)** — emails transaccionales (modo stub sin API key)
+- **[Sentry](https://sentry.io)** — observabilidad (condicional al DSN)
+- **Tooling:** ESLint, Prettier, Vitest (unit), Playwright (e2e), GitHub Actions
+
+El gestor de paquetes del repo es **pnpm** (`pnpm-lock.yaml`).
+
+## Cómo correr el proyecto
+
+### 1. Requisitos
+
+- Node.js 20+
+- pnpm
+
+### 2. Variables de entorno
+
+Copiá `.env.example` a `.env.local` y completá los valores:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cp .env.example .env.local
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Mínimo para desarrollo:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`
+- `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`, `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET` (test mode)
+- `NEXT_PUBLIC_APP_URL`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Opcionales en desarrollo: `NEXT_PUBLIC_SENTRY_DSN` / `SENTRY_AUTH_TOKEN` (sin
+DSN no se instrumenta Sentry) y `RESEND_API_KEY` / `EMAIL_FROM` (sin API key los
+emails corren en modo stub y solo se loguean).
 
-## Learn More
+### 3. Base de datos
 
-To learn more about Next.js, take a look at the following resources:
+Las migraciones de Supabase viven en `supabase/migrations/`:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `*_initial_schema.sql` — `profiles`, `plans`, `subscriptions`, `payment_events` (con RLS)
+- `*_seed_plans.sql` — catálogo de planes
+- `*_harden_function_privileges.sql` — endurecimiento de funciones `SECURITY DEFINER`
+- `*_watchlists.sql` — watchlist por usuario (con RLS)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Aplicalas sobre tu proyecto Supabase (Supabase CLI o el editor SQL).
 
-## Deploy on Vercel
+### 4. Scripts
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+pnpm dev            # servidor de desarrollo (http://localhost:3000)
+pnpm build          # build de producción
+pnpm start          # servir el build
+pnpm lint           # ESLint
+pnpm format         # Prettier --write
+pnpm format:check   # Prettier --check
+pnpm test           # Vitest (unit, una corrida)
+pnpm test:watch     # Vitest en watch
+pnpm test:e2e       # Playwright (e2e)
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Estructura
+
+```
+app/
+  page.tsx              # landing (Brand)
+  (auth)/               # login, registro, recuperar, actualizar-password
+  auth/                 # callback y confirm de Supabase Auth
+  dashboard/            # dashboard, /dashboard/plan
+  api/webhooks/stripe/  # webhook de Stripe
+  layout.tsx, globals.css, global-error.tsx
+components/
+  landing/   brand/     # superficie Brand (hero, planes, header/footer, logo)
+  auth/                 # formularios de autenticación
+  dashboard/            # market-view, tradingview-chart, watchlist, nav, checkout
+  ui/                   # primitivos shadcn/ui
+lib/
+  supabase/  auth/      # clientes Supabase y acciones/validación de auth
+  stripe/               # cliente y server actions de Stripe
+  subscription/         # queries de suscripción
+  watchlist/            # acciones de watchlist
+  email/  security/      # envío de emails y rate limiting
+supabase/migrations/    # esquema SQL + RLS
+tests/
+  unit/                 # Vitest
+  e2e/                  # Playwright
+```
+
+## Estado actual
+
+MVP Fase 0: plataforma completa y desplegada en Vercel.
+
+- **Hecho:** scaffold Next.js 16 + tooling, esquema Supabase con RLS,
+  autenticación completa (Supabase Auth), landing + shell del dashboard con
+  identidad SMC, gráficos TradingView en tiempo real + watchlist, headers OWASP /
+  rate limiting / emails, tests + CI/CD (GitHub Actions: lint → format → test →
+  build → e2e) y deploy a producción.
+
+- **[blocked] Stripe — flujo de pago no validado end-to-end.** El código de la
+  integración (server actions, checkout, webhook) está implementado, pero faltan
+  las **claves de Stripe en modo test**, por lo que el flujo de pago **no se pudo
+  verificar de extremo a extremo**. Con las claves cargadas en `.env.local`, el
+  código está listo para probarse.
+
+Detalle de producto, planes y marca: **[`PRODUCT.md`](./PRODUCT.md)**.
