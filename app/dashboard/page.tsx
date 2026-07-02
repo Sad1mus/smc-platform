@@ -6,6 +6,8 @@ import { shouldEnforcePaywall } from "@/lib/subscription/paywall"
 import { hasActiveAccess } from "@/lib/subscription/queries"
 import { createClient } from "@/lib/supabase/server"
 import { MarketView } from "@/components/dashboard/market-view"
+import { TerminalPanels } from "@/components/dashboard/terminal-panels"
+import { TickerTape } from "@/components/dashboard/ticker-tape"
 
 export const metadata: Metadata = {
   title: "Mercados",
@@ -56,7 +58,11 @@ export default async function DashboardPage() {
         </p>
       </header>
 
+      <TickerTape />
+
       <MarketView watchlistSymbols={symbols} />
+
+      <TerminalPanels />
     </div>
   )
 }
