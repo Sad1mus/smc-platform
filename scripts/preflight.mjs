@@ -70,7 +70,9 @@ async function httpOk(url, options = {}, okStatuses = [200]) {
 async function ping(name, fn) {
   try {
     const ok = await fn()
-    console.log(`  ${ok ? "✓" : "✗"} ${name}${ok ? "" : "  (sin respuesta OK)"}`)
+    console.log(
+      `  ${ok ? "✓" : "✗"} ${name}${ok ? "" : "  (sin respuesta OK)"}`
+    )
     return ok
   } catch (e) {
     console.log(`  ✗ ${name}  (error: ${e.message})`)
@@ -82,25 +84,34 @@ console.log("\n== Salud de integraciones ==")
 let healthFails = 0
 
 if (present("NEXT_PUBLIC_SUPABASE_URL")) {
-  if (!(await ping("Supabase", () =>
-    httpOk(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/auth/v1/health`)
-  ))) healthFails++
+  if (
+    !(await ping("Supabase", () =>
+      httpOk(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/auth/v1/health`)
+    ))
+  )
+    healthFails++
 } else console.log("  – Supabase: omitido (falta URL)")
 
 if (present("STRIPE_SECRET_KEY")) {
-  if (!(await ping("Stripe", () =>
-    httpOk("https://api.stripe.com/v1/balance", {
-      headers: { Authorization: `Bearer ${process.env.STRIPE_SECRET_KEY}` },
-    })
-  ))) healthFails++
+  if (
+    !(await ping("Stripe", () =>
+      httpOk("https://api.stripe.com/v1/balance", {
+        headers: { Authorization: `Bearer ${process.env.STRIPE_SECRET_KEY}` },
+      })
+    ))
+  )
+    healthFails++
 } else console.log("  – Stripe: omitido (falta STRIPE_SECRET_KEY)")
 
 if (present("RESEND_API_KEY")) {
-  if (!(await ping("Resend", () =>
-    httpOk("https://api.resend.com/domains", {
-      headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}` },
-    })
-  ))) healthFails++
+  if (
+    !(await ping("Resend", () =>
+      httpOk("https://api.resend.com/domains", {
+        headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}` },
+      })
+    ))
+  )
+    healthFails++
 } else console.log("  – Resend: omitido (falta RESEND_API_KEY)")
 
 if (present("NEXT_PUBLIC_SENTRY_DSN")) {
@@ -115,5 +126,7 @@ console.log(
   `  Faltan ${missing.length} variable(s); ${healthFails} chequeo(s) de salud no OK.`
 )
 const ready = missing.length === 0 && healthFails === 0
-console.log(ready ? "  ✅ LISTO para go-live.\n" : "  ⚠️  AÚN NO listo (ver arriba).\n")
+console.log(
+  ready ? "  ✅ LISTO para go-live.\n" : "  ⚠️  AÚN NO listo (ver arriba).\n"
+)
 process.exit(ready ? 0 : 1)

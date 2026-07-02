@@ -6,7 +6,11 @@ import "server-only"
  */
 export type LogFields = Record<string, unknown>
 
-function emit(level: "info" | "warn" | "error", message: string, fields: LogFields) {
+function emit(
+  level: "info" | "warn" | "error",
+  message: string,
+  fields: LogFields
+) {
   const line = JSON.stringify({
     ts: new Date().toISOString(),
     level,
@@ -19,9 +23,12 @@ function emit(level: "info" | "warn" | "error", message: string, fields: LogFiel
 }
 
 export const log = {
-  info: (message: string, fields: LogFields = {}) => emit("info", message, fields),
-  warn: (message: string, fields: LogFields = {}) => emit("warn", message, fields),
-  error: (message: string, fields: LogFields = {}) => emit("error", message, fields),
+  info: (message: string, fields: LogFields = {}) =>
+    emit("info", message, fields),
+  warn: (message: string, fields: LogFields = {}) =>
+    emit("warn", message, fields),
+  error: (message: string, fields: LogFields = {}) =>
+    emit("error", message, fields),
 }
 
 /**

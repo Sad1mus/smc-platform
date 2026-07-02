@@ -114,7 +114,9 @@ describe("createCheckoutSession", () => {
     h.sessionsCreate.mockResolvedValue({ url: "https://checkout.stripe.com/x" })
 
     // redirect() lanza por diseño; lo capturamos.
-    await expect(createCheckoutSession("bronce")).rejects.toThrow("NEXT_REDIRECT")
+    await expect(createCheckoutSession("bronce")).rejects.toThrow(
+      "NEXT_REDIRECT"
+    )
 
     expect(h.customersCreate).not.toHaveBeenCalled()
     expect(h.sessionsCreate).toHaveBeenCalledWith(
