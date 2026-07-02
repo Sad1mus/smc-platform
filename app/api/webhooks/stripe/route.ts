@@ -161,21 +161,39 @@ async function handleCheckoutCompleted(
   if (session.mode === "payment") {
     // Pago único (plan de prueba): acceso registrado como suscripción
     // "active" sin stripe_subscription_id, con vigencia de 30 días.
+    //
+    // No se puede deduplicar con upsert onConflict:stripe_subscription_id
+    // porque esa columna es NULL en pagos únicos y Postgres trata cada NULL
+    // como distinto → una fila nueva por compra (bug ZEN-8). Se busca el
+    // acceso one-time existente del usuario para el plan y se actualiza; si
+    // no hay, se inserta. (El evento repetido ya lo frena la idempotencia por
+    // stripe_event_id más arriba.)
     const periodEnd = new Date()
     periodEnd.setDate(periodEnd.getDate() + 30)
 
-    await supabase.from("subscriptions").upsert(
-      {
-        user_id: userId,
-        plan_id: planId,
-        stripe_customer_id:
-          typeof session.customer === "string" ? session.customer : null,
-        status: "active",
-        current_period_start: new Date().toISOString(),
-        current_period_end: periodEnd.toISOString(),
-      },
-      { onConflict: "stripe_subscription_id", ignoreDuplicates: false }
-    )
+    const fields = {
+      user_id: userId,
+      plan_id: planId,
+      stripe_customer_id:
+        typeof session.customer === "string" ? session.customer : null,
+      status: "active" as const,
+      current_period_start: new Date().toISOString(),
+      current_period_end: periodEnd.toISOString(),
+    }
+
+    const { data: existing } = await supabase
+      .from("subscriptions")
+      .select("id")
+      .eq("user_id", userId)
+      .eq("plan_id", planId)
+      .is("stripe_subscription_id", null)
+      .maybeSingle()
+
+    if (existing?.id) {
+      await supabase.from("subscriptions").update(fields).eq("id", existing.id)
+    } else {
+      await supabase.from("subscriptions").insert(fields)
+    }
   }
 }
 

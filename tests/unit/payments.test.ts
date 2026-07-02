@@ -9,6 +9,9 @@ const h = vi.hoisted(() => ({
   sessionsCreate: vi.fn(),
   adminInsert: vi.fn(),
   adminUpdateEq: vi.fn(),
+  subsInsert: vi.fn(),
+  subsUpdateEq: vi.fn(),
+  subsExisting: vi.fn(),
   getProfile: vi.fn(),
   planSingle: vi.fn(),
   redirect: vi.fn((url: string) => {
@@ -28,13 +31,34 @@ vi.mock("@/lib/stripe/client", () => ({
   }),
   isStripeConfigured: () => true,
 }))
+// Admin client table-aware: `subscriptions` tiene sus propios handles para
+// poder verificar el path de pago único (select existente → update | insert);
+// las demás tablas (payment_events, profiles, plans) usan los genéricos.
 vi.mock("@/lib/supabase/admin", () => ({
   createAdminClient: () => ({
-    from: () => ({
-      insert: h.adminInsert,
-      update: () => ({ eq: h.adminUpdateEq }),
-      select: () => ({ eq: () => ({ single: async () => ({ data: null }) }) }),
-    }),
+    from: (table: string) => {
+      if (table === "subscriptions") {
+        return {
+          insert: h.subsInsert,
+          update: () => ({ eq: h.subsUpdateEq }),
+          upsert: async () => ({ error: null }),
+          select: () => ({
+            eq: () => ({
+              eq: () => ({
+                is: () => ({ maybeSingle: h.subsExisting }),
+              }),
+            }),
+          }),
+        }
+      }
+      return {
+        insert: h.adminInsert,
+        update: () => ({ eq: h.adminUpdateEq }),
+        select: () => ({
+          eq: () => ({ single: async () => ({ data: null }) }),
+        }),
+      }
+    },
   }),
 }))
 vi.mock("@/lib/supabase/server", () => ({
@@ -97,6 +121,53 @@ describe("webhook de Stripe", () => {
 
     expect(res.status).toBe(200)
     expect(json.duplicated).toBe(true)
+  })
+})
+
+describe("webhook — pago único (ZEN-8: no duplica filas)", () => {
+  function payEvent() {
+    return {
+      id: "evt_pay_1",
+      type: "checkout.session.completed",
+      created: 2,
+      livemode: false,
+      data: {
+        object: {
+          id: "cs_1",
+          customer: "cus_1",
+          mode: "payment",
+          metadata: { supabase_user_id: "u1", plan_id: "prueba" },
+        },
+      },
+    }
+  }
+
+  beforeEach(() => {
+    h.getHeader.mockReturnValue("sig_ok")
+    h.adminInsert.mockResolvedValue({ error: null }) // payment_events OK
+    h.subsInsert.mockResolvedValue({ error: null })
+    h.subsUpdateEq.mockResolvedValue({ error: null })
+    h.constructEventAsync.mockResolvedValue(payEvent())
+  })
+
+  it("primera compra (sin acceso previo) → INSERT de una sola fila", async () => {
+    h.subsExisting.mockResolvedValue({ data: null })
+
+    const res = await POST(webhookRequest())
+
+    expect(res.status).toBe(200)
+    expect(h.subsInsert).toHaveBeenCalledTimes(1)
+    expect(h.subsUpdateEq).not.toHaveBeenCalled()
+  })
+
+  it("recompra (acceso one-time existente) → UPDATE, NO inserta fila nueva", async () => {
+    h.subsExisting.mockResolvedValue({ data: { id: "sub_existente" } })
+
+    const res = await POST(webhookRequest())
+
+    expect(res.status).toBe(200)
+    expect(h.subsUpdateEq).toHaveBeenCalledTimes(1)
+    expect(h.subsInsert).not.toHaveBeenCalled()
   })
 })
 
