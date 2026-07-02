@@ -14,6 +14,8 @@ const config: CapacitorConfig = {
   server: {
     url: "https://smc-platform-smart-money-s-projects.vercel.app",
     androidScheme: "https",
+    // Página local amable cuando no hay conexión con el server remoto.
+    errorPath: "error.html",
   },
 }
 
