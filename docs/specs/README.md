@@ -11,6 +11,8 @@ generada a partir de ella. Antes de tocar una feature, leé su spec acá (refere
   health endpoint y alertas. Qué se difiere (APM/tracing) y por qué.
 - [`hardening.md`](./hardening.md) — Fase 1: headers OWASP, rate limiting, webhook firmado,
   RLS, secretos y WAF. Qué se difiere (caché distribuida, KYC/AML) y por qué.
+- [`mobile.md`](./mobile.md) — Fase 2: apps Android + iOS con Capacitor sobre la web de
+  producción. Riesgo Apple 4.2 y mitigaciones, builds iOS en nube, stores del cliente.
 
 ## Cómo crece esto
 

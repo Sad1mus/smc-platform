@@ -14,6 +14,10 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // Tooling del agente (skills/goal-queue), no es código de la app:
     ".claude/**",
+    // Shell Capacitor: proyecto Android generado y placeholder estático (Fase 2).
+    "mobile/android/**",
+    "mobile/www/**",
+    "mobile/node_modules/**",
   ]),
 ])
 

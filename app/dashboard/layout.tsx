@@ -2,6 +2,7 @@ import { redirect } from "next/navigation"
 
 import { getProfile, getUser } from "@/lib/auth/profile"
 import { Logo } from "@/components/brand/logo"
+import { BiometricGate } from "@/components/native/biometric-gate"
 import { SidebarNav } from "@/components/dashboard/sidebar-nav"
 import { ThemeToggle } from "@/components/dashboard/theme-toggle"
 import { UserNav } from "@/components/dashboard/user-nav"
@@ -51,7 +52,9 @@ export default async function DashboardLayout({
           <SidebarNav />
         </div>
 
-        <main className="flex-1 p-4 md:p-6">{children}</main>
+        <main className="flex-1 p-4 md:p-6">
+          <BiometricGate>{children}</BiometricGate>
+        </main>
       </div>
     </div>
   )
