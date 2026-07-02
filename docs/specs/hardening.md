@@ -27,9 +27,10 @@ de usuarios europeos** (GDPR-aware), sin sobre-construir antes de tener carga re
 
 - **Caché distribuida (Redis/Upstash)**: diferida hasta presión real de carga/costo;
   Next.js nativo (`revalidate`/`unstable_cache`) + edge de Vercel alcanzan a escala MVP.
-- **KYC/AML**: el dossier lo marca "si aplica". Para una plataforma de **visualización
-  únicamente** (no custodia fondos, no ejecuta órdenes) no aplica hoy; se construye solo si
-  un procesador de pagos o un regulador lo exige explícitamente. No especular.
+- **KYC/AML**: ya no diferido — es **flag-gated** (`NEXT_PUBLIC_ENABLE_KYC`, default off)
+  con proveedor stub y capa provider-agnostic; ver [`kyc.md`](./kyc.md). Siguen diferidos
+  el proveedor real de pago-por-verificación (decisión del cliente) y el AML screening
+  continuo (aplica recién con transaccionalidad).
 - **WAF dedicado self-hosted**: el Vercel Firewall cubre la necesidad en esta etapa.
 
 ## Verificación

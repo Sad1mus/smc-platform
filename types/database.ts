@@ -20,6 +20,44 @@ export type Database = {
   }
   public: {
     Tables: {
+      kyc_verifications: {
+        Row: {
+          created_at: string
+          id: string
+          provider: string
+          provider_ref: string | null
+          status: Database["public"]["Enums"]["kyc_status"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          provider: string
+          provider_ref?: string | null
+          status?: Database["public"]["Enums"]["kyc_status"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          provider?: string
+          provider_ref?: string | null
+          status?: Database["public"]["Enums"]["kyc_status"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "kyc_verifications_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       payment_events: {
         Row: {
           event_type: string
@@ -227,7 +265,7 @@ export type Database = {
       is_admin: { Args: never; Returns: boolean }
     }
     Enums: {
-      [_ in never]: never
+      kyc_status: "unverified" | "pending" | "approved" | "rejected"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -354,7 +392,9 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      kyc_status: ["unverified", "pending", "approved", "rejected"],
+    },
   },
 } as const
 
@@ -364,3 +404,5 @@ export type Plan = Tables<"plans">
 export type Subscription = Tables<"subscriptions">
 export type PaymentEvent = Tables<"payment_events">
 export type WatchlistItem = Tables<"watchlists">
+export type KycVerification = Tables<"kyc_verifications">
+export type KycStatus = Enums<"kyc_status">

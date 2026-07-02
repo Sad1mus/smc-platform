@@ -13,6 +13,8 @@ generada a partir de ella. Antes de tocar una feature, leé su spec acá (refere
   RLS, secretos y WAF. Qué se difiere (caché distribuida, KYC/AML) y por qué.
 - [`mobile.md`](./mobile.md) — Fase 2: apps Android + iOS con Capacitor sobre la web de
   producción. Riesgo Apple 4.2 y mitigaciones, builds iOS en nube, stores del cliente.
+- [`kyc.md`](./kyc.md) — verificación de identidad flag-gated (default off) con capa
+  provider-agnostic y proveedor stub; qué se difiere (proveedor real, AML) y por qué.
 
 ## Cómo crece esto
 
