@@ -54,7 +54,9 @@ vi.mock("@/lib/supabase/admin", () => ({
       return {
         insert: h.adminInsert,
         update: () => ({ eq: h.adminUpdateEq }),
-        select: () => ({ eq: () => ({ single: async () => ({ data: null }) }) }),
+        select: () => ({
+          eq: () => ({ single: async () => ({ data: null }) }),
+        }),
       }
     },
   }),

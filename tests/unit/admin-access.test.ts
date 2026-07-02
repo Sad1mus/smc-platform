@@ -18,7 +18,9 @@ vi.mock("@/lib/auth/profile", () => ({
 }))
 // Componentes cliente del header: se neutralizan para aislar el gate de acceso.
 vi.mock("@/components/brand/logo", () => ({ Logo: () => null }))
-vi.mock("@/components/dashboard/theme-toggle", () => ({ ThemeToggle: () => null }))
+vi.mock("@/components/dashboard/theme-toggle", () => ({
+  ThemeToggle: () => null,
+}))
 vi.mock("@/components/dashboard/user-nav", () => ({ UserNav: () => null }))
 
 import AdminLayout from "@/app/admin/layout"
