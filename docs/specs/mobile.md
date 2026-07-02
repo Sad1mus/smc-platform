@@ -41,20 +41,24 @@ nativas que la web no puede dar.
 ## Alcance
 
 ### M1 — Shell Capacitor + Android debug
+
 - Proyecto Capacitor en `mobile/` dentro de este repo (vive en el repo del cliente).
 - Config `server.url` → producción; splash + íconos con la identidad SMC (terminal oscuro + dorado).
 - APK debug compilando local y cargando la web de producción.
 
 ### M2 — Capacidades nativas (mitigación 4.2 + valor real)
+
 - **Push notifications** (FCM + APNs): alertas de precio sobre la watchlist existente.
 - **Biometría** (Face ID / huella) como gate opcional de la sesión.
 - Deep links (`smc://` + universal links) hacia rutas del dashboard.
 - Integración del bridge Capacitor en la web (detección `Capacitor.isNativePlatform()`).
 
 ### M3 — Android release
+
 - AAB firmado (keystore del cliente), subido a Play Console (cuenta del cliente), track interno → producción.
 
 ### M4 — iOS release
+
 - Build en nube (pipeline reproducible y versionado), firma con certificados del cliente,
   TestFlight → review de App Store con las capacidades nativas de M2 activas.
 
@@ -79,13 +83,13 @@ nativas que la web no puede dar.
 
 ## Dependencias externas (human-gated — fuera de cualquier goal-queue)
 
-| Dependencia | Dueño | Lead time |
-|---|---|---|
-| Apple Developer Program (cuenta del cliente) | cliente | días–semanas ← **iniciar YA** |
-| Google Play Console (cuenta del cliente) | cliente | ~1 día |
-| Proyecto Firebase (FCM) en cuenta del cliente | cliente + nosotros | horas |
-| Keystore Android / certificados iOS | generamos, custodia el cliente | horas |
-| Servicio de build iOS en nube (Codemagic/Appflow) | decidir + cuenta | horas |
+| Dependencia                                       | Dueño                          | Lead time                     |
+| ------------------------------------------------- | ------------------------------ | ----------------------------- |
+| Apple Developer Program (cuenta del cliente)      | cliente                        | días–semanas ← **iniciar YA** |
+| Google Play Console (cuenta del cliente)          | cliente                        | ~1 día                        |
+| Proyecto Firebase (FCM) en cuenta del cliente     | cliente + nosotros             | horas                         |
+| Keystore Android / certificados iOS               | generamos, custodia el cliente | horas                         |
+| Servicio de build iOS en nube (Codemagic/Appflow) | decidir + cuenta               | horas                         |
 
 ## Riesgos
 

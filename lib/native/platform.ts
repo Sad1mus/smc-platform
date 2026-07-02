@@ -74,8 +74,7 @@ export async function verifyBiometric(reason: string): Promise<boolean> {
 export function deepLinkToPath(url: string): string | null {
   try {
     const u = new URL(url)
-    const path =
-      u.protocol === "smc:" ? `/${u.host}${u.pathname}` : u.pathname
+    const path = u.protocol === "smc:" ? `/${u.host}${u.pathname}` : u.pathname
     const clean = path.replace(/\/+$/, "")
     return clean === "" ? "/" : clean
   } catch {

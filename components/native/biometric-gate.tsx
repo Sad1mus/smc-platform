@@ -27,8 +27,13 @@ export function BiometricGate({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (!biometricGateEnabled()) return
     if (sessionStorage.getItem(SESSION_KEY) === "1") return
-    setLocked(true)
-    void attempt()
+    // Diferido a un tick para no hacer setState sincrónico dentro del efecto
+    // (react-hooks/set-state-in-effect) y mantener la hidratación estable.
+    const t = setTimeout(() => {
+      setLocked(true)
+      void attempt()
+    }, 0)
+    return () => clearTimeout(t)
   }, [attempt])
 
   if (locked) {
