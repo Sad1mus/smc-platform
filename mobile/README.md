@@ -54,14 +54,27 @@ cd android && ./gradlew assembleDebug   # APK debug
 
 ## Handoff — lo que falta y quién lo desbloquea (M3/M4, ver spec §Dependencias)
 
-### M3 — Android release (gated: cuenta del cliente)
+### M3 — Android release (el AAB firmado YA se genera; falta solo Play Console)
+
+**Estado:** el signing de release está configurado y el bundle se compila firmado:
+
+```bash
+cd android && ./gradlew bundleRelease
+# salida: android/app/build/outputs/bundle/release/app-release.aab (FIRMADO)
+```
+
+- El keystore vive **fuera del repo** en `~/.android-keys/smc-release.keystore` (alias `smc`).
+- Las credenciales las lee Gradle de `android/keystore.properties` (**gitignored**; plantilla en
+  `keystore.properties.example`). Sin ese archivo, el build de release sale sin firmar.
+- **CUSTODIA DEL KEYSTORE (crítico):** perderlo = no poder publicar actualizaciones de la app
+  nunca más (Play no acepta otra firma). Hacer **backup cifrado** del keystore + del
+  `keystore.properties` en un gestor de secretos/almacenamiento cifrado, y entregar copia al
+  cliente al hacer el handoff. No enviarlos por canales en claro.
+
+Lo único gated por el cliente:
 
 1. **Cliente crea Google Play Console** (USD 25 único) — https://play.google.com/console
-2. Generar keystore de release (una vez; **custodia el cliente**, si se pierde no se puede actualizar la app):
-   `keytool -genkeypair -v -keystore smc-release.keystore -alias smc -keyalg RSA -keysize 2048 -validity 10000`
-3. Configurar signing en `android/app/build.gradle` (signingConfigs.release; credenciales por
-   variables de entorno o `keystore.properties` NO commiteado) y compilar `./gradlew bundleRelease` (AAB).
-4. Subir el AAB a Play Console → track interno → producción.
+2. Subir el AAB a Play Console → track interno → producción.
 
 ### M4 — iOS (gated: Apple Developer del cliente; NO se compila en Linux)
 

@@ -41,13 +41,19 @@ test.describe("Autenticación", () => {
       return // Registro completo: Supabase envió el correo de confirmación.
     }
 
-    // El free tier de Supabase limita los correos de confirmación (2/hora).
-    // Si el límite se alcanzó, la petición llegó a Supabase y el flujo
-    // funciona: se omite esta corrida por limitación del entorno.
+    // Limitaciones del entorno (no del producto), ambas prueban que la
+    // petición llegó a Supabase y el formulario mostró el error:
+    // - el free tier limita los correos de confirmación (rate limit), y
+    // - el validador de emails de Supabase rechaza dominios sintéticos
+    //   como el de este fixture ("no es válido o no está admitido").
     const alertText = (await formError.textContent()) ?? ""
     test.skip(
       /demasiados intentos|rate limit/i.test(alertText),
       "Rate limit de correos del free tier de Supabase alcanzado"
+    )
+    test.skip(
+      /no es válido o no está admitido|invalid email/i.test(alertText),
+      "Validación de dominio de email de Supabase rechaza el fixture sintético"
     )
 
     throw new Error(`El registro falló con un error inesperado: ${alertText}`)

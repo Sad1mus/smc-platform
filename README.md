@@ -15,7 +15,7 @@ La documentación de producto, marca y decisiones es **[`docs/specs/product.md`]
 
 Dos superficies separadas:
 
-- **Brand** (`/`): landing que comunica y convierte. El diseño ES el producto.
+- **Brand** (`/`, `/precios`): landing que comunica y convierte. El diseño ES el producto.
 - **Product** (`/dashboard/*`, `/(auth)`): la plataforma sirve datos de mercado.
   El diseño SIRVE al producto.
 
@@ -128,6 +128,15 @@ tests/
   unit/                 # Vitest
   e2e/                  # Playwright
 ```
+
+## Deploy (Vercel)
+
+Auto-deploy desde `main` del repo del cliente (github.com/smartmoney4/smc-platform);
+la config versionada vive en [`vercel.json`](./vercel.json) (framework + región `iad1`,
+pareada con Supabase us-east-1). Las variables de entorno se cargan por nombre según
+[`.env.example`](./.env.example) en el dashboard de Vercel (nunca valores en el repo).
+Antes de cada go-live: `node scripts/preflight.mjs` (valida presencia de vars y que los
+servicios respondan; exit 0 = OK).
 
 ## Estado actual
 

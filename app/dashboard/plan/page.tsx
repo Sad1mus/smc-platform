@@ -13,6 +13,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { KycCard } from "@/components/dashboard/kyc-card"
 import {
   ManageSubscriptionButton,
   PlanCheckoutButton,
@@ -149,6 +150,9 @@ export default async function PlanPage({
           </p>
         </>
       )}
+
+      {/* Verificación de identidad (solo con NEXT_PUBLIC_ENABLE_KYC=true) */}
+      <KycCard />
     </div>
   )
 }
