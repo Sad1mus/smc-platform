@@ -27,6 +27,24 @@ export function SiteFooter() {
             >
               Iniciar sesión
             </Link>
+            <Link
+              href="/terminos"
+              className="text-muted-foreground hover:text-foreground transition-colors duration-200"
+            >
+              Términos
+            </Link>
+            <Link
+              href="/privacidad"
+              className="text-muted-foreground hover:text-foreground transition-colors duration-200"
+            >
+              Privacidad
+            </Link>
+            <Link
+              href="/reembolsos"
+              className="text-muted-foreground hover:text-foreground transition-colors duration-200"
+            >
+              Reembolsos
+            </Link>
           </nav>
         </div>
         <div className="border-border/60 flex flex-col gap-4 border-t pt-6">
