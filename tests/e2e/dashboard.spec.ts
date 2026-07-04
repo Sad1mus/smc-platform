@@ -19,9 +19,11 @@ test.describe("Dashboard — TradingView y watchlist", () => {
     const iframeSrc = await container.locator("iframe").getAttribute("src")
     expect(iframeSrc).toContain("tradingview")
 
-    // Atribución exigida por los términos de TradingView.
+    // Atribución exigida por los términos de TradingView. El dashboard tiene
+    // varios widgets (gráfico principal + paneles terminal), cada uno con su
+    // propia atribución; basta con verificar que al menos una esté visible.
     await expect(
-      page.getByRole("link", { name: "by TradingView" })
+      page.getByRole("link", { name: "by TradingView" }).first()
     ).toBeVisible()
   })
 
