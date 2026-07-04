@@ -124,6 +124,12 @@ permite operar.
 2. **Tabla comparativa** — filas = features reales de la columna `features` de la tabla
    `plans` (DB, seed del dossier); columnas = Prueba/Bronce/Plata/VIP. No se inventan
    features: si la DB no lo dice, no está en la tabla. Overflow-x propio en móvil.
+   **Gap conocido del seed (2026-07-04):** las features son acumulativas (`"Todo lo del plan X"`)
+   y los niveles de soporte están modelados como **aditivos, no exclusivos** — al resolver la
+   herencia, un plan superior puede mostrar el soporte del inferior además del suyo (p. ej. Plata
+   marca "Soporte estándar" heredado de Bronce y "Soporte prioritario" propio). La comparativa lo
+   refleja tal cual la DB, sin corregir a mano. Si se quiere una fila única de soporte por nivel,
+   el arreglo va en el seed de `plans`, no en el componente.
 3. **FAQ de facturación** — 4-5 preguntas honestas sobre lo que el sistema hace HOY:
    ¿Cómo pago? (Stripe, tarjeta) · ¿Puedo cancelar? (sí, desde Mi plan; acceso hasta el fin
    del período) · ¿Cómo funciona la Prueba? (pago único de $250 USD, acceso al contenido del
