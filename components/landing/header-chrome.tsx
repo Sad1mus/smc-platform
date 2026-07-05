@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Logo } from "@/components/brand/logo"
 import { cn } from "@/lib/utils"
 
-/** Categorías del nav — anclas reales de la landing. */
+/** Categorías del nav (anclas reales de la landing). */
 const NAV = [
   { href: "/#como-funciona", label: "Cómo funciona" },
   { href: "/#mercados", label: "Mercados" },
@@ -72,7 +72,7 @@ export function HeaderChrome({ isAuthed }: { isAuthed: boolean }) {
               >
                 <Link href="/login">Iniciar sesión</Link>
               </Button>
-              {/* CTA de acento persistente — visible también en móvil */}
+              {/* CTA de acento persistente (visible también en móvil) */}
               <Button asChild size="sm">
                 <Link href="/registro">Crear cuenta</Link>
               </Button>

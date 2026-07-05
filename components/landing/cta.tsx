@@ -26,7 +26,7 @@ export function Cta() {
           <div className="flex flex-col items-center gap-3 sm:flex-row">
             <Button asChild size="lg" className="group">
               <Link href="/registro">
-                Crear mi cuenta
+                Crear cuenta
                 <ArrowRight className="size-4 transition-transform duration-200 ease-out group-hover:translate-x-0.5" />
               </Link>
             </Button>

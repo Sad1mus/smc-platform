@@ -81,7 +81,7 @@ export function ClosingCta() {
 
           <Button asChild size="lg" className="group">
             <Link href="/registro">
-              Crear mi cuenta
+              Crear cuenta
               <ArrowRight className="size-4 transition-transform duration-200 ease-out group-hover:translate-x-0.5" />
             </Link>
           </Button>

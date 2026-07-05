@@ -4,7 +4,7 @@ import { Check, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 /**
- * Sección plataforma / tecnología (playbook §6): dos columnas —
+ * Sección plataforma / tecnología (playbook §6): dos columnas,
  * mockup del terminal (ilustrativo, dibujado en CSS/SVG, no datos en vivo) +
  * lista de features con checks + CTA contextual. Todo display/análisis.
  */

@@ -2,7 +2,7 @@ import { Activity, Lock, DatabaseZap, Languages } from "lucide-react"
 
 /**
  * "¿Por qué elegirnos?" (playbook §7): 4 pilares de confianza.
- * SOLO señales REALES y verificables — sin sellos de regulador, premios ni
+ * SOLO señales REALES y verificables, sin sellos de regulador, premios ni
  * certificaciones inventadas (regla de honestidad del propio playbook).
  */
 const PILLARS = [

@@ -41,7 +41,7 @@ describe("ClosingCta (embudo numerado dentro del marco)", () => {
 
   it("tiene un CTA grande hacia /registro y prueba social honesta", () => {
     render(<ClosingCta />)
-    const cta = screen.getByRole("link", { name: /crear mi cuenta/i })
+    const cta = screen.getByRole("link", { name: /crear cuenta/i })
     expect(cta.getAttribute("href")).toBe("/registro")
     expect(screen.getByText(/datos por tradingview/i)).toBeTruthy()
     expect(screen.getByText(/pagos por stripe/i)).toBeTruthy()

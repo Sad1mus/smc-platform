@@ -15,7 +15,7 @@ const STEPS = [
     icon: CreditCard,
     title: "Elegí tu plan",
     description:
-      "Bronce, Plata o VIP — o empezá con el plan Prueba. Pago seguro procesado por Stripe.",
+      "Bronce, Plata o VIP, o empezá con el plan Prueba. Pago seguro procesado por Stripe.",
   },
   {
     icon: LineChart,
