@@ -5,6 +5,7 @@ import { useState } from "react"
 import { MarketNavigator } from "@/components/dashboard/market-navigator"
 import { TradingViewChart } from "@/components/dashboard/tradingview-chart"
 import { WatchlistPanel } from "@/components/dashboard/watchlist-panel"
+import { TvWidget } from "@/components/dashboard/tv-widget"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
@@ -77,12 +78,27 @@ export function TerminalCockpit({
         <TradingViewChart symbol={activeSymbol} interval={interval} />
       </div>
 
-      {/* [D] Watchlist / análisis */}
-      <WatchlistPanel
-        symbols={watchlistSymbols}
-        activeSymbol={activeSymbol}
-        onSelect={setActiveSymbol}
-      />
+      {/* [D] Watchlist + análisis técnico del símbolo activo */}
+      <div className="flex min-w-0 flex-col gap-4">
+        <WatchlistPanel
+          symbols={watchlistSymbols}
+          activeSymbol={activeSymbol}
+          onSelect={setActiveSymbol}
+        />
+        {/* Análisis técnico atado al símbolo activo (display-only) */}
+        <TvWidget
+          widget="technical-analysis"
+          height={400}
+          title={`Análisis técnico de ${activeSymbol}`}
+          config={{
+            symbol: activeSymbol,
+            interval: "1D",
+            showIntervalTabs: true,
+            displayMode: "single",
+          }}
+          className="border-border/60 bg-card overflow-hidden rounded-lg border"
+        />
+      </div>
     </div>
   )
 }
