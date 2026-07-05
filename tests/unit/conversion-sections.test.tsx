@@ -24,9 +24,9 @@ describe("PlatformSection (plataforma / tecnología)", () => {
     expect(cta.getAttribute("href")).toBe("/registro")
   })
 
-  it("marca el mockup como ilustrativo (no datos en vivo)", () => {
+  it("usa un embed real de TradingView con su atribución (no un mockup fake)", () => {
     render(<PlatformSection />)
-    expect(screen.getByText(/vista ilustrativa/i)).toBeTruthy()
+    expect(screen.getByText(/datos en vivo por tradingview/i)).toBeTruthy()
   })
 })
 
