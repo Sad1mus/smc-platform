@@ -55,6 +55,11 @@ export function Hero() {
           </Button>
         </div>
 
+        {/* Micro-copy de baja fricción */}
+        <p className="animate-in fade-in text-muted-foreground/80 -mt-1 font-mono text-xs delay-300 duration-500 motion-reduce:animate-none">
+          Sin permanencia · Cancelá cuando quieras
+        </p>
+
         {/* Microcopy de confianza */}
         <ul className="animate-in fade-in text-muted-foreground flex flex-col items-center gap-x-5 gap-y-2 text-xs delay-400 duration-500 motion-reduce:animate-none sm:flex-row sm:flex-wrap sm:justify-center">
           {TRUST_ITEMS.map((item) => (
