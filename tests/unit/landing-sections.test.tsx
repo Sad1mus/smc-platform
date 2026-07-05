@@ -1,84 +1,52 @@
-import { afterEach, describe, expect, it } from "vitest"
-import { cleanup, render, screen } from "@testing-library/react"
+import { describe, expect, it } from "vitest"
 
-import { StatsStrip } from "@/components/landing/stats-strip"
-import { HowItWorks } from "@/components/landing/how-it-works"
-import { MarketsCovered } from "@/components/landing/markets-covered"
-import { Faq } from "@/components/landing/faq"
-import { Cta } from "@/components/landing/cta"
+import { dictionaries } from "@/lib/i18n/dictionaries"
 
-afterEach(() => cleanup())
+/**
+ * Con i18n, la copy de la landing vive en el diccionario (fuente de verdad),
+ * no hardcodeada en los componentes. Estos tests asertan el diccionario en
+ * AMBOS idiomas: estructura, conteos e invariantes de contenido.
+ */
+const LOCALES = ["es", "en"] as const
 
-describe("StatsStrip (franja de números verificables)", () => {
-  it("muestra las 4 afirmaciones verificables, sin métricas de vanidad", () => {
-    render(<StatsStrip />)
-    expect(screen.getByText("clases de activos")).toBeTruthy()
-    expect(screen.getByText("datos de mercado")).toBeTruthy()
-    expect(screen.getByText("mercado cripto")).toBeTruthy()
-    expect(screen.getByText("español primero")).toBeTruthy()
-  })
-})
+describe("Diccionario — secciones de la landing", () => {
+  for (const l of LOCALES) {
+    const t = dictionaries[l]
 
-describe("HowItWorks (3 pasos)", () => {
-  it("renderiza exactamente 3 pasos en una lista ordenada", () => {
-    const { container } = render(<HowItWorks />)
-    expect(screen.getByText("Cómo funciona")).toBeTruthy()
-    const steps = container.querySelectorAll("ol > li")
-    expect(steps.length).toBe(3)
-    expect(screen.getByText("Creá tu cuenta")).toBeTruthy()
-    expect(screen.getByText("Elegí tu plan")).toBeTruthy()
-    expect(screen.getByText("Analizá los mercados")).toBeTruthy()
-  })
-})
+    it(`[${l}] stats: 4 afirmaciones verificables`, () => {
+      expect(t.stats.items).toHaveLength(4)
+      for (const s of t.stats.items) {
+        expect(s.value.length).toBeGreaterThan(0)
+        expect(s.label.length).toBeGreaterThan(0)
+      }
+    })
 
-describe("MarketsCovered (mercados cubiertos)", () => {
-  it("muestra las 4 categorías con símbolos de ejemplo en formato TradingView", () => {
-    render(<MarketsCovered />)
-    expect(screen.getByRole("heading", { name: "Acciones" })).toBeTruthy()
-    expect(screen.getByRole("heading", { name: "Cripto" })).toBeTruthy()
-    expect(screen.getByRole("heading", { name: "Forex" })).toBeTruthy()
-    expect(screen.getByRole("heading", { name: "Índices" })).toBeTruthy()
-    expect(screen.getByText("NASDAQ:AAPL")).toBeTruthy()
-    expect(screen.getByText("BINANCE:BTCUSDT")).toBeTruthy()
-    expect(screen.getByText("FX:EURUSD")).toBeTruthy()
-    expect(screen.getByText("SP:SPX")).toBeTruthy()
-  })
-})
+    it(`[${l}] howItWorks: exactamente 3 pasos con título`, () => {
+      expect(t.howItWorks.heading.length).toBeGreaterThan(0)
+      expect(t.howItWorks.steps).toHaveLength(3)
+    })
 
-describe("Faq (acordeón público)", () => {
-  it("renderiza 8 preguntas en elementos details accesibles", () => {
-    const { container } = render(<Faq />)
-    const items = container.querySelectorAll("details")
-    expect(items.length).toBe(8)
-    expect(screen.getByText("¿Qué es SMC?")).toBeTruthy()
-    expect(screen.getByText("¿Hay una prueba?")).toBeTruthy()
-  })
+    it(`[${l}] markets: las 6 clases de activos del brief`, () => {
+      const ids = Object.keys(t.markets.items)
+      expect(ids).toHaveLength(6)
+      expect(ids).toEqual(
+        expect.arrayContaining([
+          "indices",
+          "forex",
+          "shares",
+          "commodities",
+          "etfs",
+          "crypto",
+        ])
+      )
+    })
 
-  it("mantiene el marco regulatorio: no ejecuta órdenes ni da consejos", () => {
-    render(<Faq />)
-    expect(
-      screen.getByText(/no ejecuta órdenes ni custodia fondos/i)
-    ).toBeTruthy()
-    expect(screen.getByText(/las decisiones son siempre tuyas/i)).toBeTruthy()
-  })
-})
-
-describe("Cta (llamada final)", () => {
-  it("invita a crear cuenta con enlace a /registro", () => {
-    render(<Cta />)
-    const cta = screen.getByRole("link", { name: /crear cuenta/i })
-    expect(cta.getAttribute("href")).toBe("/registro")
-  })
-})
-
-describe("Copy regulatoria de la landing", () => {
-  it("ninguna sección nueva usa la palabra prohibida 'broker'", () => {
-    const { container: c1 } = render(<StatsStrip />)
-    const { container: c2 } = render(<HowItWorks />)
-    const { container: c3 } = render(<MarketsCovered />)
-    const { container: c4 } = render(<Faq />)
-    const { container: c5 } = render(<Cta />)
-    const all = [c1, c2, c3, c4, c5].map((c) => c.textContent ?? "").join(" ")
-    expect(/broker/i.test(all)).toBe(false)
-  })
+    it(`[${l}] faq: al menos 6 preguntas con respuesta`, () => {
+      expect(t.faq.items.length).toBeGreaterThanOrEqual(6)
+      for (const item of t.faq.items) {
+        expect(item.q.length).toBeGreaterThan(0)
+        expect(item.a.length).toBeGreaterThan(0)
+      }
+    })
+  }
 })

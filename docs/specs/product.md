@@ -11,11 +11,15 @@ Híbrido con dos superficies claramente separadas:
 
 ## Qué es
 
-Plataforma de **trading multi-activo** que conecta al usuario con **brokers
-socios regulados** (modelo _introducing broker_ / marca blanca): SMC provee la
-experiencia — gráficos en tiempo real (TradingView), portafolio, cuentas y
-planes de suscripción vía Stripe — mientras que la **ejecución de órdenes y la
-custodia de fondos están a cargo de los brokers socios regulados**, no de SMC.
+**SMC Markets** es una plataforma de **trading multi-activo** que conecta al
+usuario con **brokers socios regulados** (modelo _introducing broker_ / marca
+blanca): SMC Markets provee la experiencia — gráficos en tiempo real
+(TradingView), portafolio, cuentas y planes de suscripción vía Stripe — mientras
+que la **ejecución de órdenes y la custodia de fondos están a cargo de los
+brokers socios regulados**, no de SMC Markets.
+
+> **Nombre de marca:** el producto pasa de "SMC" a **"SMC Markets"** (el wordmark
+> conserva el punto dorado). Voz y copy: ver `brand-smc-markets.md`.
 
 **Guardarraíles de honestidad (verdaderos, no estéticos):**
 
@@ -86,7 +90,19 @@ Voz trading-forward: directa, con actitud de plataforma de mercados (no tímida
 2. Los precios de los planes son exactos e inmutables (vienen del dossier:
    Bronce $1.500 · Plata $2.800 · VIP personalizado · Prueba $250 USD).
 3. Cada animación responde a una acción del usuario; nada se mueve solo.
-4. Español primero. Cifras en formato USD.
+4. **Bilingüe español + inglés** (toggle, ES por defecto). Cifras en formato USD.
+   Detalle en `i18n.md`.
+
+## Internacionalización y administración
+
+- **i18n (es/en):** el producto se sirve en español e inglés con un toggle
+  persistente en el header; ES es el idioma por defecto. Toda la copy pública
+  vive en diccionarios, no hardcodeada. Fuente de verdad: `i18n.md`.
+- **Panel de administración (`/admin`):** superficie interna, admin-gated
+  (`is_admin()`), **solo lectura**, para observar la plataforma y sus usuarios
+  (usuarios, suscripciones, pagos, alertas, métricas agregadas). Fuente de
+  verdad: `admin.md`. Los guardarraíles de `brand-smc-markets.md` aplican también
+  a cualquier copy visible del admin.
 
 ## Contenido y densidad de superficies
 

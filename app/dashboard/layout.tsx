@@ -1,10 +1,12 @@
 import { redirect } from "next/navigation"
 
 import { getProfile, getUser } from "@/lib/auth/profile"
+import { getLocale } from "@/lib/i18n/server"
 import { Logo } from "@/components/brand/logo"
 import { BiometricGate } from "@/components/native/biometric-gate"
 import { SidebarNav } from "@/components/dashboard/sidebar-nav"
 import { ThemeToggle } from "@/components/dashboard/theme-toggle"
+import { LanguageToggle } from "@/components/i18n/language-toggle"
 import { UserNav } from "@/components/dashboard/user-nav"
 
 export default async function DashboardLayout({
@@ -17,7 +19,7 @@ export default async function DashboardLayout({
     redirect("/login?next=/dashboard")
   }
 
-  const profile = await getProfile()
+  const [profile, locale] = await Promise.all([getProfile(), getLocale()])
 
   return (
     <div className="flex min-h-svh">
@@ -37,7 +39,8 @@ export default async function DashboardLayout({
             <Logo href="/dashboard" />
           </div>
           <div className="hidden md:block" />
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-2">
+            <LanguageToggle locale={locale} />
             <ThemeToggle />
             <UserNav
               email={user.email ?? ""}

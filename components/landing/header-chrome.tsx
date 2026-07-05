@@ -6,24 +6,37 @@ import { Menu, X } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Logo } from "@/components/brand/logo"
+import { LanguageToggle } from "@/components/i18n/language-toggle"
+import type { Locale } from "@/lib/i18n/config"
+import type { Dictionary } from "@/lib/i18n/dictionaries"
 import { cn } from "@/lib/utils"
-
-/** Categorías del nav (anclas reales de la landing). */
-const NAV = [
-  { href: "/#como-funciona", label: "Cómo funciona" },
-  { href: "/#mercados", label: "Mercados" },
-  { href: "/#planes", label: "Planes" },
-  { href: "/#faq", label: "Preguntas" },
-] as const
 
 /**
  * Chrome del header (cliente): sticky con sombra al despegar del top, nav de
- * categorías, CTA de acento persistente (nunca desaparece en móvil) y menú
- * hamburguesa en móvil. El usuario se resuelve en el server (SiteHeader).
+ * categorías, CTA de acento persistente (nunca desaparece en móvil), toggle de
+ * idioma y menú hamburguesa en móvil. Usuario e idioma se resuelven en el server
+ * (SiteHeader); las etiquetas vienen del diccionario (sin copy hardcodeada).
  */
-export function HeaderChrome({ isAuthed }: { isAuthed: boolean }) {
+export function HeaderChrome({
+  isAuthed,
+  locale,
+  nav,
+  cta,
+}: {
+  isAuthed: boolean
+  locale: Locale
+  nav: Dictionary["nav"]
+  cta: Dictionary["cta"]
+}) {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+
+  const NAV = [
+    { href: "/#como-funciona", label: nav.howItWorks },
+    { href: "/#mercados", label: nav.markets },
+    { href: "/#planes", label: nav.plans },
+    { href: "/#faq", label: nav.faq },
+  ]
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 4)
@@ -58,9 +71,10 @@ export function HeaderChrome({ isAuthed }: { isAuthed: boolean }) {
         </div>
 
         <div className="flex items-center gap-2">
+          <LanguageToggle locale={locale} />
           {isAuthed ? (
             <Button asChild size="sm">
-              <Link href="/dashboard">Ir al dashboard</Link>
+              <Link href="/dashboard">{cta.dashboard}</Link>
             </Button>
           ) : (
             <>
@@ -70,18 +84,18 @@ export function HeaderChrome({ isAuthed }: { isAuthed: boolean }) {
                 size="sm"
                 className="hidden sm:inline-flex"
               >
-                <Link href="/login">Iniciar sesión</Link>
+                <Link href="/login">{cta.login}</Link>
               </Button>
               {/* CTA de acento persistente (visible también en móvil) */}
               <Button asChild size="sm">
-                <Link href="/registro">Abrí tu cuenta</Link>
+                <Link href="/registro">{cta.openAccount}</Link>
               </Button>
             </>
           )}
           {/* Hamburguesa: solo móvil */}
           <button
             type="button"
-            aria-label={open ? "Cerrar menú" : "Abrir menú"}
+            aria-label={open ? cta.menuClose : cta.menuOpen}
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
             className="text-muted-foreground hover:text-foreground -mr-1 inline-flex size-9 items-center justify-center rounded-md md:hidden"
@@ -113,7 +127,7 @@ export function HeaderChrome({ isAuthed }: { isAuthed: boolean }) {
                   onClick={() => setOpen(false)}
                   className="text-muted-foreground hover:text-foreground block py-2.5 text-sm sm:hidden"
                 >
-                  Iniciar sesión
+                  {cta.login}
                 </Link>
               </li>
             ) : null}

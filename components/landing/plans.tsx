@@ -2,6 +2,7 @@ import Link from "next/link"
 import { Check } from "lucide-react"
 
 import { createClient } from "@/lib/supabase/server"
+import { getDictionary } from "@/lib/i18n/server"
 import type { Plan } from "@/types/database"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -18,7 +19,7 @@ function planFeatures(plan: Plan): string[] {
 }
 
 export async function Plans() {
-  const supabase = await createClient()
+  const [supabase, { t }] = await Promise.all([createClient(), getDictionary()])
   const { data: plans } = await supabase
     .from("plans")
     .select("*")
@@ -35,11 +36,10 @@ export async function Plans() {
       <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
         <div className="max-w-xl">
           <h2 className="text-2xl font-bold tracking-tight md:text-3xl">
-            Planes de acceso
+            {t.plans.heading}
           </h2>
           <p className="text-muted-foreground mt-3 leading-relaxed">
-            Tres niveles de acceso a la plataforma, en USD. Elige el tuyo y paga
-            de forma segura con Stripe.
+            {t.plans.subtitle}
           </p>
         </div>
 
@@ -105,7 +105,9 @@ export async function Plans() {
                         : `/registro?plan=${plan.id}`
                     }
                   >
-                    {plan.is_custom ? "Hablar con SMC" : `Elegir ${plan.name}`}
+                    {plan.is_custom
+                      ? t.cta.talkToUs
+                      : `${t.plans.choose} ${plan.name}`}
                   </Link>
                 </Button>
               </article>
@@ -116,7 +118,7 @@ export async function Plans() {
         {trial ? (
           <aside className="bg-primary text-primary-foreground mt-6 flex flex-col items-start justify-between gap-4 rounded-xl p-6 sm:flex-row sm:items-center">
             <div>
-              <h3 className="font-semibold">Opción de prueba</h3>
+              <h3 className="font-semibold">{t.plans.trial}</h3>
               <p className="text-primary-foreground/80 mt-1 max-w-md text-sm leading-relaxed">
                 {trial.description}
               </p>
@@ -129,15 +131,14 @@ export async function Plans() {
                 </span>
               </p>
               <Button asChild variant="secondary">
-                <Link href="/registro?plan=prueba">Probar la plataforma</Link>
+                <Link href="/registro?plan=prueba">{t.plans.trialCta}</Link>
               </Button>
             </div>
           </aside>
         ) : null}
 
         <p className="text-muted-foreground/80 mt-6 text-xs leading-relaxed">
-          Pagos procesados de forma segura vía Stripe. Cifras sujetas a las
-          condiciones comerciales vigentes.
+          {t.plans.note}
         </p>
       </div>
     </section>

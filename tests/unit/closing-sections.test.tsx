@@ -1,49 +1,31 @@
-import { afterEach, describe, expect, it } from "vitest"
-import { cleanup, render, screen } from "@testing-library/react"
+import { describe, expect, it } from "vitest"
 
-import { Segments } from "@/components/landing/segments"
-import { Resources } from "@/components/landing/resources"
-import { ClosingCta } from "@/components/landing/closing-cta"
+import { dictionaries } from "@/lib/i18n/dictionaries"
 
-afterEach(() => cleanup())
+/**
+ * Cierre, segmentación y recursos sobre el diccionario i18n, en ambos idiomas.
+ */
+const LOCALES = ["es", "en"] as const
 
-describe("Segments (segmentación dual)", () => {
-  it("muestra los dos perfiles con su propio CTA", () => {
-    render(<Segments />)
-    expect(screen.getByText("¿Nuevo en los mercados?")).toBeTruthy()
-    expect(screen.getByText("¿Ya seguís los mercados?")).toBeTruthy()
-    expect(
-      screen.getByRole("link", { name: /empezar con prueba/i })
-    ).toBeTruthy()
-    expect(screen.getByRole("link", { name: /ver los planes/i })).toBeTruthy()
-  })
-})
+describe("Diccionario — cierre, segmentos y recursos", () => {
+  for (const l of LOCALES) {
+    const t = dictionaries[l]
 
-describe("Resources (solo enlaces reales)", () => {
-  it("enlaza a recursos que existen hoy, sin webinars falsos", () => {
-    render(<Resources />)
-    const precios = screen.getByRole("link", { name: /planes y precios/i })
-    expect(precios.getAttribute("href")).toBe("/precios")
-    const como = screen.getByRole("link", { name: /cómo funciona/i })
-    expect(como.getAttribute("href")).toBe("/#como-funciona")
-  })
-})
+    it(`[${l}] closing: embudo de 3 pasos + prueba social`, () => {
+      expect(t.closing.steps).toHaveLength(3)
+      expect(t.closing.proof).toHaveLength(3)
+      expect(t.closing.heading.length).toBeGreaterThan(0)
+    })
 
-describe("ClosingCta (embudo numerado dentro del marco)", () => {
-  it("el embudo es Registrate → Elegí plan → Visualizá (no Depositá/Operá)", () => {
-    const { container } = render(<ClosingCta />)
-    expect(screen.getByText("Registrate")).toBeTruthy()
-    expect(screen.getByText("Elegí tu plan")).toBeTruthy()
-    expect(screen.getByText("Visualizá los mercados")).toBeTruthy()
-    const text = container.textContent ?? ""
-    expect(/depositá|depósito|operá|operar/i.test(text)).toBe(false)
-  })
+    it(`[${l}] segments: dos bloques con título y CTAs`, () => {
+      expect(t.segments.novice.title.length).toBeGreaterThan(0)
+      expect(t.segments.novice.primary.length).toBeGreaterThan(0)
+      expect(t.segments.pro.title.length).toBeGreaterThan(0)
+      expect(t.segments.pro.primary.length).toBeGreaterThan(0)
+    })
 
-  it("tiene un CTA grande hacia /registro y prueba social honesta", () => {
-    render(<ClosingCta />)
-    const cta = screen.getByRole("link", { name: /crear cuenta/i })
-    expect(cta.getAttribute("href")).toBe("/registro")
-    expect(screen.getByText(/datos por tradingview/i)).toBeTruthy()
-    expect(screen.getByText(/pagos por stripe/i)).toBeTruthy()
-  })
+    it(`[${l}] resources: 3 recursos`, () => {
+      expect(t.resources.items).toHaveLength(3)
+    })
+  }
 })

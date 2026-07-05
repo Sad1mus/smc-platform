@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google"
 import { DeepLinkHandler } from "@/components/native/deep-link-handler"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/sonner"
+import { getDictionary, getLocale } from "@/lib/i18n/server"
 
 import "./globals.css"
 
@@ -17,23 +18,26 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 })
 
-export const metadata: Metadata = {
-  title: {
-    default: "SMC — Trading Multi-Activo en Tiempo Real",
-    template: "%s — SMC",
-  },
-  description:
-    "Plataforma de trading multi-activo: gráficos en tiempo real, tu portafolio y tus operaciones a través de brokers socios regulados.",
+export async function generateMetadata(): Promise<Metadata> {
+  const { t } = await getDictionary()
+  return {
+    title: {
+      default: t.meta.homeTitle,
+      template: "%s — SMC Markets",
+    },
+    description: t.meta.homeDescription,
+  }
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const locale = await getLocale()
   return (
     <html
-      lang="es"
+      lang={locale}
       data-scroll-behavior="smooth"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning

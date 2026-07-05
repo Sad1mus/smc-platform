@@ -2,7 +2,7 @@ import Link from "next/link"
 
 import { cn } from "@/lib/utils"
 
-/** Wordmark "SMC." con el punto dorado del dossier. */
+/** Wordmark "SMC Markets" con el punto dorado del dossier. */
 export function Logo({
   className,
   href = "/",
@@ -19,6 +19,9 @@ export function Logo({
       )}
     >
       SMC<span className="text-gold">.</span>
+      <span className="text-muted-foreground ml-1.5 text-base font-medium">
+        Markets
+      </span>
     </Link>
   )
 }

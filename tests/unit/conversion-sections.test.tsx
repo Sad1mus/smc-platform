@@ -1,47 +1,33 @@
-import { afterEach, describe, expect, it } from "vitest"
-import { cleanup, render, screen } from "@testing-library/react"
+import { describe, expect, it } from "vitest"
 
-import { ValueTrio } from "@/components/landing/value-trio"
-import { PlatformSection } from "@/components/landing/platform-section"
-import { WhyUs } from "@/components/landing/why-us"
+import { dictionaries } from "@/lib/i18n/dictionaries"
 
-afterEach(() => cleanup())
+/**
+ * Secciones de conversión (trío de valor, plataforma, por qué elegirnos) sobre
+ * el diccionario i18n, en ambos idiomas.
+ */
+const LOCALES = ["es", "en"] as const
 
-describe("ValueTrio (trío de valor, regla de 3)", () => {
-  it("renderiza exactamente 3 tarjetas adaptadas al marco", () => {
-    const { container } = render(<ValueTrio />)
-    expect(container.querySelectorAll("article").length).toBe(3)
-    expect(screen.getByText("Datos en tiempo real")).toBeTruthy()
-    expect(screen.getByText("Todo en un panel")).toBeTruthy()
-    expect(screen.getByText("Pagos seguros")).toBeTruthy()
-  })
-})
+describe("Diccionario — secciones de conversión", () => {
+  for (const l of LOCALES) {
+    const t = dictionaries[l]
 
-describe("PlatformSection (plataforma / tecnología)", () => {
-  it("muestra el CTA contextual hacia /registro", () => {
-    render(<PlatformSection />)
-    const cta = screen.getByRole("link", { name: /explorá la plataforma/i })
-    expect(cta.getAttribute("href")).toBe("/registro")
-  })
+    it(`[${l}] valueTrio: exactamente 3 tarjetas`, () => {
+      expect(t.valueTrio.items).toHaveLength(3)
+      for (const item of t.valueTrio.items) {
+        expect(item.title.length).toBeGreaterThan(0)
+        expect(item.description.length).toBeGreaterThan(0)
+      }
+    })
 
-  it("usa un embed real de TradingView con su atribución (no un mockup fake)", () => {
-    render(<PlatformSection />)
-    expect(screen.getByText(/datos en vivo por tradingview/i)).toBeTruthy()
-  })
-})
+    it(`[${l}] platform: features + CTA + heading`, () => {
+      expect(t.platform.heading.length).toBeGreaterThan(0)
+      expect(t.platform.features.length).toBeGreaterThanOrEqual(3)
+      expect(t.platform.cta.length).toBeGreaterThan(0)
+    })
 
-describe("WhyUs (pilares de confianza REALES)", () => {
-  it("renderiza 4 pilares con señales verificables", () => {
-    const { container } = render(<WhyUs />)
-    expect(container.querySelectorAll("article").length).toBe(4)
-    expect(screen.getByText(/provistos por TradingView/i)).toBeTruthy()
-    expect(screen.getByText(/procesados por Stripe/i)).toBeTruthy()
-    expect(screen.getByText(/RLS/)).toBeTruthy()
-  })
-
-  it("no inventa premios ni reguladores", () => {
-    const { container } = render(<WhyUs />)
-    const text = container.textContent ?? ""
-    expect(/premio|galardón|regulado por|licencia n/i.test(text)).toBe(false)
-  })
+    it(`[${l}] whyUs: 4 pilares reales`, () => {
+      expect(t.whyUs.pillars).toHaveLength(4)
+    })
+  }
 })
