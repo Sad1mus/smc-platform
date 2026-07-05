@@ -52,6 +52,64 @@ const PANELS = [
       showToolbar: true,
     },
   },
+  {
+    id: "cripto",
+    label: "Cripto",
+    title: "Mapa de calor de cripto",
+    widget: "crypto-coins-heatmap",
+    config: {
+      dataSource: "Crypto",
+      blockSize: "market_cap_calc",
+      blockColor: "change",
+      hasTopBar: false,
+      isZoomEnabled: true,
+      hasSymbolTooltip: true,
+    },
+  },
+  {
+    id: "etf",
+    label: "ETF",
+    title: "Mapa de calor de ETF",
+    widget: "etf-heatmap",
+    config: {
+      dataSource: "AllUSEtf",
+      blockSize: "aum",
+      blockColor: "change",
+      hasTopBar: false,
+      isZoomEnabled: true,
+      hasSymbolTooltip: true,
+    },
+  },
+  {
+    id: "forex",
+    label: "Forex",
+    title: "Tasas cruzadas de divisas",
+    widget: "forex-cross-rates",
+    config: {
+      currencies: ["EUR", "USD", "JPY", "GBP", "CHF", "AUD", "CAD", "MXN"],
+      isTransparent: false,
+    },
+  },
+  {
+    id: "mercados",
+    label: "Mercados",
+    title: "Resumen de mercados",
+    widget: "market-overview",
+    config: {
+      showChart: true,
+      showFloatingTooltip: true,
+    },
+  },
+  {
+    id: "noticias",
+    label: "Noticias",
+    title: "Noticias de mercado",
+    widget: "timeline",
+    config: {
+      feedMode: "all_symbols",
+      displayMode: "regular",
+    },
+  },
 ] as const
 
 export function TerminalPanels() {

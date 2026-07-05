@@ -80,6 +80,11 @@ test.describe("Dashboard — TradingView y watchlist", () => {
 
     await page.reload()
     await expect(page.getByTestId("dashboard-title")).toBeVisible()
-    await expect(page.getByText(testSymbol)).toHaveCount(0)
+    // El símbolo ya no está en la watchlist. Se acota al panel: el navegador
+    // de mercados lista símbolos de ejemplo (p. ej. NASDAQ:TSLA) de forma
+    // legítima, así que una búsqueda global ya no aplica.
+    await expect(
+      page.getByTestId("watchlist-items").getByText(testSymbol)
+    ).toHaveCount(0)
   })
 })

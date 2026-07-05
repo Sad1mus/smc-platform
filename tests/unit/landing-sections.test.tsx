@@ -66,7 +66,7 @@ describe("Faq (acordeón público)", () => {
 describe("Cta (llamada final)", () => {
   it("invita a crear cuenta con enlace a /registro", () => {
     render(<Cta />)
-    const cta = screen.getByRole("link", { name: /crear mi cuenta/i })
+    const cta = screen.getByRole("link", { name: /crear cuenta/i })
     expect(cta.getAttribute("href")).toBe("/registro")
   })
 })

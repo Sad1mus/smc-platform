@@ -67,12 +67,13 @@ describe("TickerTape", () => {
 })
 
 describe("TerminalPanels (tabs lazy)", () => {
-  it("muestra las 3 pestañas y solo monta el panel activo", () => {
+  it("muestra las 8 pestañas y solo monta el panel activo", () => {
     render(<TerminalPanels />)
-    expect(screen.getAllByRole("tab")).toHaveLength(3)
+    expect(screen.getAllByRole("tab")).toHaveLength(8)
     expect(screen.getByTestId("tv-widget-stock-heatmap")).toBeTruthy()
     expect(screen.queryByTestId("tv-widget-events")).toBeNull()
     expect(screen.queryByTestId("tv-widget-screener")).toBeNull()
+    expect(screen.queryByTestId("tv-widget-timeline")).toBeNull()
   })
 
   it("al cambiar de pestaña desmonta el anterior y monta el nuevo (lazy real)", () => {

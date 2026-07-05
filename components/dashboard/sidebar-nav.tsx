@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { CandlestickChart, CreditCard } from "lucide-react"
+import { CandlestickChart, Bell, CreditCard } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
@@ -12,6 +12,12 @@ const NAV_ITEMS = [
     label: "Mercados",
     icon: CandlestickChart,
     exact: true,
+  },
+  {
+    href: "/dashboard/alertas",
+    label: "Alertas",
+    icon: Bell,
+    exact: false,
   },
   {
     href: "/dashboard/plan",
