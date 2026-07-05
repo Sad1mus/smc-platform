@@ -19,11 +19,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "SMC — Visualización de Mercados en Tiempo Real",
+    default: "SMC — Trading Multi-Activo en Tiempo Real",
     template: "%s — SMC",
   },
   description:
-    "Plataforma de visualización de mercados financieros con gráficos interactivos en tiempo real.",
+    "Plataforma de trading multi-activo: gráficos en tiempo real, tu portafolio y tus operaciones a través de brokers socios regulados.",
 }
 
 export default function RootLayout({

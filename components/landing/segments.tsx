@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 
 /**
  * Segmentación dual (playbook §8): dos bloques que hablan a dos perfiles,
- * cada uno con su CTA. Adaptado al marco (visualización/análisis, sin trading).
+ * cada uno con su CTA. Concepto introducing broker (operar vía socios regulados).
  */
 export function Segments() {
   return (
@@ -36,7 +36,8 @@ export function Segments() {
           <h3 className="text-xl font-semibold">¿Ya seguís los mercados?</h3>
           <p className="text-muted-foreground text-sm leading-relaxed">
             Andá directo al panel: gráficos en tiempo real, heatmap, calendario
-            económico, screener y tu watchlist, todo en una sola pantalla.
+            económico, screener y tu watchlist. Operá a través de brokers socios
+            regulados, todo desde una pantalla.
           </p>
           <div className="mt-2 flex flex-wrap gap-3">
             <Button asChild size="sm">

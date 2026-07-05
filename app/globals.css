@@ -176,3 +176,97 @@
     font-variant-numeric: tabular-nums;
   }
 }
+
+/* ────────────────────────────────────────────────────────────
+   Hero — profundidad y movimiento (terminal financiero)
+   Backdrop en capas + ticker de cotizaciones estilo broker.
+   Todo CSS puro: sin JS, sin assets externos, CSP intacta.
+   ──────────────────────────────────────────────────────────── */
+
+/* Grilla de terminal que deriva lentamente detrás del titular */
+.hero-grid {
+  background-image:
+    linear-gradient(
+      to right,
+      color-mix(in oklch, var(--gold) 8%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in oklch, var(--gold) 8%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 56px 56px;
+  mask-image: radial-gradient(
+    ellipse 80% 60% at 50% 0%,
+    #000 0%,
+    transparent 75%
+  );
+  animation: hero-grid-drift 24s linear infinite;
+}
+
+@keyframes hero-grid-drift {
+  to {
+    background-position:
+      56px 56px,
+      56px 56px;
+  }
+}
+
+/* Aurora dorada que pulsa muy sutil */
+.hero-aurora {
+  animation: hero-aurora-pulse 9s ease-in-out infinite;
+}
+
+@keyframes hero-aurora-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: translateX(-50%) scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: translateX(-50%) scale(1.06);
+  }
+}
+
+/* Ticker infinito: la pista se duplica y se desplaza -50% */
+.ticker-track {
+  animation: ticker-scroll 42s linear infinite;
+  will-change: transform;
+}
+
+.ticker-band:hover .ticker-track {
+  animation-play-state: paused;
+}
+
+@keyframes ticker-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.ticker-mask {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 6%,
+    #000 94%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 6%,
+    #000 94%,
+    transparent
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-grid,
+  .hero-aurora,
+  .ticker-track {
+    animation: none !important;
+  }
+}

@@ -11,11 +11,22 @@ Híbrido con dos superficies claramente separadas:
 
 ## Qué es
 
-Plataforma web de **visualización de mercados financieros** en tiempo real:
-gráficos interactivos (TradingView), cuentas de usuario y planes de
-suscripción pagados vía Stripe. Solo visualización: **no ejecuta órdenes,
-no custodia fondos, no es asesoría de inversión**. La palabra "broker" está
-prohibida en toda la comunicación (restricción regulatoria del dossier).
+Plataforma de **trading multi-activo** que conecta al usuario con **brokers
+socios regulados** (modelo _introducing broker_ / marca blanca): SMC provee la
+experiencia — gráficos en tiempo real (TradingView), portafolio, cuentas y
+planes de suscripción vía Stripe — mientras que la **ejecución de órdenes y la
+custodia de fondos están a cargo de los brokers socios regulados**, no de SMC.
+
+**Guardarraíles de honestidad (verdaderos, no estéticos):**
+
+- Hasta contar con la **autorización escrita** de la licencia del socio, la copy
+  **no afirma que SMC esté regulado** ni que ejecute/custodie por sí mismo: esas
+  capacidades se atribuyen siempre a los **socios regulados**.
+- Prohibición **permanente** (no depende de ninguna licencia): ninguna **promesa
+  de rentabilidad** ni retorno garantizado. Eso es fraude.
+- No se inventan reguladores, licencias, jurisdicciones ni cifras de usuarios.
+  Cuando lleguen los datos reales del socio se nombran; hasta entonces, "socios
+  regulados" sin especificar.
 
 ## Usuarios
 
@@ -26,7 +37,10 @@ prohibida en toda la comunicación (restricción regulatoria del dossier).
 
 ## Personalidad de marca
 
-Tres palabras: **precisa, sobria, sólida.**
+Tres palabras: **precisa, audaz, sólida.**
+
+Voz trading-forward: directa, con actitud de plataforma de mercados (no tímida
+"solo visualización"). La ambición se permite; la mentira no.
 
 - Como un terminal financiero bien hecho: oscuro, denso en información,
   sin decoración gratuita.
@@ -40,8 +54,10 @@ Tres palabras: **precisa, sobria, sólida.**
 - Landing genérica de SaaS con gradientes morados y blobs.
 - Estética "crypto bro": neones, lambos, FOMO, countdown timers.
 - Cream/beige editorial: esto es un terminal, no una revista.
-- Lenguaje de bróker o de promesas de rentabilidad ("multiplica tu dinero",
-  "señales ganadoras"). Regulatorio: solo visualización de datos.
+- Promesas de rentabilidad o de resultado ("multiplicá tu dinero", "señales
+  ganadoras", "retornos garantizados"). Prohibición permanente: es fraude.
+- Afirmar que **SMC** está regulado / ejecuta / custodia por sí mismo. La
+  ejecución y la custodia son de los **socios regulados** (ver "Qué es").
 
 ## Referencias de diseño
 
@@ -77,7 +93,7 @@ Tres palabras: **precisa, sobria, sólida.**
 > Motivación (feedback 2026-07-02): el producto se percibía "leve". La respuesta NO es prosa
 > de relleno sino **contenido funcional**: más datos en el dashboard, más argumento en la
 > landing. Toda afirmación pública debe ser verificable; toda copy respeta la sección
-> Anti-referencias (la palabra prohibida del dossier y las promesas de rentabilidad).
+> Anti-referencias (nada de promesas de rentabilidad ni claim de "SMC regulado/ejecuta").
 
 ### Landing (`/`) — orden de secciones
 
@@ -86,16 +102,16 @@ Tres palabras: **precisa, sobria, sólida.**
    vanidad inventadas: "4 clases de activos" (acciones, cripto, forex, índices) ·
    "Tiempo real" (datos vía TradingView) · "24/7" (cripto cotiza siempre) ·
    "ES" (producto en español primero). Prohibido: usuarios ficticios, uptime no medido.
-3. **Cómo funciona** — 3 pasos: (1) Creá tu cuenta → (2) Elegí tu plan → (3) Analizá los
-   mercados en tiempo real. Verbos de visualización/análisis; jamás "operá/invertí/ganá".
+3. **Cómo funciona** — 3 pasos: (1) Abrí tu cuenta → (2) Elegí tu plan → (3) Operá los
+   mercados a través de brokers socios regulados. Nunca prometer rentabilidad ni "ganá".
 4. **Mercados cubiertos** — 4 categorías (Acciones, Cripto, Forex, Índices) con símbolos de
    ejemplo reales (NASDAQ:AAPL, BINANCE:BTCUSDT, FX:EURUSD, SP:SPX). Lista estática o
    mini-widget; si es widget, lazy.
 5. **Características** (existente) — se conserva.
 6. **Planes** (existente) — se conserva.
-7. **FAQ pública** — acordeón accesible, 6-8 preguntas. Canon (respuestas cortas, alineadas
-   al marco regulatorio): ¿Qué es SMC? (visualización y análisis; no ejecuta órdenes ni
-   custodia fondos) · ¿Los datos son en tiempo real? (sí, vía TradingView) · ¿Qué mercados
+7. **FAQ pública** — acordeón accesible, 6-8 preguntas. Canon (respuestas cortas, concepto
+   introducing broker): ¿Qué es SMC? (plataforma de trading multi-activo; la ejecución y la
+   custodia son de brokers socios regulados) · ¿Los datos son en tiempo real? (sí, vía TradingView) · ¿Qué mercados
    puedo ver? (4 clases) · ¿Cómo pago? (Stripe; tarjeta; ningún dato de tarjeta toca
    servidores de SMC) · ¿Puedo cancelar cuando quiera? (sí, desde Mi plan) · ¿SMC da
    consejos de inversión? (no; solo datos y herramientas de análisis) · ¿En qué idioma está?
@@ -167,15 +183,18 @@ Orden de bloques de la landing (`/`), de arriba a abajo:
    falsos; si no hay contenido real, se omite el bloque.
 10. **Prueba social** — SOLO verificable (badges "Datos por TradingView" / "Pagos por Stripe"). Sin
     premios, reseñas, testimonios ni cifras de usuarios inventados. Si no hay pruebas reales, se omite.
-11. **CTA de cierre** — embudo **numerado** "1. Registrate → 2. Elegí tu plan → 3. Visualizá los
-    mercados" + un CTA grande centrado. **Nunca** "Depositá → Operá".
+11. **CTA de cierre** — embudo **numerado** "1. Abrí tu cuenta → 2. Elegí tu plan → 3. Operá los
+    mercados" + un CTA grande centrado. El depósito/custodia ocurre en el **broker socio**, no en SMC.
 12. **Footer denso** — enlaces de producto/empresa/legal/soporte, entidad legal y avisos (según
     datos reales del cliente cuando existan), medios de pago, copyright.
 
-**Términos PROHIBIDOS en toda la copy pública** (marco vigente, ver Anti-referencias): la palabra
-prohibida del dossier, "operá/operar", "invertí", "depositá/depósito", custodia, "protección de
-fondos", ejecución de órdenes, señales y toda promesa de rentabilidad. La honestidad es regla dura:
-persuadir con claridad, nunca ocultar ni fabricar.
+**Voz pública (concepto vigente: introducing broker).** Copy trading-forward y audaz. Se PUEDE
+usar "operá los mercados", "abrí tu cuenta", "brokers socios", multi-activo, fiat y cripto. La
+**ejecución de órdenes** y la **custodia de fondos** se atribuyen SIEMPRE a los **socios regulados**
+(es lo verdadero). **PROHIBIDO** (regla dura, no depende de licencia): afirmar que **SMC** está
+regulado / ejecuta / custodia por sí mismo hasta la autorización escrita del socio; inventar
+reguladores, licencias o jurisdicciones; y **toda promesa de rentabilidad o retorno**. Persuadir con
+claridad, nunca fabricar.
 
 ## Terminal display — layout de cockpit 3+1 (SOLO visualización / análisis)
 

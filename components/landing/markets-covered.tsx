@@ -41,8 +41,8 @@ export function MarketsCovered() {
             Mercados cubiertos
           </h2>
           <p className="text-muted-foreground mt-3 leading-relaxed">
-            Cuatro clases de activos, una sola pantalla. Visualizás y analizás;
-            el análisis siempre es tuyo.
+            Cuatro clases de activos, una sola pantalla. Seguí, analizá y operá
+            a través de brokers socios regulados.
           </p>
         </div>
         <div className="mt-12 grid gap-px overflow-hidden rounded-xl border sm:grid-cols-2 lg:grid-cols-4">

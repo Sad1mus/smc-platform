@@ -49,10 +49,11 @@ export function SiteFooter() {
         </div>
         <div className="border-border/60 flex flex-col gap-4 border-t pt-6">
           <p className="text-muted-foreground/80 max-w-3xl text-xs leading-relaxed">
-            SMC es una plataforma de visualización de datos de mercado
-            únicamente. No ejecuta órdenes, no custodia fondos de clientes y no
-            constituye asesoría de inversión. Los datos de mercado se muestran
-            con fines informativos. Gráficos por TradingView.
+            SMC es una plataforma de trading multi-activo. La ejecución de
+            órdenes y la custodia de fondos están a cargo de brokers socios
+            regulados; SMC no ejecuta órdenes ni custodia fondos por sí mismo, y
+            no constituye asesoría de inversión. Los datos de mercado se
+            muestran con fines informativos. Gráficos por TradingView.
           </p>
           <p className="text-muted-foreground/60 font-mono text-xs">
             © {new Date().getFullYear()} SMC

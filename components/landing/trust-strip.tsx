@@ -7,7 +7,7 @@ import { ShieldCheck, Lock, Eye } from "lucide-react"
 const TRUST_ITEMS = [
   {
     icon: ShieldCheck,
-    label: "Conversiones y pagos procesados por socios licenciados",
+    label: "Ejecución y custodia por brokers socios regulados",
   },
   { icon: Lock, label: "Tus datos, cifrados" },
   { icon: Eye, label: "Sin comisiones ocultas" },

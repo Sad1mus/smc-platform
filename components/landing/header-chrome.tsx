@@ -74,7 +74,7 @@ export function HeaderChrome({ isAuthed }: { isAuthed: boolean }) {
               </Button>
               {/* CTA de acento persistente (visible también en móvil) */}
               <Button asChild size="sm">
-                <Link href="/registro">Crear cuenta</Link>
+                <Link href="/registro">Abrí tu cuenta</Link>
               </Button>
             </>
           )}

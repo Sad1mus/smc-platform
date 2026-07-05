@@ -2,8 +2,8 @@ import { Zap, LayoutGrid, ShieldCheck } from "lucide-react"
 
 /**
  * Trío de valor (playbook §4): exactamente 3 tarjetas, regla de tres.
- * Adaptado al marco SMC (display/análisis, sin ejecución): datos en tiempo
- * real · todo en un panel · pagos seguros. Solo afirmaciones verificables.
+ * Concepto introducing broker: mercados en tiempo real · todo en un panel ·
+ * ejecución a cargo de socios regulados. Solo afirmaciones verificables.
  */
 const TRIO = [
   {
@@ -20,9 +20,9 @@ const TRIO = [
   },
   {
     icon: ShieldCheck,
-    title: "Pagos seguros",
+    title: "Ejecución con socios regulados",
     description:
-      "Suscripción procesada por Stripe. Ningún dato de tu tarjeta pasa por SMC.",
+      "Operá a través de brokers socios regulados: ellos ejecutan tus órdenes y resguardan tus fondos.",
   },
 ] as const
 

@@ -9,7 +9,7 @@ import { SiteHeader } from "@/components/landing/site-header"
 export const metadata: Metadata = {
   title: "Precios",
   description:
-    "Planes de acceso a SMC: visualización de mercados en tiempo real. Tabla comparativa de features y FAQ de facturación. Precios claros, sin permanencia.",
+    "Planes de acceso a SMC, plataforma de trading multi-activo. Tabla comparativa de features y FAQ de facturación. Precios claros, sin permanencia.",
 }
 
 /**
@@ -26,8 +26,8 @@ export default function PreciosPage() {
             Precios
           </h1>
           <p className="text-muted-foreground mx-auto mt-3 max-w-xl text-sm sm:text-base">
-            Elige tu nivel de acceso a los mercados en tiempo real. Pagos
-            procesados de forma segura por Stripe.
+            Elegí tu nivel de acceso a la plataforma. Operá a través de brokers
+            socios regulados; pagos procesados de forma segura por Stripe.
           </p>
         </section>
         <Plans />

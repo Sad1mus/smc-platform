@@ -8,7 +8,7 @@ import { TvWidget } from "@/components/dashboard/tv-widget"
 /**
  * Sección plataforma / tecnología (playbook §6): dos columnas, un embed REAL de
  * TradingView (display-only, montado lazy para no degradar el LCP) + lista de
- * features con checks + CTA contextual. Todo display/análisis, sin ejecución.
+ * features con checks + CTA contextual. La ejecución es de los socios regulados.
  */
 const FEATURES = [
   "Gráficos TradingView en tiempo real",
@@ -34,7 +34,8 @@ export function PlatformSection() {
           </h2>
           <p className="text-muted-foreground mt-3 leading-relaxed">
             Gráficos profesionales, tu watchlist y los paneles de mercado, todo
-            en una sola pantalla. Visualizás y analizás; nada más.
+            en una sola pantalla. Analizás, decidís y operás a través de socios
+            regulados.
           </p>
           <ul className="mt-6 flex flex-col gap-3">
             {FEATURES.map((feature) => (

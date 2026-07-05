@@ -2,8 +2,8 @@ import { Plus } from "lucide-react"
 
 /**
  * FAQ pública (spec §Landing #7): acordeón accesible con las 8 preguntas canon.
- * Respuestas cortas y alineadas al marco regulatorio: SMC visualiza y analiza,
- * NO ejecuta órdenes, NO custodia fondos, NO da consejos de inversión.
+ * Concepto introducing broker: SMC es la plataforma; la ejecución y la custodia
+ * las hacen brokers socios regulados. SMC no da consejos de inversión.
  *
  * Se usa <details>/<summary> nativo: accesible por teclado y lectores de
  * pantalla sin JavaScript, y funciona aunque la hidratación falle.
@@ -11,7 +11,7 @@ import { Plus } from "lucide-react"
 const FAQS = [
   {
     q: "¿Qué es SMC?",
-    a: "Una plataforma de visualización y análisis de mercados. Muestra datos y herramientas; no ejecuta órdenes ni custodia fondos.",
+    a: "Una plataforma de trading multi-activo: reunís gráficos, portafolio y tus operaciones en un lugar. La ejecución de órdenes y la custodia de fondos están a cargo de brokers socios regulados.",
   },
   {
     q: "¿Los datos son en tiempo real?",

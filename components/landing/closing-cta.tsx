@@ -5,9 +5,8 @@ import { Button } from "@/components/ui/button"
 
 /**
  * CTA de cierre (playbook §11): embudo NUMERADO + un CTA grande centrado.
- * El embudo lleva a registrarse y elegir plan; nunca empuja a poner dinero ni
- * a ejecutar operaciones (marco vigente).
- * Incluye prueba social HONESTA: solo integraciones reales (TradingView, Stripe).
+ * Concepto introducing broker: registrate, elegí plan y operá vía socios
+ * regulados. Prueba social HONESTA: solo integraciones reales (TradingView, Stripe).
  */
 const STEPS = [
   {
@@ -22,8 +21,8 @@ const STEPS = [
   },
   {
     icon: LineChart,
-    title: "Visualizá los mercados",
-    description: "Entrá al panel y seguí los mercados en tiempo real.",
+    title: "Operá los mercados",
+    description: "Entrá al panel y operá a través de brokers socios regulados.",
   },
 ] as const
 
@@ -81,7 +80,7 @@ export function ClosingCta() {
 
           <Button asChild size="lg" className="group">
             <Link href="/registro">
-              Crear cuenta
+              Abrí tu cuenta
               <ArrowRight className="size-4 transition-transform duration-200 ease-out group-hover:translate-x-0.5" />
             </Link>
           </Button>

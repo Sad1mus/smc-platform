@@ -4,19 +4,24 @@ export const metadata = { title: "Términos y Condiciones — SMC" }
 
 // TODO: reemplazar con datos legales reales del cliente
 // ([[RAZÓN SOCIAL]], [[JURISDICCIÓN]], [[EMAIL_CONTACTO]], [[MONEDA]]).
+// REVISIÓN LEGAL PENDIENTE (concepto introducing broker, 2026-07-05): un abogado
+// debe validar estos términos e incorporar la identidad del/los broker(s) socio(s)
+// regulado(s), las divulgaciones de riesgo y el marco de la licencia antes del go-live.
 export default function TerminosPage() {
   return (
     <LegalPage title="Términos y Condiciones">
       <LegalSection heading="1. Objeto del servicio">
         <p>
-          SMC es una plataforma de{" "}
-          <strong>visualización de datos de mercado</strong> en tiempo real. El
-          servicio es informativo:{" "}
+          SMC es una <strong>plataforma de trading multi-activo</strong> que
+          conecta al usuario con <strong>brokers socios regulados</strong>. SMC
+          provee la experiencia (gráficos en tiempo real, portafolio, cuentas y
+          planes);{" "}
           <strong>
-            no ejecuta órdenes, no enruta operaciones a mercados, no custodia
-            fondos y no constituye asesoría de inversión
+            la ejecución de órdenes y la custodia de fondos corresponden a los
+            brokers socios regulados, no a SMC
           </strong>
-          . Los gráficos se muestran con atribución a TradingView.
+          . El servicio de SMC no constituye asesoría de inversión. Los gráficos
+          se muestran con atribución a TradingView.
         </p>
       </LegalSection>
       <LegalSection heading="2. Titular">

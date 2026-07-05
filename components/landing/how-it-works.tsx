@@ -1,8 +1,8 @@
 import { UserPlus, CreditCard, LineChart } from "lucide-react"
 
 /**
- * Cómo funciona (spec §Landing #3): 3 pasos, verbos de visualización/análisis.
- * La numeración es real: es una secuencia que el usuario recorre en orden.
+ * Cómo funciona (spec §Landing #3): 3 pasos que el usuario recorre en orden.
+ * La numeración es real (secuencia). Concepto introducing broker.
  */
 const STEPS = [
   {
@@ -19,9 +19,9 @@ const STEPS = [
   },
   {
     icon: LineChart,
-    title: "Analizá los mercados",
+    title: "Operá los mercados",
     description:
-      "Gráficos en tiempo real, heatmap, calendario económico y tu watchlist. Todo en un solo panel.",
+      "Gráficos en tiempo real y tus operaciones a través de brokers socios regulados, todo en un panel.",
   },
 ] as const
 
@@ -37,7 +37,7 @@ export function HowItWorks() {
             Cómo funciona
           </h2>
           <p className="text-muted-foreground mt-3 leading-relaxed">
-            De cero a tu panel de mercados en tres pasos.
+            De cero a operar los mercados en tres pasos.
           </p>
         </div>
         <ol className="mt-12 grid gap-px overflow-hidden rounded-xl border md:grid-cols-3">
