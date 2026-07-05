@@ -7,8 +7,10 @@ import { MarketsCovered } from "@/components/landing/markets-covered"
 import { PlatformSection } from "@/components/landing/platform-section"
 import { WhyUs } from "@/components/landing/why-us"
 import { Plans } from "@/components/landing/plans"
+import { Segments } from "@/components/landing/segments"
+import { Resources } from "@/components/landing/resources"
 import { Faq } from "@/components/landing/faq"
-import { Cta } from "@/components/landing/cta"
+import { ClosingCta } from "@/components/landing/closing-cta"
 import { SiteFooter } from "@/components/landing/site-footer"
 
 export default function HomePage() {
@@ -24,8 +26,10 @@ export default function HomePage() {
         <PlatformSection />
         <WhyUs />
         <Plans />
+        <Segments />
+        <Resources />
         <Faq />
-        <Cta />
+        <ClosingCta />
       </main>
       <SiteFooter />
     </>
