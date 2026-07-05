@@ -136,3 +136,72 @@ permite operar.
    plan) · ¿Puedo cambiar de plan? (sí, gestionándolo desde Mi plan) · ¿Facturan en mi
    moneda? (precios en USD; el banco emisor convierte). Reembolsos: remite a la página
    `/reembolsos`, sin prometer política distinta a la publicada.
+
+## Landing — arquitectura de conversión (patrón del sector, DENTRO del marco)
+
+> Origen: `~/Documentos/Agencia/orvex/playbook-landing-conversion.md`. Se adopta la **estructura
+> de conversión** del patrón del sector (casas de bolsa online), NO su copy ni su tema visual.
+> Se conserva la identidad SMC (terminal oscuro + dorado, Geist Mono para números) y un único
+> color de acento (dorado) para todos los CTA primarios. Toda afirmación pública es verificable.
+
+Orden de bloques de la landing (`/`), de arriba a abajo:
+
+1. **Header sticky** — fijo al hacer scroll, sombra al despegar del top, con **CTA de acento
+   persistente** siempre visible (en móvil: hamburguesa + el CTA nunca desaparece).
+2. **Hero** (above the fold, entendible en 5s) — titular de "superación" 4-8 palabras, subtítulo
+   simple, **doble CTA** (primario "Comienza ahora" + secundario ghost), **micro-copy de baja
+   fricción** ("Sin permanencia · Cancelá cuando quieras"), y un **visual/mockup** del producto.
+3. **Franja de cifras** — 3-4 números grandes, SOLO verificables (4 clases de activos · tiempo real
+   vía TradingView · 24/7 cripto · español primero). Sin métricas de vanidad ni usuarios inventados.
+4. **Trío de valor** — exactamente 3 tarjetas (ícono + título + línea), adaptado al marco
+   (p. ej. "Datos en tiempo real · Todo en un panel · Pagos seguros").
+5. **Grid de mercados** — reusa `markets-covered` (4 categorías con símbolos de ejemplo reales).
+6. **Sección plataforma / tecnología** — dos columnas: screenshot/mockup del dashboard + features
+   con checks + CTA contextual "Explorá la plataforma".
+7. **"¿Por qué elegirnos?"** — 4 pilares de confianza con señales **REALES**: datos por TradingView ·
+   pagos cifrados por Stripe · datos con RLS/seguridad · español primero. **Prohibido** inventar
+   sellos de regulador, certificaciones o cotización en bolsa que no existan.
+8. **Segmentación dual** — "¿Nuevo en los mercados?" (tono acompañante → plan Prueba / cómo funciona)
+   y "¿Ya seguís los mercados?" (tono de producto → dashboard / paneles), cada uno con su CTA.
+9. **Recursos** — SOLO enlaces reales (FAQ, /precios, cómo funciona). Nada de academia/webinars
+   falsos; si no hay contenido real, se omite el bloque.
+10. **Prueba social** — SOLO verificable (badges "Datos por TradingView" / "Pagos por Stripe"). Sin
+    premios, reseñas, testimonios ni cifras de usuarios inventados. Si no hay pruebas reales, se omite.
+11. **CTA de cierre** — embudo **numerado** "1. Registrate → 2. Elegí tu plan → 3. Visualizá los
+    mercados" + un CTA grande centrado. **Nunca** "Depositá → Operá".
+12. **Footer denso** — enlaces de producto/empresa/legal/soporte, entidad legal y avisos (según
+    datos reales del cliente cuando existan), medios de pago, copyright.
+
+**Términos PROHIBIDOS en toda la copy pública** (marco vigente, ver Anti-referencias): la palabra
+prohibida del dossier, "operá/operar", "invertí", "depositá/depósito", custodia, "protección de
+fondos", ejecución de órdenes, señales y toda promesa de rentabilidad. La honestidad es regla dura:
+persuadir con claridad, nunca ocultar ni fabricar.
+
+## Terminal display — layout de cockpit 3+1 (SOLO visualización / análisis)
+
+> Origen: `playbook-landing-conversion1.md` (Parte 2). Se adopta el **layout de terminal** del
+> sector, pero recortado a **visualización y análisis**. La capa de ejecución/dinero/custodia está
+> **ESTACIONADA** (ver `docs/decisiones/2026-07-04-giro-regulatorio.md`) y NO se construye aquí.
+
+Layout del dashboard (`/dashboard`) como cockpit, sobre lo existente (chart + watchlist + paneles):
+
+- **[A] Barra de estado (arriba, siempre visible)** — plan/sesión y accesos (Mi plan, ajustes,
+  salir). **NO** muestra Fondos/Equidad/Margen/P&L ni botón Depositar.
+- **[B] Panel izquierdo — navegador de mercados** — buscador instantáneo + categorías (Forex ·
+  Índices · Materias · Acciones · Cripto) + **watchlists con estrella ★**.
+- **[C] Centro — gráfico** — TradingView display-only (idealmente multi-gráfico / layout guardable),
+  con atribución visible.
+- **[D] Panel derecho — ANÁLISIS / NOTICIAS** — detalle del símbolo, añadir a watchlist, **crear
+  alerta de precio**, feed de noticias/calendario. **NUNCA** un ticket Comprar/Vender.
+- **[E] Pestañas inferiores — VISTAS** — Watchlist · Alertas · (historial de vistas). **NO**
+  Posiciones/Órdenes/Historial de operaciones.
+
+Reglas del shell: CSS Grid responsive, tema oscuro por defecto, Geist Mono en números, degradación
+limpia si un widget de terceros no carga, atribución TradingView donde aplique.
+
+**ESTACIONADO — NO se construye hasta cierre legal** (autorización de la licencia por escrito +
+compliance): ticket Comprar/Vender, botón Depositar, barra de Fondos/Equidad/Margen/P&L real,
+confirmar/ejecutar orden, 1-click dealing, stop-loss/take-profit de posiciones reales, custodia,
+señales de trading, bonos/referidos. Tampoco se implementan los **patrones oscuros** que el propio
+playbook señala (§9 + nota Parte 2): P&L verde/rojo como gancho de dopamina, riesgo reenmarcado como
+"protección", botón de depósito omnipresente con el aviso de riesgo enterrado.
