@@ -205,3 +205,37 @@ confirmar/ejecutar orden, 1-click dealing, stop-loss/take-profit de posiciones r
 señales de trading, bonos/referidos. Tampoco se implementan los **patrones oscuros** que el propio
 playbook señala (§9 + nota Parte 2): P&L verde/rojo como gancho de dopamina, riesgo reenmarcado como
 "protección", botón de depósito omnipresente con el aviso de riesgo enterrado.
+
+### Catálogo de widgets TradingView (display-only) del dashboard
+
+Todos gratuitos y oficiales de `s3.tradingview.com`, muestran datos y **ninguno permite operar**.
+Reglas: **lazy** (solo el panel/pestaña activo monta su script), **CSP sin ampliar**
+(s3.tradingview.com ya permitido, sin comodines nuevos), altura reservada (cero layout shift),
+degradación limpia, atribución TradingView visible.
+
+- Ya integrados: gráfico avanzado, ticker tape, heatmap de acciones, calendario económico, screener.
+- A anexar: heatmap de **cripto** (`crypto-coins-heatmap`), heatmap de **ETF** (`etf-heatmap`),
+  **forex** (`forex-heat-map` / `forex-cross-rates`), **market overview** (`market-overview`),
+  **noticias / timeline** (`timeline`), **análisis técnico** (`technical-analysis`) y **symbol info /
+  overview** (`symbol-info` / `symbol-overview`). El análisis técnico y el symbol info del cockpit se
+  atan al **símbolo activo** (al elegir símbolo en el navegador, el panel de análisis lo refleja).
+
+## Ajustes de taste (landing)
+
+> Auditoría con la skill Taste (anti-slop). Se aplican SOLO los tells puros de LLM; los patrones
+> estructurales del playbook de conversión (embudo numerado 01/02/03 y trío de valor) **se conservan**
+> por ser decisión de negocio, no un tell.
+
+Arreglos a aplicar en la landing:
+
+1. **Purga de em-dash (`—`)** en copy y comentarios → guión normal (`-`) o reescritura (es el tell
+   número uno de LLM según Taste).
+2. **Un solo label por intención de signup**: hoy hay 4 variantes ("Comienza ahora", "Crear cuenta",
+   "Crear mi cuenta", "Empezar con Prueba"); se unifica a **"Crear cuenta"** en toda la landing.
+3. **Trust-strip fuera del hero**: la fila de señales de confianza baja del hero a una franja/sección
+   propia debajo.
+4. **Reemplazo del mockup fake**: el terminal dibujado con `<div>`/SVG en la sección plataforma
+   (un "fake terminal" = tell) se reemplaza por un **embed REAL** de TradingView (display-only, lazy).
+
+Se **conservan** (no son tells, son el playbook): el embudo numerado del CTA de cierre y el trío de
+valor de 3 tarjetas.
