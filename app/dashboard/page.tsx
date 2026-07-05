@@ -15,7 +15,7 @@ import { TickerTape } from "@/components/dashboard/ticker-tape"
 
 export const metadata: Metadata = {
   title: "Mercados",
-  description: "Tu panel de visualización de mercados en tiempo real.",
+  description: "Tu terminal de mercados en tiempo real.",
 }
 
 export default async function DashboardPage() {

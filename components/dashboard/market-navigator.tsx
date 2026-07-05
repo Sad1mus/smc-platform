@@ -11,6 +11,7 @@ import {
 } from "lucide-react"
 
 import { cn } from "@/lib/utils"
+import { PanelHeader } from "@/components/dashboard/panel-header"
 
 /**
  * Navegador de mercados (spec §Terminal display [B]): buscador instantáneo +
@@ -66,54 +67,59 @@ export function MarketNavigator({
   }, [query])
 
   return (
-    <div className="border-border/60 bg-card/40 flex flex-col gap-3 rounded-xl border p-3">
-      <label className="relative block">
-        <Search
-          aria-hidden="true"
-          className="text-muted-foreground pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2"
-        />
-        <input
-          type="search"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Buscar símbolo…"
-          aria-label="Buscar mercado por símbolo"
-          className="border-border/60 bg-background/60 focus:ring-gold/40 w-full rounded-md border py-1.5 pr-2 pl-8 font-mono text-xs outline-none focus:ring-2"
-        />
-      </label>
+    <div className="border-border/60 bg-card/40 overflow-hidden rounded-md border">
+      <PanelHeader label="Mercados" />
+      <div className="flex flex-col gap-3 p-3">
+        <label className="relative block">
+          <Search
+            aria-hidden="true"
+            className="text-muted-foreground pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2"
+          />
+          <input
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Buscar símbolo…"
+            aria-label="Buscar mercado por símbolo"
+            className="border-border/60 bg-background/60 focus:ring-gold/40 w-full rounded-md border py-1.5 pr-2 pl-8 font-mono text-xs outline-none focus:ring-2"
+          />
+        </label>
 
-      <nav aria-label="Categorías de mercado" className="flex flex-col gap-3">
-        {filtered.map((cat) => (
-          <div key={cat.name}>
-            <div className="text-muted-foreground mb-1 flex items-center gap-1.5 px-1 text-[11px] font-medium tracking-wide uppercase">
-              <cat.icon aria-hidden="true" className="text-gold size-3" />
-              {cat.name}
+        <nav aria-label="Categorías de mercado" className="flex flex-col gap-3">
+          {filtered.map((cat) => (
+            <div key={cat.name}>
+              <div className="text-muted-foreground mb-1 flex items-center gap-1.5 px-1 text-[11px] font-medium tracking-wide uppercase">
+                <cat.icon aria-hidden="true" className="text-gold size-3" />
+                {cat.name}
+              </div>
+              <ul className="flex flex-col">
+                {cat.symbols.map((symbol) => (
+                  <li key={symbol}>
+                    <button
+                      type="button"
+                      onClick={() => onSelect(symbol)}
+                      aria-pressed={activeSymbol === symbol}
+                      className={cn(
+                        "hover:bg-secondary/60 w-full rounded px-2 py-1.5 text-left font-mono text-xs transition-colors",
+                        activeSymbol === symbol
+                          ? "bg-secondary text-foreground font-semibold"
+                          : "text-muted-foreground"
+                      )}
+                    >
+                      {symbol}
+                    </button>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <ul className="flex flex-col">
-              {cat.symbols.map((symbol) => (
-                <li key={symbol}>
-                  <button
-                    type="button"
-                    onClick={() => onSelect(symbol)}
-                    aria-pressed={activeSymbol === symbol}
-                    className={cn(
-                      "hover:bg-secondary/60 w-full rounded px-2 py-1.5 text-left font-mono text-xs transition-colors",
-                      activeSymbol === symbol
-                        ? "bg-secondary text-foreground font-semibold"
-                        : "text-muted-foreground"
-                    )}
-                  >
-                    {symbol}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-        {filtered.length === 0 ? (
-          <p className="text-muted-foreground px-1 text-xs">Sin resultados.</p>
-        ) : null}
-      </nav>
+          ))}
+          {filtered.length === 0 ? (
+            <p className="text-muted-foreground px-1 text-xs">
+              Sin resultados.
+            </p>
+          ) : null}
+        </nav>
+      </div>
     </div>
   )
 }

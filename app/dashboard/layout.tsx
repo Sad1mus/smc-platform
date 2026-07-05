@@ -26,7 +26,7 @@ export default async function DashboardLayout({
         <Logo href="/dashboard" className="px-3" />
         <SidebarNav />
         <p className="text-muted-foreground/60 mt-auto px-3 font-mono text-[11px] leading-relaxed">
-          Plataforma de visualización. No ejecuta órdenes.
+          Análisis de mercados. La ejecución es de los brokers socios regulados.
         </p>
       </aside>
 

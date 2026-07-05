@@ -6,6 +6,7 @@ import { MarketNavigator } from "@/components/dashboard/market-navigator"
 import { TradingViewChart } from "@/components/dashboard/tradingview-chart"
 import { WatchlistPanel } from "@/components/dashboard/watchlist-panel"
 import { TvWidget } from "@/components/dashboard/tv-widget"
+import { PanelHeader } from "@/components/dashboard/panel-header"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
@@ -47,15 +48,16 @@ export function TerminalCockpit({
       </div>
 
       {/* [C] Gráfico central */}
-      <div className="flex min-w-0 flex-col gap-3">
+      <div className="border-border/60 bg-card/40 flex min-w-0 flex-col overflow-hidden rounded-md border">
+        <PanelHeader
+          label="Gráfico"
+          hint={<span className="text-foreground">{activeSymbol}</span>}
+        />
         <div
           role="group"
           aria-label="Intervalo del gráfico"
-          className="flex flex-wrap items-center gap-1"
+          className="border-border/60 flex flex-wrap items-center gap-1 border-b px-2 py-1.5"
         >
-          <span className="text-muted-foreground mr-2 font-mono text-sm">
-            {activeSymbol}
-          </span>
           {INTERVALS.map((item) => (
             <Button
               key={item.value}
@@ -75,7 +77,9 @@ export function TerminalCockpit({
           ))}
         </div>
 
-        <TradingViewChart symbol={activeSymbol} interval={interval} />
+        <div className="min-w-0 p-2">
+          <TradingViewChart symbol={activeSymbol} interval={interval} />
+        </div>
       </div>
 
       {/* [D] Watchlist + análisis técnico del símbolo activo */}
@@ -86,18 +90,24 @@ export function TerminalCockpit({
           onSelect={setActiveSymbol}
         />
         {/* Análisis técnico atado al símbolo activo (display-only) */}
-        <TvWidget
-          widget="technical-analysis"
-          height={400}
-          title={`Análisis técnico de ${activeSymbol}`}
-          config={{
-            symbol: activeSymbol,
-            interval: "1D",
-            showIntervalTabs: true,
-            displayMode: "single",
-          }}
-          className="border-border/60 bg-card overflow-hidden rounded-lg border"
-        />
+        <div className="border-border/60 bg-card/40 overflow-hidden rounded-md border">
+          <PanelHeader
+            label="Análisis técnico"
+            hint={<span className="text-foreground">{activeSymbol}</span>}
+          />
+          <TvWidget
+            widget="technical-analysis"
+            height={400}
+            title={`Análisis técnico de ${activeSymbol}`}
+            config={{
+              symbol: activeSymbol,
+              interval: "1D",
+              showIntervalTabs: true,
+              displayMode: "single",
+            }}
+            className="bg-card"
+          />
+        </div>
       </div>
     </div>
   )
