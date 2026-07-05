@@ -225,6 +225,44 @@ export type Database = {
           },
         ]
       }
+      price_alerts: {
+        Row: {
+          active: boolean
+          created_at: string
+          direction: string
+          id: string
+          symbol: string
+          threshold: number
+          user_id: string
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          direction: string
+          id?: string
+          symbol: string
+          threshold: number
+          user_id: string
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          direction?: string
+          id?: string
+          symbol?: string
+          threshold?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "price_alerts_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       watchlists: {
         Row: {
           created_at: string
@@ -404,5 +442,6 @@ export type Plan = Tables<"plans">
 export type Subscription = Tables<"subscriptions">
 export type PaymentEvent = Tables<"payment_events">
 export type WatchlistItem = Tables<"watchlists">
+export type PriceAlert = Tables<"price_alerts">
 export type KycVerification = Tables<"kyc_verifications">
 export type KycStatus = Enums<"kyc_status">
