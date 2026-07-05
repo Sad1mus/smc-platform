@@ -1,13 +1,15 @@
 import type { Metadata } from "next"
 
 import { Plans } from "@/components/landing/plans"
+import { PlanComparison } from "@/components/pricing/plan-comparison"
+import { BillingFaq } from "@/components/pricing/billing-faq"
 import { SiteFooter } from "@/components/landing/site-footer"
 import { SiteHeader } from "@/components/landing/site-header"
 
 export const metadata: Metadata = {
   title: "Precios",
   description:
-    "Planes de acceso a SMC: visualización de mercados en tiempo real. Precios claros, sin permanencia.",
+    "Planes de acceso a SMC: visualización de mercados en tiempo real. Tabla comparativa de features y FAQ de facturación. Precios claros, sin permanencia.",
 }
 
 /**
@@ -29,6 +31,20 @@ export default function PreciosPage() {
           </p>
         </section>
         <Plans />
+        {/* Tabla comparativa de features (desde la tabla plans) */}
+        <section
+          aria-label="Tabla comparativa de planes"
+          className="py-16 md:py-20"
+        >
+          <PlanComparison />
+        </section>
+        {/* FAQ de facturación */}
+        <section
+          aria-label="Preguntas de facturación"
+          className="border-border/60 border-t py-16 md:py-20"
+        >
+          <BillingFaq />
+        </section>
       </main>
       <SiteFooter />
     </>
