@@ -82,8 +82,8 @@ Fases y checks verificables en `.claude/goal-queue-reskin.md`. Verificación loc
 
 ## 10. Giro "glass / futurista fluido" + motion 2026 (capa sobre el editorial — SOLO LANDING)
 
-**Contexto (recuperado tras corte de luz 2026-07-06):** la landing quedó demasiado **estática**, sin
-animaciones. Se decide un giro visual glass Apple / futurista fluido **encima** del reskin editorial,
+**Contexto:** la landing quedó demasiado **estática**, sin animaciones.
+Se decide un giro visual glass Apple / futurista fluido **encima** del reskin editorial,
 **acotado a la landing pública** — el dashboard/terminal se queda dark editorial (los embeds TradingView de
 altura fija y el cableado del cockpit no se tocan). Copy sigue **congelada** (diccionario i18n).
 
@@ -109,7 +109,7 @@ altura fija y el cableado del cockpit no se tocan). Copy sigue **congelada** (di
 - **Los claims.** Nada de "AI recommendations", "bank-level security", ni valores de portafolio como si se
   gestionara dinero. Display-only, sin "broker", sin promesa de rentabilidad, disclaimers y "by TradingView" intactos.
 
-**Estado al corte:** hero glass completo y coherente (`hero.tsx` + `hero-chart.tsx` + aurora en `globals.css`
-
-- Bricolage como `--font-display` en `layout.tsx` + `SectionReveal` en `page.tsx`). Build verde. Pendiente:
-  Lenis, upgrade de primitivas de motion, y propagar el lenguaje a las 13 secciones. Huérfano: `market-strip.tsx` (sin montar).
+**Estado:** implementado en la landing pública — hero glass (aurora + panel del gráfico real con parallax),
+Lenis smooth-scroll scopeado, reveal/cascada por sección, count-up en `stats-strip`, nav píldora y footer
+flotante. Primitivas en `components/motion/*`. Paleta glass en `.landing-editorial` (`app/globals.css`).
+Copy congelada, "by TradingView" y disclaimers intactos, `prefers-reduced-motion` respetado.
