@@ -13,27 +13,56 @@ import { Resources } from "@/components/landing/resources"
 import { Faq } from "@/components/landing/faq"
 import { ClosingCta } from "@/components/landing/closing-cta"
 import { SiteFooter } from "@/components/landing/site-footer"
+import { SectionReveal } from "@/components/landing/section-reveal"
+import { SmoothScroll } from "@/components/motion/smooth-scroll"
 
 export default function HomePage() {
   return (
-    <>
-      <SiteHeader />
-      <main className="flex-1">
-        <Hero />
-        <TrustStrip />
-        <StatsStrip />
-        <ValueTrio />
-        <HowItWorks />
-        <MarketsCovered />
-        <PlatformSection />
-        <WhyUs />
-        <Plans />
-        <Segments />
-        <Resources />
-        <Faq />
-        <ClosingCta />
-      </main>
-      <SiteFooter />
-    </>
+    <SmoothScroll>
+      <div className="landing-editorial flex flex-1 flex-col">
+        <SiteHeader />
+        <main className="flex-1">
+          {/* El hero tiene su propia animación de carga; el resto se revela al scrollear */}
+          <Hero />
+          <SectionReveal>
+            <TrustStrip />
+          </SectionReveal>
+          <SectionReveal>
+            <StatsStrip />
+          </SectionReveal>
+          <SectionReveal>
+            <ValueTrio />
+          </SectionReveal>
+          <SectionReveal>
+            <HowItWorks />
+          </SectionReveal>
+          <SectionReveal>
+            <MarketsCovered />
+          </SectionReveal>
+          <SectionReveal>
+            <PlatformSection />
+          </SectionReveal>
+          <SectionReveal>
+            <WhyUs />
+          </SectionReveal>
+          <SectionReveal>
+            <Plans />
+          </SectionReveal>
+          <SectionReveal>
+            <Segments />
+          </SectionReveal>
+          <SectionReveal>
+            <Resources />
+          </SectionReveal>
+          <SectionReveal>
+            <Faq />
+          </SectionReveal>
+          <SectionReveal>
+            <ClosingCta />
+          </SectionReveal>
+        </main>
+        <SiteFooter />
+      </div>
+    </SmoothScroll>
   )
 }

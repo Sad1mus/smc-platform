@@ -15,10 +15,7 @@ export async function TrustStrip() {
   ]
 
   return (
-    <section
-      aria-label={t.trustStrip.execution}
-      className="border-border/60 border-t"
-    >
+    <section aria-label={t.trustStrip.execution}>
       <ul className="text-muted-foreground mx-auto flex max-w-6xl flex-col items-center gap-x-8 gap-y-3 px-4 py-6 text-sm sm:flex-row sm:flex-wrap sm:justify-center md:px-6">
         {items.map((item) => (
           <li key={item.label} className="flex items-center gap-2">

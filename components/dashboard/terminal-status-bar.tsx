@@ -74,7 +74,7 @@ export function TerminalStatusBar({ planName }: { planName: string | null }) {
     : "--:--:--"
 
   return (
-    <div className="border-border/60 bg-card/40 flex flex-wrap items-center gap-x-5 gap-y-2 rounded-md border px-3 py-2 font-mono text-xs">
+    <div className="border-border/60 bg-card/40 flex flex-wrap items-center gap-x-5 gap-y-2 rounded-md border border-dashed px-3 py-2 font-mono text-xs">
       {/* Indicador de feed en vivo */}
       <span className="flex items-center gap-1.5">
         <span className="relative flex size-2">

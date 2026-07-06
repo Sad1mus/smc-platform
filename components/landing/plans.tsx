@@ -6,6 +6,7 @@ import { getDictionary } from "@/lib/i18n/server"
 import type { Plan } from "@/types/database"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { RevealGroup, RevealItem } from "@/components/motion/reveal"
 import { cn } from "@/lib/utils"
 
 /** Formatea el precio del plan en USD (los precios vienen del dossier). */
@@ -32,10 +33,10 @@ export async function Plans() {
   const mainPlans = plans.filter((p) => p.id !== "prueba")
 
   return (
-    <section id="planes" className="border-border/60 scroll-mt-14 border-t">
+    <section id="planes" className="scroll-mt-14">
       <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
-        <div className="max-w-xl">
-          <h2 className="text-2xl font-bold tracking-tight md:text-3xl">
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="text-h2 font-bold tracking-tight">
             {t.plans.heading}
           </h2>
           <p className="text-muted-foreground mt-3 leading-relaxed">
@@ -43,77 +44,78 @@ export async function Plans() {
           </p>
         </div>
 
-        <div className="mt-12 grid gap-4 md:grid-cols-3">
+        <RevealGroup className="mt-12 grid gap-6 md:grid-cols-3">
           {mainPlans.map((plan) => {
             const isVip = plan.id === "vip"
             return (
-              <article
-                key={plan.id}
-                className={cn(
-                  "bg-card relative flex flex-col gap-5 rounded-xl border p-6 transition-all duration-200 ease-out",
-                  isVip
-                    ? "border-gold/50 shadow-gold/20 shadow-[0_0_40px_-12px]"
-                    : "hover:border-border hover:-translate-y-0.5"
-                )}
-              >
-                {isVip ? (
-                  <Badge className="bg-gold text-gold-foreground absolute -top-2.5 right-4">
-                    Premium
-                  </Badge>
-                ) : null}
-                <header className="flex flex-col gap-1">
-                  <h3 className="text-muted-foreground text-sm font-medium tracking-wide uppercase">
-                    {plan.name}
-                  </h3>
-                  <p className="flex items-baseline gap-1">
-                    <span className="font-mono text-3xl font-bold tracking-tight">
-                      {formatPrice(plan)}
-                    </span>
-                    {!plan.is_custom ? (
-                      <span className="text-muted-foreground text-sm">USD</span>
-                    ) : null}
-                  </p>
-                  {plan.description ? (
-                    <p className="text-muted-foreground mt-1 text-sm leading-relaxed">
-                      {plan.description}
-                    </p>
-                  ) : null}
-                </header>
-                <ul className="flex flex-1 flex-col gap-2.5">
-                  {planFeatures(plan).map((feature) => (
-                    <li
-                      key={feature}
-                      className="flex items-start gap-2 text-sm"
-                    >
-                      <Check
-                        aria-hidden="true"
-                        className="text-gold mt-0.5 size-4 shrink-0"
-                      />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                <Button
-                  asChild
-                  variant={isVip ? "default" : "outline"}
-                  className="w-full"
+              <RevealItem key={plan.id}>
+                <article
+                  className={cn(
+                    "glass-card relative flex h-full w-full flex-col gap-5 p-7",
+                    isVip && "ring-2 ring-[#3E72F7]/60"
+                  )}
                 >
-                  <Link
-                    href={
-                      plan.is_custom
-                        ? "/registro?plan=vip"
-                        : `/registro?plan=${plan.id}`
-                    }
+                  {isVip ? (
+                    <Badge className="absolute -top-2.5 right-4 bg-gradient-to-b from-[#3E72F7] to-[#2350E8] text-white">
+                      Premium
+                    </Badge>
+                  ) : null}
+                  <header className="flex flex-col gap-1">
+                    <h3 className="text-muted-foreground text-sm font-medium tracking-wide uppercase">
+                      {plan.name}
+                    </h3>
+                    <p className="flex items-baseline gap-1">
+                      <span className="font-mono text-3xl font-bold tracking-tight">
+                        {formatPrice(plan)}
+                      </span>
+                      {!plan.is_custom ? (
+                        <span className="text-muted-foreground text-sm">
+                          USD
+                        </span>
+                      ) : null}
+                    </p>
+                    {plan.description ? (
+                      <p className="text-muted-foreground mt-1 text-sm leading-relaxed">
+                        {plan.description}
+                      </p>
+                    ) : null}
+                  </header>
+                  <ul className="flex flex-1 flex-col gap-2.5">
+                    {planFeatures(plan).map((feature) => (
+                      <li
+                        key={feature}
+                        className="flex items-start gap-2 text-sm"
+                      >
+                        <Check
+                          aria-hidden="true"
+                          className="text-gold mt-0.5 size-4 shrink-0"
+                        />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                  <Button
+                    asChild
+                    variant={isVip ? "gold" : "outline"}
+                    className="w-full"
                   >
-                    {plan.is_custom
-                      ? t.cta.talkToUs
-                      : `${t.plans.choose} ${plan.name}`}
-                  </Link>
-                </Button>
-              </article>
+                    <Link
+                      href={
+                        plan.is_custom
+                          ? "/registro?plan=vip"
+                          : `/registro?plan=${plan.id}`
+                      }
+                    >
+                      {plan.is_custom
+                        ? t.cta.talkToUs
+                        : `${t.plans.choose} ${plan.name}`}
+                    </Link>
+                  </Button>
+                </article>
+              </RevealItem>
             )
           })}
-        </div>
+        </RevealGroup>
 
         {trial ? (
           <aside className="bg-primary text-primary-foreground mt-6 flex flex-col items-start justify-between gap-4 rounded-xl p-6 sm:flex-row sm:items-center">

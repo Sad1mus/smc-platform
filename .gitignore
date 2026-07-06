@@ -48,3 +48,4 @@ next-env.d.ts
 
 # capturas de diseño
 /screenshots/
+/.redesign-review/

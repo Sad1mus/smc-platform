@@ -61,7 +61,7 @@ function TradingViewChartInner({ symbol, interval }: TradingViewChartProps) {
       <div
         ref={containerRef}
         data-testid="tradingview-container"
-        className="tradingview-widget-container border-border/60 bg-card min-h-0 flex-1 overflow-hidden rounded-lg border"
+        className="tradingview-widget-container border-border/60 bg-card min-h-0 flex-1 overflow-hidden rounded-lg border border-dashed"
       />
       <figcaption className="text-muted-foreground text-right font-mono text-xs">
         Gráficos{" "}

@@ -27,7 +27,7 @@ export function TickerTape() {
       config={TICKER_CONFIG}
       height={46}
       title="Cinta de precios"
-      className="border-border/60 bg-card overflow-hidden rounded-lg border"
+      className="border-border/60 bg-card overflow-hidden rounded-lg border border-dashed"
     />
   )
 }

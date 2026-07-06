@@ -68,16 +68,14 @@ export async function PlanComparison() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 md:px-6">
-      <h2 className="text-2xl font-bold tracking-tight md:text-3xl">
-        Tabla comparativa
-      </h2>
+      <h2 className="text-h2 font-bold tracking-tight">Tabla comparativa</h2>
       <p className="text-muted-foreground mt-3 leading-relaxed">
         Qué incluye cada plan, en detalle.
       </p>
-      <div className="border-border/60 mt-8 overflow-x-auto rounded-xl border">
+      <div className="border-border mt-8 overflow-x-auto rounded-lg border border-dashed">
         <table className="w-full min-w-[560px] border-collapse text-sm">
           <thead>
-            <tr className="border-border/60 border-b">
+            <tr className="border-border/70 border-b border-dashed">
               <th
                 scope="col"
                 className="text-muted-foreground p-4 text-left font-medium"
@@ -91,7 +89,7 @@ export async function PlanComparison() {
                   className="p-4 text-center font-semibold"
                 >
                   <span className="block">{plan.name}</span>
-                  <span className="text-gold block font-mono text-xs font-normal">
+                  <span className="text-gold block font-mono text-xs font-normal tabular-nums">
                     {formatPrice(plan)}
                   </span>
                 </th>
@@ -102,7 +100,7 @@ export async function PlanComparison() {
             {rows.map((feature) => (
               <tr
                 key={feature}
-                className="border-border/60 border-b last:border-b-0"
+                className="border-border/60 border-b border-dashed last:border-b-0"
               >
                 <th
                   scope="row"

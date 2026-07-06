@@ -122,7 +122,7 @@ export default async function AdminPage() {
       </p>
 
       {/* Distribución por plan */}
-      <Card>
+      <Card variant="hairline">
         <CardHeader>
           <CardTitle className="text-base">
             {t.admin.planDistribution}
@@ -145,7 +145,7 @@ export default async function AdminPage() {
       </Card>
 
       {/* Usuarios */}
-      <Card>
+      <Card variant="hairline">
         <CardHeader>
           <CardTitle>{t.admin.usersTitle}</CardTitle>
           <CardDescription>
@@ -157,7 +157,7 @@ export default async function AdminPage() {
             <p className="text-muted-foreground text-sm">{t.admin.empty}</p>
           ) : (
             <table className="w-full text-sm">
-              <thead className="text-muted-foreground border-border/60 border-b text-left font-mono text-xs uppercase">
+              <thead className="text-muted-foreground border-border/60 border-b border-dashed text-left font-mono text-xs uppercase">
                 <tr>
                   <th className="py-2 pr-4">{t.admin.colEmail}</th>
                   <th className="py-2 pr-4">{t.admin.colName}</th>
@@ -169,7 +169,7 @@ export default async function AdminPage() {
                 {users.map((u) => (
                   <tr
                     key={u.id}
-                    className="border-border/40 border-b last:border-0"
+                    className="border-border/40 border-b border-dashed last:border-0"
                   >
                     <td className="py-2 pr-4 font-mono text-xs">{u.email}</td>
                     <td className="py-2 pr-4">{u.full_name ?? "—"}</td>
@@ -186,7 +186,7 @@ export default async function AdminPage() {
       </Card>
 
       {/* Suscripciones */}
-      <Card>
+      <Card variant="hairline">
         <CardHeader>
           <CardTitle>{t.admin.subsTitle}</CardTitle>
           <CardDescription>
@@ -198,7 +198,7 @@ export default async function AdminPage() {
             <p className="text-muted-foreground text-sm">{t.admin.empty}</p>
           ) : (
             <table className="w-full text-sm">
-              <thead className="text-muted-foreground border-border/60 border-b text-left font-mono text-xs uppercase">
+              <thead className="text-muted-foreground border-border/60 border-b border-dashed text-left font-mono text-xs uppercase">
                 <tr>
                   <th className="py-2 pr-4">{t.admin.colUser}</th>
                   <th className="py-2 pr-4">{t.admin.colPlan}</th>
@@ -211,7 +211,7 @@ export default async function AdminPage() {
                 {subs.map((s) => (
                   <tr
                     key={s.id}
-                    className="border-border/40 border-b last:border-0"
+                    className="border-border/40 border-b border-dashed last:border-0"
                   >
                     <td className="py-2 pr-4 font-mono text-[11px]">
                       {s.user_id}
@@ -233,7 +233,7 @@ export default async function AdminPage() {
       </Card>
 
       {/* Pagos */}
-      <Card>
+      <Card variant="hairline">
         <CardHeader>
           <CardTitle>{t.admin.paymentsTitle}</CardTitle>
           <CardDescription>
@@ -251,7 +251,7 @@ export default async function AdminPage() {
             <p className="text-muted-foreground text-sm">{t.admin.empty}</p>
           ) : (
             <table className="w-full text-sm">
-              <thead className="text-muted-foreground border-border/60 border-b text-left font-mono text-xs uppercase">
+              <thead className="text-muted-foreground border-border/60 border-b border-dashed text-left font-mono text-xs uppercase">
                 <tr>
                   <th className="py-2 pr-4">{t.admin.colType}</th>
                   <th className="py-2 pr-4">{t.admin.colEvent}</th>
@@ -263,7 +263,7 @@ export default async function AdminPage() {
                 {payments.map((p) => (
                   <tr
                     key={p.stripe_event_id}
-                    className="border-border/40 border-b last:border-0"
+                    className="border-border/40 border-b border-dashed last:border-0"
                   >
                     <td className="py-2 pr-4 font-mono text-xs">
                       {p.event_type}
@@ -286,7 +286,7 @@ export default async function AdminPage() {
       </Card>
 
       {/* Alertas de precio */}
-      <Card>
+      <Card variant="hairline">
         <CardHeader>
           <CardTitle>{t.admin.alertsTitle}</CardTitle>
           <CardDescription>
@@ -302,9 +302,9 @@ export default async function AdminPage() {
 
 function Metric({ label, value }: { label: string; value: string }) {
   return (
-    <Card>
+    <Card variant="hairline">
       <CardContent className="flex flex-col gap-1 p-4">
-        <span className="text-gold font-mono text-2xl font-bold tracking-tight">
+        <span className="text-gold font-mono text-2xl font-bold tracking-tight tabular-nums">
           {value}
         </span>
         <span className="text-muted-foreground text-xs">{label}</span>

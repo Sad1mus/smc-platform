@@ -24,7 +24,7 @@ export function ForgotPasswordForm() {
   )
 
   return (
-    <Card>
+    <Card variant="hairline">
       <CardHeader className="text-center">
         <CardTitle className="text-xl">Recupera tu contraseña</CardTitle>
         <CardDescription>

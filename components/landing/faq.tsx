@@ -14,21 +14,19 @@ export async function Faq() {
   const { t } = await getDictionary()
 
   return (
-    <section id="faq" className="border-border/60 scroll-mt-14 border-t">
+    <section id="faq" className="scroll-mt-14">
       <div className="mx-auto max-w-3xl px-4 py-16 md:px-6 md:py-24">
-        <div className="max-w-xl">
-          <h2 className="text-2xl font-bold tracking-tight md:text-3xl">
-            {t.faq.heading}
-          </h2>
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="text-h2 font-bold tracking-tight">{t.faq.heading}</h2>
           <p className="text-muted-foreground mt-3 leading-relaxed">
             {t.faq.subtitle}
           </p>
         </div>
-        <div className="divide-border/60 mt-10 divide-y overflow-hidden rounded-xl border">
+        <div className="glass-card mt-10 divide-y divide-[rgba(30,55,120,0.1)] overflow-hidden">
           {t.faq.items.map((faq) => (
             <details
               key={faq.q}
-              className="group bg-card [&_summary]:hover:bg-secondary/40"
+              className="group [&_summary]:hover:bg-white/40"
             >
               <summary className="flex cursor-pointer items-center justify-between gap-4 p-5 font-medium transition-colors duration-200 marker:content-none [&::-webkit-details-marker]:hidden">
                 {faq.q}

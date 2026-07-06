@@ -25,11 +25,11 @@ export function Features() {
   return (
     <section
       id="caracteristicas"
-      className="border-border/60 scroll-mt-14 border-t"
+      className="border-border/60 scroll-mt-14 border-t border-dashed"
     >
       <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
         <div className="max-w-xl">
-          <h2 className="text-2xl font-bold tracking-tight md:text-3xl">
+          <h2 className="text-h2 font-bold tracking-tight">
             Una sala de mercados en tu navegador
           </h2>
           <p className="text-muted-foreground mt-3 leading-relaxed">

@@ -41,7 +41,7 @@ export default async function PreciosPage() {
         {/* FAQ de facturación */}
         <section
           aria-label={t.faq.heading}
-          className="border-border/60 border-t py-16 md:py-20"
+          className="border-border/60 border-t border-dashed py-16 md:py-20"
         >
           <BillingFaq />
         </section>

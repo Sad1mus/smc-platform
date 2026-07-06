@@ -13,7 +13,7 @@ export function PanelHeader({
   hint?: ReactNode
 }) {
   return (
-    <div className="border-border/60 bg-background/40 flex items-center justify-between gap-2 border-b px-3 py-1.5">
+    <div className="border-border/60 bg-background/40 flex items-center justify-between gap-2 border-b border-dashed px-3 py-1.5">
       <span className="text-muted-foreground flex items-center gap-1.5 font-mono text-[11px] tracking-wider uppercase">
         <span className="bg-gold/70 size-1.5 rounded-full" aria-hidden />
         {label}

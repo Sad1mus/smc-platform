@@ -54,7 +54,7 @@ export function WatchlistPanel({
   return (
     <section
       aria-label="Mi lista de símbolos"
-      className="border-border/60 bg-card overflow-hidden rounded-md border"
+      className="border-border/60 bg-card overflow-hidden rounded-md border border-dashed"
     >
       <PanelHeader
         label="Mi lista"

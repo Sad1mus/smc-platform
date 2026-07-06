@@ -17,7 +17,7 @@ export function PlanCheckoutButton({
 }: {
   planId: string
   planName: string
-  variant?: "default" | "outline" | "secondary"
+  variant?: "default" | "outline" | "secondary" | "gold"
 }) {
   const [pending, startTransition] = useTransition()
 

@@ -21,10 +21,10 @@ export async function PlatformSection() {
   const { t } = await getDictionary()
 
   return (
-    <section id="plataforma" className="border-border/60 scroll-mt-14 border-t">
+    <section id="plataforma" className="scroll-mt-14">
       <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 md:grid-cols-2 md:px-6 md:py-24">
         <div>
-          <h2 className="text-2xl font-bold tracking-tight md:text-3xl">
+          <h2 className="text-h2 font-bold tracking-tight">
             {t.platform.heading}
           </h2>
           <p className="text-muted-foreground mt-3 leading-relaxed">
@@ -50,10 +50,7 @@ export async function PlatformSection() {
         </div>
         <div className="order-first md:order-last">
           {/* Embed REAL de TradingView, montado solo al entrar en viewport */}
-          <LazyMount
-            height={360}
-            className="border-border/60 bg-card/60 overflow-hidden rounded-xl border shadow-xl"
-          >
+          <LazyMount height={360} className="glass-card overflow-hidden">
             <TvWidget
               widget="symbol-overview"
               height={360}

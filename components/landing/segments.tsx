@@ -2,6 +2,7 @@ import Link from "next/link"
 import { Sprout, Gauge } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
+import { RevealCascade } from "@/components/motion/reveal-cascade"
 import { getDictionary } from "@/lib/i18n/server"
 
 /**
@@ -13,14 +14,13 @@ export async function Segments() {
   const { t } = await getDictionary()
 
   return (
-    <section
-      aria-label={t.segments.novice.title}
-      className="border-border/60 border-t"
-    >
-      <div className="mx-auto grid max-w-6xl gap-px overflow-hidden px-4 py-16 md:grid-cols-2 md:px-6 md:py-24">
+    <section aria-label={t.segments.novice.title}>
+      <RevealCascade className="mx-auto grid max-w-6xl gap-5 px-4 py-16 md:grid-cols-2 md:px-6 md:py-24">
         {/* Novato */}
-        <div className="bg-card flex flex-col gap-4 rounded-l-xl border p-8">
-          <Sprout aria-hidden="true" className="text-gold size-6" />
+        <div className="glass-card flex w-full flex-col gap-4 p-8">
+          <span className="inline-flex size-12 items-center justify-center rounded-xl bg-gradient-to-b from-[#3E72F7] to-[#2350E8] shadow-[0_8px_20px_-6px_rgba(35,80,232,0.6),inset_0_1px_0_rgba(255,255,255,0.45)]">
+            <Sprout aria-hidden="true" className="size-6 text-white" />
+          </span>
           <h3 className="text-xl font-semibold">{t.segments.novice.title}</h3>
           <p className="text-muted-foreground text-sm leading-relaxed">
             {t.segments.novice.description}
@@ -36,8 +36,10 @@ export async function Segments() {
         </div>
 
         {/* Experimentado */}
-        <div className="bg-card flex flex-col gap-4 rounded-r-xl border border-l-0 p-8">
-          <Gauge aria-hidden="true" className="text-gold size-6" />
+        <div className="glass-card flex w-full flex-col gap-4 p-8">
+          <span className="inline-flex size-12 items-center justify-center rounded-xl bg-gradient-to-b from-[#3E72F7] to-[#2350E8] shadow-[0_8px_20px_-6px_rgba(35,80,232,0.6),inset_0_1px_0_rgba(255,255,255,0.45)]">
+            <Gauge aria-hidden="true" className="size-6 text-white" />
+          </span>
           <h3 className="text-xl font-semibold">{t.segments.pro.title}</h3>
           <p className="text-muted-foreground text-sm leading-relaxed">
             {t.segments.pro.description}
@@ -51,7 +53,7 @@ export async function Segments() {
             </Button>
           </div>
         </div>
-      </div>
+      </RevealCascade>
     </section>
   )
 }

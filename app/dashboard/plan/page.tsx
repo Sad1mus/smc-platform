@@ -81,7 +81,7 @@ export default async function PlanPage({
 
       {/* Suscripción actual */}
       {subscription ? (
-        <Card>
+        <Card variant="hairline">
           <CardHeader>
             <div className="flex items-center justify-between gap-4">
               <div>
@@ -108,7 +108,7 @@ export default async function PlanPage({
       ) : (
         <>
           {!stripeReady ? (
-            <Card>
+            <Card variant="hairline">
               <CardHeader>
                 <CardTitle>Pagos en preparación</CardTitle>
                 <CardDescription>
@@ -124,10 +124,14 @@ export default async function PlanPage({
             {(plans ?? [])
               .filter((plan) => !plan.is_custom)
               .map((plan) => (
-                <Card key={plan.id} className="flex flex-col">
+                <Card
+                  key={plan.id}
+                  variant="hairline"
+                  className="flex flex-col"
+                >
                   <CardHeader>
                     <CardTitle className="text-base">{plan.name}</CardTitle>
-                    <p className="font-mono text-2xl font-bold tracking-tight">
+                    <p className="font-mono text-2xl font-bold tracking-tight tabular-nums">
                       {formatPrice(plan)}
                     </p>
                     <CardDescription>{plan.description}</CardDescription>
@@ -136,7 +140,7 @@ export default async function PlanPage({
                     <PlanCheckoutButton
                       planId={plan.id}
                       planName={plan.name}
-                      variant={plan.id === "plata" ? "default" : "outline"}
+                      variant={plan.id === "plata" ? "gold" : "outline"}
                     />
                   </CardContent>
                 </Card>

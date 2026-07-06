@@ -46,15 +46,15 @@ export function HeaderChrome({
   }, [])
 
   return (
-    <header
-      className={cn(
-        "bg-background/80 sticky top-0 z-40 backdrop-blur-md transition-shadow duration-200",
-        scrolled
-          ? "border-border/60 border-b shadow-sm"
-          : "border-b border-transparent"
-      )}
-    >
-      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 md:px-6">
+    <header className="sticky top-0 z-40 px-3 pt-3 md:pt-4">
+      <div
+        className={cn(
+          "mx-auto flex h-14 max-w-5xl items-center justify-between gap-4 rounded-full border border-white/60 py-2 pr-2 pl-4 backdrop-blur-xl transition-all duration-300 md:pl-6",
+          scrolled
+            ? "bg-white/70 shadow-[0_20px_44px_-24px_rgba(28,52,120,0.55)]"
+            : "bg-white/45 shadow-[0_14px_36px_-26px_rgba(28,52,120,0.45)]"
+        )}
+      >
         <div className="flex items-center gap-8">
           <Logo />
           <nav className="hidden items-center gap-6 md:flex">
@@ -105,10 +105,10 @@ export function HeaderChrome({
         </div>
       </div>
 
-      {/* Panel móvil desplegable */}
+      {/* Panel móvil desplegable — card glass flotante bajo la píldora */}
       {open ? (
-        <nav className="border-border/60 bg-background/95 border-t backdrop-blur-md md:hidden">
-          <ul className="mx-auto flex max-w-6xl flex-col px-4 py-2">
+        <nav className="mx-auto mt-2 max-w-5xl rounded-2xl border border-white/60 bg-white/75 shadow-[0_24px_50px_-28px_rgba(28,52,120,0.5)] backdrop-blur-xl md:hidden">
+          <ul className="flex flex-col px-4 py-2">
             {NAV.map((item) => (
               <li key={item.href}>
                 <Link

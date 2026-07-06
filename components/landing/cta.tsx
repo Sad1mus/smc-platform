@@ -9,14 +9,14 @@ import { Button } from "@/components/ui/button"
  */
 export function Cta() {
   return (
-    <section className="border-border/60 border-t">
+    <section className="border-border/60 border-t border-dashed">
       <div className="relative mx-auto max-w-6xl overflow-hidden px-4 py-20 text-center md:px-6 md:py-28">
         <div
           aria-hidden="true"
           className="bg-gold/10 pointer-events-none absolute top-1/2 left-1/2 h-[320px] w-[560px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[120px]"
         />
         <div className="relative mx-auto flex max-w-2xl flex-col items-center gap-6">
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+          <h2 className="text-h1 font-bold tracking-tight">
             Tus mercados, en una sola pantalla
           </h2>
           <p className="text-muted-foreground max-w-xl leading-relaxed">

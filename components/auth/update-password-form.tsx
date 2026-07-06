@@ -23,7 +23,7 @@ export function UpdatePasswordForm() {
   )
 
   return (
-    <Card>
+    <Card variant="hairline">
       <CardHeader className="text-center">
         <CardTitle className="text-xl">Nueva contraseña</CardTitle>
         <CardDescription>Define tu nueva contraseña de acceso</CardDescription>

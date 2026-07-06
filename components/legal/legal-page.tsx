@@ -18,10 +18,11 @@ export function LegalPage({
       <SiteHeader />
       <main className="flex-1">
         <article className="mx-auto w-full max-w-3xl px-4 py-16 md:px-6">
-          <h1 className="text-2xl font-semibold tracking-tight">{title}</h1>
-          <p className="text-muted-foreground/70 mt-2 mb-10 font-mono text-xs">
+          <h1 className="text-h2 font-semibold tracking-tight">{title}</h1>
+          <p className="text-muted-foreground/70 mt-2 font-mono text-xs">
             Documento provisional · pendiente de los datos legales del cliente.
           </p>
+          <div className="border-border/60 mt-6 mb-10 border-t border-dashed" />
           <div className="text-muted-foreground flex flex-col gap-6 text-sm leading-relaxed">
             {children}
           </div>

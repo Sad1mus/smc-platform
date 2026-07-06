@@ -62,6 +62,23 @@ responde 200 sin reprocesar. Maneja `checkout.session.completed`, `invoice.paid`
 
 Código nuevo que dependa de un servicio externo debería degradar igual, no romper el build/dev.
 
+## Despliegue en la infra del cliente (Supabase + Vercel)
+
+Esto corre en cuentas del **cliente (smartmoney4)**, no del dev. Los valores viven en `.env.local`
+(gitignored) y en las env vars de Vercel; acá quedan los identificadores no obvios para no apuntar al lugar equivocado.
+
+- **Supabase — org `asscxxyvtsefspimrmdv`.** Hay **dos** proyectos y es fácil confundirlos:
+  - `czpegpattyvspxjigvij` — **"smc-platform", ACTIVE_HEALTHY, región `us-east-1`. ESTE es el de prod.**
+  - `wtxxapniroedkmxjvvuw` — "smartmoney4's Project", **INACTIVE**. Legacy, **no usar**.
+  - Las migraciones versionadas en `supabase/migrations/` son la fuente de verdad del schema; se aplican
+    sobre el proyecto activo. No editar tablas a mano en el dashboard sin una migración que lo respalde.
+- **Vercel — team `team_2FhhLxxrmRoKhTFnKbATBOG3`, proyecto `smc-platform` (`prj_3436K4h7ygqw4d69AeEtdYsgHN9T`),
+  región `iad1`** (ver `.vercel/project.json` + `vercel.json`). El `hopibon-web` del mismo team es otro proyecto, ignoralo.
+- **Dos remotes git — confirmá a cuál pusheás:** `origin` = `Sad1mus/smc-platform` (dev),
+  `client` = `smartmoney4/smc-platform` (cliente). El deploy de Vercel del cliente sigue el remote del cliente.
+- Las env vars de prod (Supabase URL/keys, Stripe, Resend, Sentry, flags) se setean en Vercel, no en el repo.
+  El set completo y su semántica está en `.env.example`; `preflight.mjs` (abajo) valida que estén todas.
+
 ## Go-live gate
 
 `node scripts/preflight.mjs` valida que todas las vars de `.env.example` estén presentes y que

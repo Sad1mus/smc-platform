@@ -28,7 +28,7 @@ export function LoginForm() {
   const error = state.error ?? urlError
 
   return (
-    <Card>
+    <Card variant="hairline">
       <CardHeader className="text-center">
         <CardTitle className="text-xl">Inicia sesión</CardTitle>
         <CardDescription>

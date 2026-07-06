@@ -23,7 +23,7 @@ export function RegisterForm() {
 
   if (state.success) {
     return (
-      <Card>
+      <Card variant="hairline">
         <CardHeader className="text-center">
           <CardTitle className="text-xl">Confirma tu correo</CardTitle>
           <CardDescription data-testid="register-success">
@@ -40,7 +40,7 @@ export function RegisterForm() {
   }
 
   return (
-    <Card>
+    <Card variant="hairline">
       <CardHeader className="text-center">
         <CardTitle className="text-xl">Crea tu cuenta</CardTitle>
         <CardDescription>

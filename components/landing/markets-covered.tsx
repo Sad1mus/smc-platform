@@ -7,6 +7,7 @@ import {
   Layers,
 } from "lucide-react"
 
+import { RevealCascade } from "@/components/motion/reveal-cascade"
 import { getDictionary } from "@/lib/i18n/server"
 
 /**
@@ -47,33 +48,38 @@ export async function MarketsCovered() {
   const { t } = await getDictionary()
 
   return (
-    <section id="mercados" className="border-border/60 scroll-mt-14 border-t">
+    <section
+      id="mercados"
+      className="border-border/60 scroll-mt-14 border-t border-dashed"
+    >
       <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
-        <div className="max-w-xl">
-          <h2 className="text-2xl font-bold tracking-tight md:text-3xl">
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="text-h2 font-bold tracking-tight">
             {t.markets.heading}
           </h2>
           <p className="text-muted-foreground mt-3 leading-relaxed">
             {t.markets.subtitle}
           </p>
         </div>
-        <div className="mt-12 grid gap-px overflow-hidden rounded-xl border sm:grid-cols-2 lg:grid-cols-3">
+        <RevealCascade className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {CATEGORIES.map((category) => {
             const copy = t.markets.items[category.id]
             return (
               <article
                 key={category.id}
-                className="bg-card group hover:bg-secondary/60 flex flex-col gap-3 p-6 transition-colors duration-200"
+                className="glass-card group flex w-full flex-col gap-3 p-7"
               >
-                <category.icon
-                  aria-hidden="true"
-                  className="text-gold size-5 transition-transform duration-200 ease-out group-hover:scale-110"
-                />
+                <span className="mb-1 inline-flex size-11 items-center justify-center rounded-xl bg-gradient-to-b from-[#3E72F7] to-[#2350E8] shadow-[0_8px_20px_-6px_rgba(35,80,232,0.6),inset_0_1px_0_rgba(255,255,255,0.45)]">
+                  <category.icon
+                    aria-hidden="true"
+                    className="size-5 text-white transition-transform duration-200 ease-out group-hover:scale-110"
+                  />
+                </span>
                 <h3 className="font-semibold">{copy.name}</h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">
                   {copy.description}
                 </p>
-                <ul className="border-border/60 mt-1 flex flex-col gap-1 border-t pt-3 font-mono text-xs">
+                <ul className="mt-1 flex flex-col gap-1 border-t border-[rgba(30,55,120,0.12)] pt-3 font-mono text-xs">
                   {category.symbols.map((symbol) => (
                     <li key={symbol} className="text-muted-foreground/80">
                       {symbol}
@@ -83,7 +89,7 @@ export async function MarketsCovered() {
               </article>
             )
           })}
-        </div>
+        </RevealCascade>
       </div>
     </section>
   )

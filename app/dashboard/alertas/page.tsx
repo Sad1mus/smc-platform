@@ -56,7 +56,7 @@ export default async function AlertasPage() {
             Todavía no tenés alertas. Creá la primera arriba.
           </p>
         ) : (
-          <ul className="border-border/60 divide-border/60 divide-y overflow-hidden rounded-xl border">
+          <ul className="border-border/60 divide-border/60 divide-y divide-dashed overflow-hidden rounded-xl border border-dashed">
             {alerts.map((alert) => (
               <li
                 key={alert.id}
@@ -67,7 +67,9 @@ export default async function AlertasPage() {
                   <span className="text-muted-foreground text-xs">
                     {alert.direction === "above" ? "sube de" : "baja de"}
                   </span>
-                  <span className="text-gold">{alert.threshold}</span>
+                  <span className="text-gold tabular-nums">
+                    {alert.threshold}
+                  </span>
                 </div>
                 <AlertDeleteButton id={alert.id} />
               </li>

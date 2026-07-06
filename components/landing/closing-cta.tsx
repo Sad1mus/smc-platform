@@ -15,9 +15,9 @@ export async function ClosingCta() {
   const { t } = await getDictionary()
 
   return (
-    <section className="border-border/60 border-t">
+    <section>
       {/* Prueba social honesta: integraciones reales, sin premios inventados */}
-      <div className="border-border/60 border-b">
+      <div>
         <ul className="text-muted-foreground mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-8 gap-y-2 px-4 py-5 font-mono text-xs md:px-6">
           {t.closing.proof.map((item, i) => (
             <li key={item} className="flex items-center gap-8">
@@ -39,7 +39,7 @@ export async function ClosingCta() {
         />
         <div className="relative mx-auto flex max-w-3xl flex-col items-center gap-10 text-center">
           <div className="flex flex-col items-center gap-3">
-            <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+            <h2 className="text-h1 font-bold tracking-tight">
               {t.closing.heading}
             </h2>
             <p className="text-muted-foreground max-w-xl leading-relaxed">
@@ -48,18 +48,20 @@ export async function ClosingCta() {
           </div>
 
           {/* Embudo numerado */}
-          <ol className="grid w-full gap-4 sm:grid-cols-3">
+          <ol className="grid w-full gap-5 sm:grid-cols-3">
             {t.closing.steps.map((step, i) => {
               const Icon = ICONS[i] ?? UserPlus
               return (
                 <li
                   key={step.title}
-                  className="border-border/60 bg-card/50 flex flex-col items-center gap-2 rounded-xl border p-5 text-center"
+                  className="glass-card flex flex-col items-center gap-2 p-6 text-center"
                 >
-                  <span className="text-gold font-mono text-sm font-bold">
+                  <span className="mb-1 inline-flex size-11 items-center justify-center rounded-xl bg-gradient-to-b from-[#3E72F7] to-[#2350E8] shadow-[0_8px_20px_-6px_rgba(35,80,232,0.6),inset_0_1px_0_rgba(255,255,255,0.45)]">
+                    <Icon aria-hidden="true" className="size-5 text-white" />
+                  </span>
+                  <span className="text-gold font-mono text-xs font-bold">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <Icon aria-hidden="true" className="text-gold size-5" />
                   <span className="font-semibold">{step.title}</span>
                   <span className="text-muted-foreground text-xs leading-relaxed">
                     {step.description}
@@ -69,7 +71,11 @@ export async function ClosingCta() {
             })}
           </ol>
 
-          <Button asChild size="lg" className="group">
+          <Button
+            asChild
+            size="lg"
+            className="btn-glossy group rounded-full px-8"
+          >
             <Link href="/registro">
               {t.cta.openAccount}
               <ArrowRight className="size-4 transition-transform duration-200 ease-out group-hover:translate-x-0.5" />
