@@ -37,6 +37,11 @@ function TvWidgetInner({
   useEffect(() => {
     const container = containerRef.current
     if (!container) return
+    // next-themes devuelve resolvedTheme=undefined en el primer render y luego
+    // resuelve; sin esta guarda el embed monta con el tema equivocado y se
+    // recarga al resolver (doble carga del script de terceros → errores
+    // intermitentes / flicker). Montamos una sola vez, ya con el tema correcto.
+    if (!resolvedTheme) return
 
     setFailed(false)
     container.innerHTML = ""

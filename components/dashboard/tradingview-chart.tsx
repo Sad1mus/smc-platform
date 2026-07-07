@@ -23,6 +23,9 @@ function TradingViewChartInner({ symbol, interval }: TradingViewChartProps) {
   useEffect(() => {
     const container = containerRef.current
     if (!container) return
+    // Ver tv-widget.tsx: no montar hasta que el tema esté resuelto, para evitar
+    // el doble montaje (tema undefined → resuelto) que recarga el script.
+    if (!resolvedTheme) return
 
     container.innerHTML = ""
 
