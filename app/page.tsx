@@ -34,16 +34,16 @@ export default function HomePage() {
             <ValueTrio />
           </SectionReveal>
           <SectionReveal>
-            <HowItWorks />
+            <HowItWorks moreHref="/como-funciona" />
           </SectionReveal>
           <SectionReveal>
-            <MarketsCovered />
+            <MarketsCovered moreHref="/mercados" />
           </SectionReveal>
           <SectionReveal>
-            <PlatformSection />
+            <PlatformSection moreHref="/plataforma" />
           </SectionReveal>
           <SectionReveal>
-            <WhyUs />
+            <WhyUs moreHref="/seguridad" />
           </SectionReveal>
           <SectionReveal>
             <Plans />
@@ -55,7 +55,7 @@ export default function HomePage() {
             <Resources />
           </SectionReveal>
           <SectionReveal>
-            <Faq />
+            <Faq moreHref="/faq" />
           </SectionReveal>
           <SectionReveal>
             <ClosingCta />

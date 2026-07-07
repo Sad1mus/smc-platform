@@ -1,5 +1,6 @@
 import { Plus } from "lucide-react"
 
+import { SectionMore } from "@/components/landing/section-more"
 import { getDictionary } from "@/lib/i18n/server"
 
 /**
@@ -10,7 +11,7 @@ import { getDictionary } from "@/lib/i18n/server"
  * Se usa <details>/<summary> nativo: accesible por teclado y lectores de
  * pantalla sin JavaScript, y funciona aunque la hidratación falle.
  */
-export async function Faq() {
+export async function Faq({ moreHref }: { moreHref?: string } = {}) {
   const { t } = await getDictionary()
 
   return (
@@ -41,6 +42,7 @@ export async function Faq() {
             </details>
           ))}
         </div>
+        {moreHref ? <SectionMore href={moreHref} /> : null}
       </div>
     </section>
   )

@@ -8,9 +8,9 @@ import { getDictionary } from "@/lib/i18n/server"
  * Recursos (playbook §9): SOLO enlaces reales que existen hoy. Copy i18n.
  */
 const ITEMS = [
-  { icon: Compass, href: "/#como-funciona" },
+  { icon: Compass, href: "/como-funciona" },
   { icon: Tags, href: "/precios" },
-  { icon: HelpCircle, href: "/#faq" },
+  { icon: HelpCircle, href: "/faq" },
 ] as const
 
 export async function Resources() {

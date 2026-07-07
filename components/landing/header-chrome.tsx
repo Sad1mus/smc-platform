@@ -35,7 +35,7 @@ export function HeaderChrome({
     { href: "/#como-funciona", label: nav.howItWorks },
     { href: "/#mercados", label: nav.markets },
     { href: "/#planes", label: nav.plans },
-    { href: "/#faq", label: nav.faq },
+    { href: "/faq", label: nav.faq },
   ]
 
   useEffect(() => {

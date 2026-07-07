@@ -30,7 +30,7 @@ export async function Segments() {
               <Link href="/registro">{t.segments.novice.primary}</Link>
             </Button>
             <Button asChild size="sm" variant="outline">
-              <Link href="/#como-funciona">{t.segments.novice.secondary}</Link>
+              <Link href="/como-funciona">{t.segments.novice.secondary}</Link>
             </Button>
           </div>
         </div>
@@ -49,7 +49,7 @@ export async function Segments() {
               <Link href="/#planes">{t.segments.pro.primary}</Link>
             </Button>
             <Button asChild size="sm" variant="outline">
-              <Link href="/#plataforma">{t.segments.pro.secondary}</Link>
+              <Link href="/plataforma">{t.segments.pro.secondary}</Link>
             </Button>
           </div>
         </div>

@@ -15,6 +15,8 @@ generada a partir de ella. Antes de tocar una feature, leé su spec acá (refere
   producción. Riesgo Apple 4.2 y mitigaciones, builds iOS en nube, stores del cliente.
 - [`kyc.md`](./kyc.md) — verificación de identidad flag-gated (default off) con capa
   provider-agnostic y proveedor stub; qué se difiere (proveedor real, AML) y por qué.
+- [`landing-pages.md`](./landing-pages.md) — páginas de contexto que expanden secciones del
+  home (`/mercados`, `/como-funciona`, `/plataforma`) sin reemplazar la landing de una sola página.
 
 ## Cómo crece esto
 

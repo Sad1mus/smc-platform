@@ -1,6 +1,7 @@
 import { Activity, Lock, DatabaseZap, Languages } from "lucide-react"
 
 import { RevealCascade } from "@/components/motion/reveal-cascade"
+import { SectionMore } from "@/components/landing/section-more"
 import { getDictionary } from "@/lib/i18n/server"
 
 /**
@@ -10,7 +11,7 @@ import { getDictionary } from "@/lib/i18n/server"
  */
 const ICONS = [Activity, Lock, DatabaseZap, Languages] as const
 
-export async function WhyUs() {
+export async function WhyUs({ moreHref }: { moreHref?: string } = {}) {
   const { t } = await getDictionary()
 
   return (
@@ -46,6 +47,7 @@ export async function WhyUs() {
             )
           })}
         </RevealCascade>
+        {moreHref ? <SectionMore href={moreHref} /> : null}
       </div>
     </section>
   )

@@ -4,6 +4,7 @@ import { Check, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { LazyMount } from "@/components/dashboard/lazy-mount"
 import { TvWidget } from "@/components/dashboard/tv-widget"
+import { SectionMore } from "@/components/landing/section-more"
 import { getDictionary } from "@/lib/i18n/server"
 
 /**
@@ -17,7 +18,11 @@ const OVERVIEW_SYMBOLS = [
   ["EUR/USD", "FX:EURUSD|3M"],
 ]
 
-export async function PlatformSection() {
+export async function PlatformSection({
+  moreHref,
+}: {
+  moreHref?: string
+} = {}) {
   const { t } = await getDictionary()
 
   return (
@@ -70,6 +75,11 @@ export async function PlatformSection() {
           </p>
         </div>
       </div>
+      {moreHref ? (
+        <div className="mx-auto max-w-6xl px-4 pb-16 md:px-6 md:pb-24">
+          <SectionMore href={moreHref} />
+        </div>
+      ) : null}
     </section>
   )
 }

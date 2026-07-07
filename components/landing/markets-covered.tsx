@@ -8,6 +8,7 @@ import {
 } from "lucide-react"
 
 import { RevealCascade } from "@/components/motion/reveal-cascade"
+import { SectionMore } from "@/components/landing/section-more"
 import { getDictionary } from "@/lib/i18n/server"
 
 /**
@@ -44,7 +45,7 @@ const CATEGORIES = [
   },
 ] as const
 
-export async function MarketsCovered() {
+export async function MarketsCovered({ moreHref }: { moreHref?: string } = {}) {
   const { t } = await getDictionary()
 
   return (
@@ -90,6 +91,7 @@ export async function MarketsCovered() {
             )
           })}
         </RevealCascade>
+        {moreHref ? <SectionMore href={moreHref} /> : null}
       </div>
     </section>
   )

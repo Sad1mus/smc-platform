@@ -1,6 +1,7 @@
 import { UserPlus, CreditCard, LineChart } from "lucide-react"
 
 import { RevealCascade } from "@/components/motion/reveal-cascade"
+import { SectionMore } from "@/components/landing/section-more"
 import { getDictionary } from "@/lib/i18n/server"
 
 /**
@@ -9,7 +10,7 @@ import { getDictionary } from "@/lib/i18n/server"
  */
 const ICONS = [UserPlus, CreditCard, LineChart] as const
 
-export async function HowItWorks() {
+export async function HowItWorks({ moreHref }: { moreHref?: string } = {}) {
   const { t } = await getDictionary()
 
   return (
@@ -50,6 +51,7 @@ export async function HowItWorks() {
             )
           })}
         </RevealCascade>
+        {moreHref ? <SectionMore href={moreHref} /> : null}
       </div>
     </section>
   )
