@@ -17,11 +17,15 @@ Esto condiciona código _y_ texto. Ante cualquier feature o copy nueva, validar 
 
 ## Spec-Driven Development — `docs/specs/` es la fuente de verdad
 
-El código es salida generada a partir de la spec. **Antes de tocar una feature, leé su spec** (referenciar con `@`):
+El código es salida generada a partir de la spec. **Antes de tocar una feature, leé su spec** (referenciar con `@`).
+El índice vive en `docs/specs/README.md`; las que gobiernan más código:
 
 - `docs/specs/product.md` — producto, marca, usuarios, precios exactos del dossier, restricciones regulatorias.
+- `docs/specs/redesign.md` — **re-skin "Terminal editorial" (en implementación).** Texto congelado 1:1 (i18n); solo cambia lo visual. NO tocar copy/lógica/Supabase/Stripe/`proxy.ts`/rutas ni alturas de embeds TradingView. Define tokens (`--hairline`, escala tipográfica, motion) y principios rígidos (hairline como estructura, cifras mono, un solo acento dorado).
+- `docs/specs/mobile.md` — shell nativo Capacitor Android (ver sección Móvil abajo).
 - `docs/specs/observabilidad.md` — Sentry, logging, health endpoint; qué se difiere (APM/tracing) y por qué.
 - `docs/specs/hardening.md` — headers OWASP, rate limiting, webhook firmado, RLS; qué se difiere (**KYC/AML**, caché distribuida) y por qué.
+- `docs/specs/i18n.md`, `docs/specs/brand-smc-markets.md`, `docs/specs/admin.md` — i18n es/en, marca SMC Markets, y el panel `/admin` de observabilidad de pagos.
 
 Si cambian los requisitos: **primero se actualiza la spec, después el código.** Features nuevas con lógica falsable agregan su propia `docs/specs/<feature>.md` enlazada desde `docs/specs/README.md`.
 
@@ -90,9 +94,22 @@ Pipeline: **lint → format:check → test (Vitest) → build → e2e (Playwrigh
 `pnpm format` antes de commitear para no romper `format:check`. Tests e2e usan
 `PLAYWRIGHT_HOST_PLATFORM_OVERRIDE=ubuntu24.04-x64` (ver script `test:e2e`).
 
+## Móvil — shell nativo Capacitor Android (`mobile/`)
+
+**Existe y hay build en la Play Store** (`SMC-v1.0.0.apk` / `SMC-v1.0.0-playstore.aab` en la raíz del workspace).
+Spec en `docs/specs/mobile.md`, detalle en `mobile/README.md`. Convención clave que evita malentendidos:
+
+- **El shell NO empaqueta la web.** `capacitor.config.ts` apunta `server.url` a la web de **producción** (Vercel):
+  la app carga la web viva, así **cada deploy web actualiza las apps sin pasar por review de stores**. `mobile/www/`
+  es solo un placeholder de arranque + `error.html` (pantalla offline). No hay build de Next dentro del shell.
+- `appId` = `com.smartmoney.smc`. Sin iOS todavía; solo `android/`.
+- Plugin `@capgo/capacitor-native-biometric` para desbloqueo biométrico. Iterar el shell: `pnpm --dir mobile sync`
+  (= `cap sync android`) y abrir en Android Studio.
+- **iOS sigue fuera de alcance** (el dossier lo lista; el repo solo tiene Android).
+
 ## Fuera de alcance del MVP actual (no asumir que existen)
 
-- **Apps móviles iOS/Android** — el dossier las lista, pero el repo es solo web; no hay Capacitor/Expo/RN.
+- **App iOS** — solo hay shell Android; no hay proyecto iOS.
 - **KYC / AML** — diferido explícitamente en `docs/specs/hardening.md`.
 
-Antes de "completar" el MVP del dossier, confirmar con el usuario si estos entran o se redefinen (p. ej. PWA en vez de nativo).
+Antes de "completar" el MVP del dossier, confirmar con el usuario si estos entran o se redefinen.
