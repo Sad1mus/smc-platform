@@ -3,7 +3,7 @@
 **Estado:** APROBADO (dirección + decisiones), en implementación vía `.claude/goal-queue-reskin.md`.
 **Alcance:** re-skin del frontend. **Texto congelado 1:1** (viene del diccionario i18n, no se toca).
 **No se toca:** copy, lógica de negocio, Supabase, Stripe/webhooks, auth, `proxy.ts`, rutas/URLs, cableado de estado del terminal, atribución TradingView, alturas fijas de embeds.
-**Base:** Next.js 16 · Tailwind v4 · `motion` v12 (hoy sin usar) · next-themes (dark default) · shadcn radix-nova · Geist + Geist Mono.
+**Base:** Next.js 16 · Tailwind v4 · `motion` v12 (hoy sin usar) · next-themes (**light default**, toggle a dark) · shadcn radix-nova · Geist + Geist Mono.
 
 ---
 
@@ -20,7 +20,7 @@ la referencia externa (template Sanjaya) solo donó patrones, no estética.
 3. **Un solo acento: el dorado (`--gold`).** El color cromático se reserva para semántica de datos (`--market-up`/`--market-down`).
 4. **Jerarquía por tamaño y espacio**, no por peso ni color.
 5. **Movimiento rápido y discreto.** Reveal `y:20px`, `~0.42s`, `whileInView once`, respetando `prefers-reduced-motion`.
-6. **Dark-first, light par.** Se mantienen ambos temas; se re-palettea, no se elimina light.
+6. **Light-first, dark par.** Tema por defecto **light** en toda la app (landing pública **y** dashboard/terminal), con toggle manual a dark disponible (next-themes, `enableSystem={false}`). Se mantienen ambos temas; se re-palettea, no se elimina dark. _(Decisión 2026-07-07: el default pasó de dark a light; ver `app/layout.tsx` `defaultTheme="light"`.)_
 
 ## 2. Tokens (extender `app/globals.css` @theme, no reemplazar)
 
@@ -84,8 +84,9 @@ Fases y checks verificables en `.claude/goal-queue-reskin.md`. Verificación loc
 
 **Contexto:** la landing quedó demasiado **estática**, sin animaciones.
 Se decide un giro visual glass Apple / futurista fluido **encima** del reskin editorial,
-**acotado a la landing pública** — el dashboard/terminal se queda dark editorial (los embeds TradingView de
-altura fija y el cableado del cockpit no se tocan). Copy sigue **congelada** (diccionario i18n).
+**acotado a la landing pública** — el dashboard/terminal **conserva la piel editorial** (no recibe el giro glass;
+los embeds TradingView de altura fija y el cableado del cockpit no se tocan). El tema por defecto es light en ambos
+(ver principio 6). Copy sigue **congelada** (diccionario i18n).
 
 **Referencia de dirección:** `https://fintechx-wbs.framer.website/` (Framer). Navegada con Playwright
 (capturas + extracción). Hallazgos técnicos: usa **Framer Motion** (= `motion` v12, ya instalado) +
