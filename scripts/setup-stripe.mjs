@@ -57,10 +57,11 @@ if (!supabaseUrl || !serviceRoleKey) {
 const stripe = new Stripe(stripeKey)
 const supabase = createClient(supabaseUrl, serviceRoleKey)
 
-/** Planes del dossier: bronce/plata recurrentes mensuales, prueba pago único. */
+/** Planes del dossier: todos pago único (sin renovación). Acceso por período:
+ *  Bronce/Plata 1 año, Prueba 30 días — la vigencia la fija el webhook, no el precio. */
 const PLANS = [
-  { id: "bronce", name: "SMC Bronce", amountUsd: 1500_00, recurring: true },
-  { id: "plata", name: "SMC Plata", amountUsd: 2800_00, recurring: true },
+  { id: "bronce", name: "SMC Bronce", amountUsd: 1500_00, recurring: false },
+  { id: "plata", name: "SMC Plata", amountUsd: 2800_00, recurring: false },
   { id: "prueba", name: "SMC Prueba", amountUsd: 250_00, recurring: false },
 ]
 

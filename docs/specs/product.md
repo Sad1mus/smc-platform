@@ -14,7 +14,7 @@ Híbrido con dos superficies claramente separadas:
 **SMC Markets** es una plataforma de **trading multi-activo** que conecta al
 usuario con **brokers socios regulados** (modelo _introducing broker_ / marca
 blanca): SMC Markets provee la experiencia — gráficos en tiempo real
-(TradingView), portafolio, cuentas y planes de suscripción vía Stripe — mientras
+(TradingView), portafolio, cuentas y planes de acceso (pago único) vía Stripe — mientras
 que la **ejecución de órdenes y la custodia de fondos están a cargo de los
 brokers socios regulados**, no de SMC Markets.
 
@@ -89,6 +89,9 @@ Voz trading-forward: directa, con actitud de plataforma de mercados (no tímida
 1. Los datos de mercado son el héroe; el chrome de la UI desaparece.
 2. Los precios de los planes son exactos e inmutables (vienen del dossier:
    Bronce $1.500 · Plata $2.800 · VIP personalizado · Prueba $250 USD).
+   **Modelo de cobro: pago único (no suscripción recurrente).** El acceso se otorga
+   por un período fijo sin renovación automática: **Bronce y Plata → 1 año**; **Prueba → 30 días**.
+   _(Decisión 2026-07-07: el modelo pasó de suscripción mensual a pago único con acceso por período.)_
 3. Cada animación responde a una acción del usuario; nada se mueve solo.
 4. **Bilingüe español + inglés** (toggle, ES por defecto). Cifras en formato USD.
    Detalle en `i18n.md`.

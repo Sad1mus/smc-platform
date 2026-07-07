@@ -159,8 +159,8 @@ async function handleCheckoutCompleted(
   }
 
   if (session.mode === "payment") {
-    // Pago único (plan de prueba): acceso registrado como suscripción
-    // "active" sin stripe_subscription_id, con vigencia de 30 días.
+    // Pago único: acceso registrado como suscripción "active" sin
+    // stripe_subscription_id. Vigencia por plan: Prueba 30 días, resto 1 año.
     //
     // No se puede deduplicar con upsert onConflict:stripe_subscription_id
     // porque esa columna es NULL en pagos únicos y Postgres trata cada NULL
@@ -168,8 +168,9 @@ async function handleCheckoutCompleted(
     // acceso one-time existente del usuario para el plan y se actualiza; si
     // no hay, se inserta. (El evento repetido ya lo frena la idempotencia por
     // stripe_event_id más arriba.)
+    const accessDays = planId === "prueba" ? 30 : 365
     const periodEnd = new Date()
-    periodEnd.setDate(periodEnd.getDate() + 30)
+    periodEnd.setDate(periodEnd.getDate() + accessDays)
 
     const fields = {
       user_id: userId,

@@ -337,7 +337,7 @@ const es: Dictionary = {
       blocks: [
         {
           heading: "Qué significa operar con un introducing broker",
-          body: "SMC Markets te da la plataforma —gráficos, análisis y tu panel—; la ejecución de las órdenes y la custodia de los fondos las hacen brokers socios regulados. Vos analizás y decidís en SMC; operás y depositás con el socio.",
+          body: "SMC Markets te da la plataforma (gráficos, análisis y tu panel); la ejecución de las órdenes y la custodia de los fondos las hacen brokers socios regulados. Vos analizás y decidís en SMC; operás y depositás con el socio.",
         },
         {
           heading: "El registro, sin fricción",
@@ -438,7 +438,7 @@ const es: Dictionary = {
         },
         {
           heading: "Datos y análisis, nunca asesoría",
-          body: "Todo lo que ves —gráficos, cotizaciones, alertas— es información en tiempo real por TradingView para que decidas mejor. SMC no da consejos de inversión ni promete resultados: las decisiones son tuyas.",
+          body: "Todo lo que ves (gráficos, cotizaciones, alertas) es información en tiempo real por TradingView para que decidas mejor. SMC no da consejos de inversión ni promete resultados: las decisiones son tuyas.",
         },
         {
           heading: "Pagos y cancelación sin sorpresas",
@@ -446,7 +446,7 @@ const es: Dictionary = {
         },
         {
           heading: "Probar antes de comprometerte",
-          body: "El plan Prueba es un pago único de $250 USD que te da acceso para evaluar la plataforma a tu ritmo, antes de elegir un plan recurrente.",
+          body: "El plan Prueba es un pago único de $250 USD que te da acceso para evaluar la plataforma a tu ritmo, antes de elegir un plan completo.",
         },
       ],
       ctaHeading: "¿Listo para empezar?",
@@ -814,7 +814,7 @@ const en: Dictionary = {
       blocks: [
         {
           heading: "What trading with an introducing broker means",
-          body: "SMC Markets gives you the platform —charts, analysis and your panel—; order execution and custody of funds are handled by regulated partner brokers. You analyze and decide on SMC; you trade and deposit with the partner.",
+          body: "SMC Markets gives you the platform (charts, analysis and your panel); order execution and custody of funds are handled by regulated partner brokers. You analyze and decide on SMC; you trade and deposit with the partner.",
         },
         {
           heading: "Sign-up without friction",
@@ -915,7 +915,7 @@ const en: Dictionary = {
         },
         {
           heading: "Data and analysis, never advice",
-          body: "Everything you see —charts, quotes, alerts— is real-time information by TradingView so you can decide better. SMC gives no investment advice and promises no results: the decisions are yours.",
+          body: "Everything you see (charts, quotes, alerts) is real-time information by TradingView so you can decide better. SMC gives no investment advice and promises no results: the decisions are yours.",
         },
         {
           heading: "Payments and cancellation, no surprises",
@@ -923,7 +923,7 @@ const en: Dictionary = {
         },
         {
           heading: "Try before you commit",
-          body: "The Trial plan is a one-time $250 USD payment that gives you access to evaluate the platform at your own pace, before choosing a recurring plan.",
+          body: "The Trial plan is a one-time $250 USD payment that gives you access to evaluate the platform at your own pace, before choosing a full plan.",
         },
       ],
       ctaHeading: "Ready to start?",

@@ -80,7 +80,11 @@ export async function createCheckoutSession(
       .eq("id", profile.id)
   }
 
-  const isOneTime = plan.id === "prueba"
+  // Todos los planes de checkout son pago único (acceso por período fijo, sin
+  // renovación): Prueba 30 días · Bronce/Plata 1 año (vigencia en el webhook).
+  // Se deja la rama subscription por si un plan futuro (p. ej. VIP) fuera recurrente.
+  const ONE_TIME_PLANS = new Set(["prueba", "bronce", "plata"])
+  const isOneTime = ONE_TIME_PLANS.has(plan.id)
 
   const session = await stripe.checkout.sessions.create({
     customer: customerId,
