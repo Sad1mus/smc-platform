@@ -114,3 +114,27 @@ los embeds TradingView de altura fija y el cableado del cockpit no se tocan). El
 Lenis smooth-scroll scopeado, reveal/cascada por sección, count-up en `stats-strip`, nav píldora y footer
 flotante. Primitivas en `components/motion/*`. Paleta glass en `.landing-editorial` (`app/globals.css`).
 Copy congelada, "by TradingView" y disclaimers intactos, `prefers-reduced-motion` respetado.
+
+## 11. Dashboard — "terminal light con identidad" (decisión 2026-07-08)
+
+**Problema:** con el default light en toda la app (principio 6), el dashboard quedó **fondo blanco plano**
+— su identidad de "terminal financiero" estaba pensada para el tema dark (negro + dorado), y en light
+las hairlines grises y el dorado casi no contrastaban. Leía como un admin genérico frente a la landing glass.
+
+**Decisión (dueño):** el default **sigue light en toda la plataforma** (no se va a dark). Se le da al terminal
+una **piel light propia** que traduce el ADN de la landing (profundidad + acento + fuente display) al registro
+**denso del terminal**, sin glass en los datos (legibilidad primero). Cohesión por **marca compartida**
+(dorado `--gold`, cifras mono, hairline, logo), no por clonar el efecto glass.
+
+**Qué se implementó (`app/globals.css` + componentes de `components/dashboard/*`):**
+
+- **Aire tintado** (no `#fff` plano): `.terminal-app` en el `<main>` del dashboard — fondo `--dash-bg` con
+  auroras dorado/frío muy tenues. Tokens `--dash-bg/--dash-tint-*/--panel-shadow` en `:root` y `.dark`.
+- **Superficies flotantes**: clase `.terminal-panel` (blanca sobre el aire, hairline sólida + sombra difusa
+  suave, radio md) reemplaza el patrón casi invisible `bg-card/40 + border-dashed` en todos los paneles.
+- **Panel-headers con dorado**: barra vertical dorada + label mono mayúsculas más marcado + tinte suave.
+- **Fuente display** (Bricolage, clase `.font-display`) en los H1 del dashboard (Mercados/Alertas/Mi plan).
+- **Cifras mono con presencia**: reloj de la status-bar a `text-foreground`; nav activo con tinte dorado.
+
+**Innegociable respetado (§7):** copy i18n intacta, "by TradingView" y disclaimers, alturas fijas + theme-sync
+de embeds, cableado symbol/interval, AA en light+dark, `prefers-reduced-motion`. El giro glass sigue **solo landing**.
