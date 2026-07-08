@@ -195,7 +195,7 @@ const es: Dictionary = {
     titleTail: "",
     subtitle:
       "Los mercados premian la preparación, la precisión y el tiempo. SMC Markets te da la tecnología y el control para operar los mercados globales con confianza, a través de brokers socios regulados. De tu primera operación a la número mil.",
-    microcopy: "Sin permanencia · Cancelá cuando quieras",
+    microcopy: "Pago único · Sin renovación automática",
   },
   trustStrip: {
     execution: "Ejecución y custodia por brokers socios regulados",
@@ -345,7 +345,7 @@ const es: Dictionary = {
         },
         {
           heading: "Elegí el plan que te sirve",
-          body: "Bronce, Plata o VIP, o arrancá con el plan Prueba, un pago único para conocer la plataforma. Todos los cobros pasan por Stripe y no hay permanencia: cancelás cuando quieras.",
+          body: "Bronce, Plata o VIP, o arrancá con el plan Prueba, un pago único para conocer la plataforma. Todos los cobros pasan por Stripe: pagás una sola vez, sin renovación automática ni cargos recurrentes.",
         },
         {
           heading: "Del análisis a la operación",
@@ -441,8 +441,8 @@ const es: Dictionary = {
           body: "Todo lo que ves (gráficos, cotizaciones, alertas) es información en tiempo real por TradingView para que decidas mejor. SMC no da consejos de inversión ni promete resultados: las decisiones son tuyas.",
         },
         {
-          heading: "Pagos y cancelación sin sorpresas",
-          body: "Los cobros los procesa Stripe; ningún dato de tu tarjeta toca nuestros servidores. No hay permanencia: cancelás cuando quieras desde Mi plan y conservás el acceso hasta el fin del período pagado.",
+          heading: "Pagos claros, sin sorpresas",
+          body: "Los cobros los procesa Stripe; ningún dato de tu tarjeta toca nuestros servidores. Es un pago único: no hay renovación automática ni cargos recurrentes, y conservás el acceso durante todo el período contratado.",
         },
         {
           heading: "Probar antes de comprometerte",
@@ -506,7 +506,8 @@ const es: Dictionary = {
       },
       {
         title: "Planes y precios",
-        description: "Compará qué incluye cada plan, sin permanencia.",
+        description:
+          "Compará qué incluye cada plan. Pago único, sin renovación automática.",
       },
       {
         title: "Preguntas frecuentes",
@@ -535,8 +536,8 @@ const es: Dictionary = {
         a: "Con tarjeta, mediante Stripe. Ningún dato de tu tarjeta pasa por los servidores de SMC Markets.",
       },
       {
-        q: "¿Puedo cancelar cuando quiera?",
-        a: "Sí. Gestionás la cancelación desde Mi plan, y conservás el acceso hasta el fin del período pagado.",
+        q: "¿El plan se renueva solo?",
+        a: "No. Es un pago único: no hay renovación automática ni cargos recurrentes. Conservás el acceso durante todo el período contratado (Prueba, 30 días; Bronce y Plata, un año).",
       },
       {
         q: "¿SMC Markets da consejos de inversión?",
@@ -559,7 +560,7 @@ const es: Dictionary = {
       "Datos protegidos con RLS",
     ],
     heading: "Cuando estés listo",
-    subtitle: "Sin permanencia. Cancelá cuando quieras.",
+    subtitle: "Pago único. Sin renovación automática.",
     steps: [
       {
         title: "Abrí tu cuenta",
@@ -607,7 +608,7 @@ const es: Dictionary = {
     homeDescription:
       "Plataforma de trading multi-activo: gráficos en tiempo real, tu portafolio y tus operaciones a través de brokers socios regulados.",
     pricingDescription:
-      "Planes de acceso a SMC Markets, plataforma de trading multi-activo. Tabla comparativa y preguntas de facturación. Precios claros, sin permanencia.",
+      "Planes de acceso a SMC Markets, plataforma de trading multi-activo. Tabla comparativa y preguntas de facturación. Precios claros, pago único sin renovación automática.",
   },
   admin: {
     title: "Panel de administración",
@@ -672,7 +673,7 @@ const en: Dictionary = {
     titleTail: "",
     subtitle:
       "The markets reward preparation, precision, and timing. SMC Markets gives you the technology and control to trade global markets with confidence, through regulated partner brokers. From your first trade to your thousandth.",
-    microcopy: "No lock-in · Cancel anytime",
+    microcopy: "One-time payment · No auto-renewal",
   },
   trustStrip: {
     execution: "Execution and custody by regulated partner brokers",
@@ -822,7 +823,7 @@ const en: Dictionary = {
         },
         {
           heading: "Choose the plan that fits",
-          body: "Bronze, Silver or VIP, or start with the Trial plan, a one-time payment to get to know the platform. All charges go through Stripe and there's no lock-in: cancel whenever you want.",
+          body: "Bronze, Silver or VIP, or start with the Trial plan, a one-time payment to get to know the platform. All charges go through Stripe: you pay once, with no auto-renewal or recurring charges.",
         },
         {
           heading: "From analysis to execution",
@@ -918,8 +919,8 @@ const en: Dictionary = {
           body: "Everything you see (charts, quotes, alerts) is real-time information by TradingView so you can decide better. SMC gives no investment advice and promises no results: the decisions are yours.",
         },
         {
-          heading: "Payments and cancellation, no surprises",
-          body: "Charges are processed by Stripe; no card data touches our servers. There's no lock-in: cancel anytime from My plan and keep access until the end of the paid period.",
+          heading: "Clear payments, no surprises",
+          body: "Charges are processed by Stripe; no card data touches our servers. It's a one-time payment: no auto-renewal or recurring charges, and you keep access for the entire contracted period.",
         },
         {
           heading: "Try before you commit",
@@ -983,7 +984,8 @@ const en: Dictionary = {
       },
       {
         title: "Plans and pricing",
-        description: "Compare what each plan includes, no lock-in.",
+        description:
+          "Compare what each plan includes. One-time payment, no auto-renewal.",
       },
       {
         title: "FAQ",
@@ -1012,8 +1014,8 @@ const en: Dictionary = {
         a: "By card, via Stripe. No card data passes through SMC Markets' servers.",
       },
       {
-        q: "Can I cancel anytime?",
-        a: "Yes. You manage cancellation from My plan, and keep access until the end of the paid period.",
+        q: "Does the plan renew automatically?",
+        a: "No. It's a one-time payment: no auto-renewal or recurring charges. You keep access for the entire contracted period (Trial, 30 days; Bronze and Silver, one year).",
       },
       {
         q: "Does SMC Markets give investment advice?",
@@ -1036,7 +1038,7 @@ const en: Dictionary = {
       "Data protected with RLS",
     ],
     heading: "Ready when you are",
-    subtitle: "No lock-in. Cancel anytime.",
+    subtitle: "One-time payment. No auto-renewal.",
     steps: [
       {
         title: "Open your account",
@@ -1084,7 +1086,7 @@ const en: Dictionary = {
     homeDescription:
       "Multi-asset trading platform: real-time charts, your portfolio and your trades through regulated partner brokers.",
     pricingDescription:
-      "Access plans for SMC Markets, a multi-asset trading platform. Comparison table and billing FAQ. Clear pricing, no lock-in.",
+      "Access plans for SMC Markets, a multi-asset trading platform. Comparison table and billing FAQ. Clear pricing, one-time payment with no auto-renewal.",
   },
   admin: {
     title: "Admin panel",
