@@ -43,6 +43,9 @@ function TvWidgetInner({
     // intermitentes / flicker). Montamos una sola vez, ya con el tema correcto.
     if (!resolvedTheme) return
 
+    // Limpiar un error previo al re-montar el embed de terceros (cambio de tema/
+    // config) es sincronización con un sistema externo, no un cascading render.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setFailed(false)
     container.innerHTML = ""
 
