@@ -53,7 +53,7 @@ export default async function DashboardPage() {
     <div className="flex flex-col gap-4">
       <header>
         <h1
-          className="text-2xl font-bold tracking-tight"
+          className="font-display text-2xl font-bold tracking-tight"
           data-testid="dashboard-title"
         >
           Mercados

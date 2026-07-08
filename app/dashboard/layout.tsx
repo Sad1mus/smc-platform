@@ -55,7 +55,7 @@ export default async function DashboardLayout({
           <SidebarNav />
         </div>
 
-        <main className="flex-1 p-4 md:p-6">
+        <main className="terminal-app flex-1 p-4 md:p-6">
           <BiometricGate>{children}</BiometricGate>
         </main>
       </div>

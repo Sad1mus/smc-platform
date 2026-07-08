@@ -67,7 +67,7 @@ export function MarketNavigator({
   }, [query])
 
   return (
-    <div className="border-border/60 bg-card/40 overflow-hidden rounded-md border border-dashed">
+    <div className="terminal-panel overflow-hidden">
       <PanelHeader label="Mercados" />
       <div className="flex flex-col gap-3 p-3">
         <label className="relative block">

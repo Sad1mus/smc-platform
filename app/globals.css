@@ -124,6 +124,14 @@
   --gold: oklch(0.66 0.12 84);
   --gold-foreground: oklch(0.17 0.012 265);
 
+  /* ── Dashboard "terminal light": aire tintado (no blanco puro) + superficies
+     flotantes. Da identidad al terminal en light sin recurrir al glass. ── */
+  --dash-bg: oklch(0.972 0.005 265);
+  --dash-tint-a: oklch(0.66 0.12 84 / 0.06); /* dorado muy tenue */
+  --dash-tint-b: oklch(0.55 0.06 265 / 0.05); /* frío muy tenue */
+  --panel-shadow:
+    0 1px 2px rgba(20, 24, 36, 0.04), 0 14px 30px -22px rgba(20, 24, 36, 0.22);
+
   /* ── Re-skin "terminal editorial" (theme-independent: resuelven var(--border) por tema) ── */
   /* Hairlines: la firma estructural. Usar en divisores, pills y separación de paneles. */
   --hairline: 1px solid var(--border);
@@ -182,6 +190,13 @@
   /* Dorado de marca */
   --gold: oklch(0.78 0.125 85);
   --gold-foreground: oklch(0.16 0.01 265);
+
+  /* Dashboard "terminal": aire y superficies en dark (par del light) */
+  --dash-bg: oklch(0.12 0.008 265);
+  --dash-tint-a: oklch(0.78 0.125 85 / 0.05);
+  --dash-tint-b: oklch(0.55 0.06 265 / 0.06);
+  --panel-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.02), 0 18px 34px -26px rgba(0, 0, 0, 0.7);
 }
 
 /* ────────────────────────────────────────────────────────────
@@ -291,6 +306,34 @@
 }
 .btn-glossy:active {
   transform: translateY(1px);
+}
+
+/* ────────────────────────────────────────────────────────────
+   Dashboard — piel "terminal light con identidad"
+   Aire tintado (no #fff plano) con superficies blancas flotantes:
+   traduce el ADN de la landing (profundidad + acento + display) al
+   registro denso del terminal. Hairline = firma; dorado = acento.
+   Funciona en ambos temas (los tokens resuelven por :root / .dark).
+   ──────────────────────────────────────────────────────────── */
+.terminal-app {
+  background-color: var(--dash-bg);
+  background-image:
+    radial-gradient(115% 70% at 100% 0%, var(--dash-tint-a), transparent 60%),
+    radial-gradient(90% 60% at 0% 0%, var(--dash-tint-b), transparent 55%);
+}
+/* Superficie flotante: blanca sobre el aire tintado, hairline sólida y
+   sombra difusa suave. Reemplaza el patrón casi invisible bg-card/40 + dashed. */
+.terminal-panel {
+  background: var(--card);
+  border: var(--hairline);
+  border-radius: var(--radius-md);
+  box-shadow: var(--panel-shadow);
+}
+/* Fuente display (Bricolage) para títulos del terminal — mismo carácter que la
+   landing. No es utilidad Tailwind (no está en @theme), por eso se define acá. */
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
 }
 
 @layer base {

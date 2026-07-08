@@ -74,7 +74,7 @@ export function TerminalStatusBar({ planName }: { planName: string | null }) {
     : "--:--:--"
 
   return (
-    <div className="border-border/60 bg-card/40 flex flex-wrap items-center gap-x-5 gap-y-2 rounded-md border border-dashed px-3 py-2 font-mono text-xs">
+    <div className="terminal-panel flex flex-wrap items-center gap-x-5 gap-y-2 px-3 py-2 font-mono text-xs">
       {/* Indicador de feed en vivo */}
       <span className="flex items-center gap-1.5">
         <span className="relative flex size-2">
@@ -133,7 +133,7 @@ export function TerminalStatusBar({ planName }: { planName: string | null }) {
       {/* Reloj en vivo + acceso a plan */}
       <div className="ml-auto flex items-center gap-4">
         <span
-          className="text-muted-foreground tabular"
+          className="text-foreground tabular font-medium"
           aria-label="Hora local"
           suppressHydrationWarning
         >

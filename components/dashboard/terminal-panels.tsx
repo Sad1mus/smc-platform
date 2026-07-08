@@ -153,7 +153,7 @@ export function TerminalPanels() {
               config={panel.config}
               height={PANEL_HEIGHT}
               title={panel.title}
-              className="border-border/60 bg-card overflow-hidden rounded-md border border-dashed"
+              className="terminal-panel overflow-hidden"
             />
           </div>
         ) : null

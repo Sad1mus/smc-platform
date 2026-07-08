@@ -25,7 +25,7 @@ export function AlertForm() {
     <form
       ref={formRef}
       action={formAction}
-      className="border-border/60 bg-card/40 flex flex-col gap-4 rounded-xl border p-5"
+      className="terminal-panel flex flex-col gap-4 p-5"
     >
       <div className="grid gap-4 sm:grid-cols-[1fr_140px_140px_auto] sm:items-end">
         <div className="flex flex-col gap-1.5">

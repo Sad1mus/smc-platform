@@ -48,7 +48,7 @@ export function TerminalCockpit({
       </div>
 
       {/* [C] Gráfico central */}
-      <div className="border-border/60 bg-card/40 flex min-w-0 flex-col overflow-hidden rounded-md border border-dashed">
+      <div className="terminal-panel flex min-w-0 flex-col overflow-hidden">
         <PanelHeader
           label="Gráfico"
           hint={<span className="text-foreground">{activeSymbol}</span>}
@@ -90,7 +90,7 @@ export function TerminalCockpit({
           onSelect={setActiveSymbol}
         />
         {/* Análisis técnico atado al símbolo activo (display-only) */}
-        <div className="border-border/60 bg-card/40 overflow-hidden rounded-md border border-dashed">
+        <div className="terminal-panel overflow-hidden">
           <PanelHeader
             label="Análisis técnico"
             hint={<span className="text-foreground">{activeSymbol}</span>}

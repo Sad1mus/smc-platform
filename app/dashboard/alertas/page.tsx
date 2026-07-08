@@ -33,7 +33,9 @@ export default async function AlertasPage() {
   return (
     <div className="flex flex-col gap-6">
       <header>
-        <h1 className="text-2xl font-bold tracking-tight">Alertas de precio</h1>
+        <h1 className="font-display text-2xl font-bold tracking-tight">
+          Alertas de precio
+        </h1>
         <p className="text-muted-foreground mt-1 text-sm">
           Definí un umbral por símbolo y te avisamos cuando el precio lo cruza.
           Es una herramienta de análisis: no ejecuta ninguna operación.
@@ -56,7 +58,7 @@ export default async function AlertasPage() {
             Todavía no tenés alertas. Creá la primera arriba.
           </p>
         ) : (
-          <ul className="border-border/60 divide-border/60 divide-y divide-dashed overflow-hidden rounded-xl border border-dashed">
+          <ul className="terminal-panel divide-border/60 divide-y divide-dashed overflow-hidden">
             {alerts.map((alert) => (
               <li
                 key={alert.id}

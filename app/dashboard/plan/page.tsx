@@ -51,7 +51,9 @@ export default async function PlanPage({
   return (
     <div className="mx-auto flex max-w-5xl flex-col gap-6">
       <header>
-        <h1 className="text-2xl font-bold tracking-tight">Mi plan</h1>
+        <h1 className="font-display text-2xl font-bold tracking-tight">
+          Mi plan
+        </h1>
         <p className="text-muted-foreground mt-1 text-sm">
           Tu suscripción y método de pago, gestionados de forma segura por
           Stripe.
