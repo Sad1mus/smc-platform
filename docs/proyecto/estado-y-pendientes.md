@@ -20,8 +20,8 @@ Hoy las alertas **se crean, guardan y listan, pero NO se disparan** (no hay moto
 3. **Scheduler.** Opciones: **Vercel Cron** (`vercel.json` → pega a una API route) o **pg_cron + edge function**
    en Supabase (hoy no hay `supabase/functions/`). El worker: lee alertas `active`, trae el precio de cada símbolo,
    compara `direction`/`threshold`, marca disparadas.
-4. **Notificación.** Email vía **Resend** (requiere `RESEND_API_KEY`, hoy en stub) y/o **push** (requiere Firebase FCM
-   - el setup de push del shell móvil, aún pendiente). `lib/email/send.ts` ya existe como capa reutilizable.
+4. **Notificación.** Email vía **Resend** (requiere `RESEND_API_KEY`, hoy en stub) y/o **push** (requiere Firebase
+   FCM y el setup de push del shell móvil, aún pendiente). `lib/email/send.ts` ya existe como capa reutilizable.
 
 > Es una feature de varias piezas (dato + scheduler + notificación) con implicancias de infra. No es un "arreglo"
 > chico. Ver decisión de si se construye ahora en la conversación / handoff más reciente.
