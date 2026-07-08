@@ -16,11 +16,12 @@
 - **Identidad git:** `smartmoney4` (así se firma todo en este repo).
 
 ### Commits nuevos de esta sesión (en `origin`, faltan en `client`)
-| SHA | Commit |
-| --- | --- |
-| `1efb47c` | `fix(dashboard): TradingView montaba dos veces por tema sin resolver` |
+
+| SHA       | Commit                                                                   |
+| --------- | ------------------------------------------------------------------------ |
+| `1efb47c` | `fix(dashboard): TradingView montaba dos veces por tema sin resolver`    |
 | `de074c7` | `feat(pagos): planes de pago único (Bronce/Plata 1 año, Prueba 30 días)` |
-| `6850bcf` | `docs: handoff §4 (webhook dominio/ruta) + auditoría 2026-07-07` |
+| `6850bcf` | `docs: handoff §4 (webhook dominio/ruta) + auditoría 2026-07-07`         |
 
 (Previos, ya en `origin` **y** `client`: `941aa49` landing · `1a0395f` light · `af320ad` docs.)
 
@@ -29,11 +30,13 @@
 ## 2. Qué se hizo esta sesión
 
 ### 2.1 Deploy inicial + light por defecto (ya en prod)
+
 - Se levantó el proyecto y se pusheó a `origin`+`client` → deploy a prod (commits `941aa49`/`1a0395f`/`af320ad`).
 - **Decisión confirmada:** tema **light por defecto** en web y dashboard, con toggle a dark. Spec
   `redesign.md` actualizada (principio 6 "Light-first, dark par"). `defaultTheme="light"` en `app/layout.tsx`.
 
 ### 2.2 Modelo de cobro → PAGO ÚNICO (commit `de074c7`, aún no en prod)
+
 - De suscripción mensual a **pago único** sin renovación: **Bronce/Plata = 1 año**, **Prueba = 30 días**.
 - Archivos: `lib/stripe/actions.ts` (checkout mode `payment`), `app/api/webhooks/stripe/route.ts`
   (vigencia por plan: prueba 30d / resto 365d), `scripts/setup-stripe.mjs` (`recurring:false`),
@@ -41,6 +44,7 @@
 - Con pago único, el único evento Stripe que dispara es `checkout.session.completed`.
 
 ### 2.3 Fix bug TradingView (commit `1efb47c`, aún no en prod)
+
 - **Causa raíz:** `resolvedTheme` (next-themes) arranca `undefined` → el embed montaba con tema
   equivocado y **recargaba el script al resolver** (errores intermitentes / flicker).
 - **Fix:** guarda `if (!resolvedTheme) return` en `components/dashboard/tv-widget.tsx` y
@@ -49,9 +53,11 @@
 - Verificación: `pnpm test` 124/124 · `tsc --noEmit` 0 · `pnpm build` 0.
 
 ### 2.4 Auditoría del producto (commit `6850bcf`)
+
 - `docs/reviews/audit-2026-07-07.md` con hallazgos priorizados (ver §5).
 
 ### 2.5 Goal de revisión (terminado)
+
 - Se corrió un `/goal` con cola `.claude/goal-queue-revision-producto.md` (2 tareas: fix TV + auditoría).
   **Ambas `[done]`**, el goal se auto-limpió. No queda nada corriendo.
 
@@ -65,12 +71,15 @@ Las claves viven solo en Vercel; el Stripe es la cuenta del cliente. **Todo lo d
 redeploy. **Lo que NO:** crear planes/webhook ni sacar el `whsec_` (es su cuenta).
 
 **Pasos pendientes del cliente (en su Stripe, modo Live):**
+
 1. Crear 3 planes **One-time**: `SMC Bronce` 1500, `SMC Plata` 2800, `SMC Prueba` 250 (USD). Copiar cada `price_...`.
 2. Crear el **webhook** y mandar el `whsec_...`.
 3. Enviarnos los **3 `price_...` + el `whsec_`**.
 
 ### ⚠️ Trampa del webhook (importante)
+
 El cliente propuso `https://hopibonprocess.online/api/stripe/webhook`. **NO sirve:**
+
 - `hopibonprocess.online` es dominio del proyecto **`hopibon-web`** (`prj_yQ6nliwxUWCQJWMnT08kMjnnjboH`),
   **otra app** — no smc-platform.
 - La ruta real de smc es **`/api/webhooks/stripe`** (no `/api/stripe/webhook`).
@@ -86,7 +95,7 @@ Cuando lleguen los datos: dev carga `price_...` en la tabla `plans` (Supabase) +
 
 - [ ] **¿Push a `client`?** Para que el fix TV + pago único salgan a **prod** (dispara redeploy). Hoy solo en `origin`.
 - [ ] **Copy suscripción → pago único:** "Cancelá cuando quieras / Sin permanencia" y la FAQ de cancelación
-  (en `/precios` y landing, es/en) todavía asumen suscripción. Decisión de marketing, después se edita.
+      (en `/precios` y landing, es/en) todavía asumen suscripción. Decisión de marketing, después se edita.
 - [ ] **Supabase → Pro ($25/mes):** por auto-pausa a los 7 días y backups (ver §5, hallazgo 🔴).
 - [ ] **Dominio del webhook** (§3): confirmar con el cliente.
 
