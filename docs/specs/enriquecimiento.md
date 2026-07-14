@@ -67,19 +67,19 @@ La ejecución y la custodia se atribuyen SIEMPRE a los socios regulados.
 **Costo externo: $0.** Solo Supabase + frontend. Es la vía de menor fricción: no depende del feed, ni de
 FCM, ni de que el cliente entregue nada. Se puede empezar hoy.
 
-| Feature                             | Estado                               | Qué es                                                                                   |
-| ----------------------------------- | ------------------------------------ | ---------------------------------------------------------------------------------------- |
-| **Catálogo de mercados + búsqueda** | ✅ **hecho**                         | Ver nota abajo. `lib/markets/catalog.ts` + navegador.                                    |
-| **Notas privadas por símbolo**      | ✅ **hecho** (migración sin aplicar) | Diario personal del usuario sobre un activo. **Es texto suyo, no recomendación de SMC.** |
-| **Múltiples watchlists**            | pendiente                            | Hoy hay una sola lista plana. Pasar a listas nombradas ("Forex", "Cripto", "Mías").      |
-| **Comparador multi-símbolo**        | pendiente                            | Ver 2–4 símbolos lado a lado (usa `symbol-overview`, que ya está integrado).             |
-| **Layouts guardados**               | pendiente                            | El usuario guarda su configuración del terminal (panel activo, símbolo, tema).           |
+| Feature                             | Estado                            | Qué es                                                                                   |
+| ----------------------------------- | --------------------------------- | ---------------------------------------------------------------------------------------- |
+| **Catálogo de mercados + búsqueda** | ✅ **hecho**                      | Ver nota abajo. `lib/markets/catalog.ts` + navegador.                                    |
+| **Notas privadas por símbolo**      | ✅ **hecho** (migración aplicada) | Diario personal del usuario sobre un activo. **Es texto suyo, no recomendación de SMC.** |
+| **Múltiples watchlists**            | pendiente                         | Hoy hay una sola lista plana. Pasar a listas nombradas ("Forex", "Cripto", "Mías").      |
+| **Comparador multi-símbolo**        | pendiente                         | Ver 2–4 símbolos lado a lado (usa `symbol-overview`, que ya está integrado).             |
+| **Layouts guardados**               | pendiente                         | El usuario guarda su configuración del terminal (panel activo, símbolo, tema).           |
 
-> **⚠️ Notas por símbolo — falta el paso de infra.** El código está completo y el gate verde, pero la
-> migración `supabase/migrations/20260714120000_symbol_notes.sql` **no se aplicó** a Supabase (tocar la
-> base del cliente es gate duro). Hasta que se aplique, el panel de notas falla en runtime porque la tabla
-> no existe. Al aplicarla, **regenerar `types/database.ts`** (hoy el tipo de `symbol_notes` está escrito a
-> mano, espejando la migración).
+> **✅ Notas por símbolo — migración aplicada (2026-07-14).** `20260714120000_symbol_notes.sql` corrió
+> sobre el proyecto de prod (`czpegpattyvspxjigvij`). Verificado en la base: RLS activa, 4 políticas
+> (select/insert/update/delete, todas `auth.uid() = user_id`), `anon` sin ningún grant, trigger de
+> `updated_at` montado. `types/database.ts` **no necesitó regenerarse**: el tipo escrito a mano coincidía
+> campo por campo con el que genera Supabase desde el schema real.
 
 > **Corrección de alcance (2026-07-14).** La spec original proponía un "buscador global ⌘K". Al leer el
 > código resultó redundante: **el navegador de mercados ya tenía buscador**. El agujero real era otro —
