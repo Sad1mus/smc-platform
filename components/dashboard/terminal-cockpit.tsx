@@ -5,6 +5,7 @@ import { useState } from "react"
 import { MarketNavigator } from "@/components/dashboard/market-navigator"
 import { TradingViewChart } from "@/components/dashboard/tradingview-chart"
 import { WatchlistPanel } from "@/components/dashboard/watchlist-panel"
+import { SymbolNotes } from "@/components/dashboard/symbol-notes"
 import { TvWidget } from "@/components/dashboard/tv-widget"
 import { PanelHeader } from "@/components/dashboard/panel-header"
 import { Button } from "@/components/ui/button"
@@ -29,8 +30,11 @@ const INTERVALS = [
 
 export function TerminalCockpit({
   watchlistSymbols,
+  notes,
 }: {
   watchlistSymbols: string[]
+  /** Nota privada del usuario por símbolo. Ver components/dashboard/symbol-notes.tsx. */
+  notes: Record<string, string>
 }) {
   const [activeSymbol, setActiveSymbol] = useState(
     watchlistSymbols[0] ?? DEFAULT_SYMBOL
@@ -47,39 +51,49 @@ export function TerminalCockpit({
         />
       </div>
 
-      {/* [C] Gráfico central */}
-      <div className="terminal-panel flex min-w-0 flex-col overflow-hidden">
-        <PanelHeader
-          label="Gráfico"
-          hint={<span className="text-foreground">{activeSymbol}</span>}
-        />
-        <div
-          role="group"
-          aria-label="Intervalo del gráfico"
-          className="border-border/60 flex flex-wrap items-center gap-1 border-b px-2 py-1.5"
-        >
-          {INTERVALS.map((item) => (
-            <Button
-              key={item.value}
-              type="button"
-              size="sm"
-              variant="ghost"
-              onClick={() => setInterval(item.value)}
-              aria-pressed={interval === item.value}
-              className={cn(
-                "h-7 px-2.5 font-mono text-xs active:scale-95",
-                interval === item.value &&
-                  "bg-secondary text-foreground font-semibold"
-              )}
-            >
-              {item.label}
-            </Button>
-          ))}
+      {/* [C] Gráfico central + notas del símbolo activo */}
+      <div className="flex min-w-0 flex-col gap-4">
+        <div className="terminal-panel flex flex-col overflow-hidden">
+          <PanelHeader
+            label="Gráfico"
+            hint={<span className="text-foreground">{activeSymbol}</span>}
+          />
+          <div
+            role="group"
+            aria-label="Intervalo del gráfico"
+            className="border-border/60 flex flex-wrap items-center gap-1 border-b px-2 py-1.5"
+          >
+            {INTERVALS.map((item) => (
+              <Button
+                key={item.value}
+                type="button"
+                size="sm"
+                variant="ghost"
+                onClick={() => setInterval(item.value)}
+                aria-pressed={interval === item.value}
+                className={cn(
+                  "h-7 px-2.5 font-mono text-xs active:scale-95",
+                  interval === item.value &&
+                    "bg-secondary text-foreground font-semibold"
+                )}
+              >
+                {item.label}
+              </Button>
+            ))}
+          </div>
+
+          <div className="min-w-0 p-2">
+            <TradingViewChart symbol={activeSymbol} interval={interval} />
+          </div>
         </div>
 
-        <div className="min-w-0 p-2">
-          <TradingViewChart symbol={activeSymbol} interval={interval} />
-        </div>
+        {/* key={activeSymbol} remonta el panel al cambiar de símbolo: el textarea
+            toma la nota nueva y no arrastra el "Guardado" del símbolo anterior. */}
+        <SymbolNotes
+          key={activeSymbol}
+          symbol={activeSymbol}
+          note={notes[activeSymbol] ?? ""}
+        />
       </div>
 
       {/* [D] Watchlist + análisis técnico del símbolo activo */}

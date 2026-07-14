@@ -39,7 +39,7 @@ describe("TerminalPanels — set ampliado de widgets display-only", () => {
 describe("TerminalCockpit — análisis técnico atado al símbolo activo", () => {
   it("monta un widget technical-analysis en la columna de análisis", () => {
     const { container } = render(
-      <TerminalCockpit watchlistSymbols={["NASDAQ:AAPL"]} />
+      <TerminalCockpit watchlistSymbols={["NASDAQ:AAPL"]} notes={{}} />
     )
     expect(
       container.querySelector('[data-testid="tv-widget-technical-analysis"]')

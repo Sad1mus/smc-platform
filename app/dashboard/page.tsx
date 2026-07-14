@@ -38,14 +38,27 @@ export default async function DashboardPage() {
     getActiveSubscription(),
   ])
 
-  const { data: watchlist } = await supabase
-    .from("watchlists")
-    .select("symbol")
-    .eq("user_id", user!.id)
-    .order("sort_order")
-    .order("created_at")
+  const [{ data: watchlist }, { data: notes }] = await Promise.all([
+    supabase
+      .from("watchlists")
+      .select("symbol")
+      .eq("user_id", user!.id)
+      .order("sort_order")
+      .order("created_at"),
+    supabase
+      .from("symbol_notes")
+      .select("symbol, body")
+      .eq("user_id", user!.id),
+  ])
 
   const symbols = watchlist?.map((item) => item.symbol) ?? []
+
+  // Las notas del usuario se traen de una en el server y se pasan como mapa: son
+  // pocas (una por símbolo anotado) y así el cockpit cambia de símbolo sin fetch
+  // ni estados de carga en el cliente.
+  const notesBySymbol = Object.fromEntries(
+    (notes ?? []).map((note) => [note.symbol, note.body])
+  )
   const firstName = profile?.full_name?.split(" ")[0]
   const planName = subscription?.plan?.name ?? null
 
@@ -70,7 +83,7 @@ export default async function DashboardPage() {
       <TickerTape />
 
       {/* [B][C][D] Cockpit: navegador · gráfico · watchlist */}
-      <TerminalCockpit watchlistSymbols={symbols} />
+      <TerminalCockpit watchlistSymbols={symbols} notes={notesBySymbol} />
 
       {/* [E] Vistas: heatmap · calendario · screener */}
       <TerminalPanels />
