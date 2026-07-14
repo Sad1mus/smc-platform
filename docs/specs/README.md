@@ -17,6 +17,10 @@ generada a partir de ella. Antes de tocar una feature, leé su spec acá (refere
   provider-agnostic y proveedor stub; qué se difiere (proveedor real, AML) y por qué.
 - [`landing-pages.md`](./landing-pages.md) — páginas de contexto que expanden secciones del
   home (`/mercados`, `/como-funciona`, `/plataforma`) sin reemplazar la landing de una sola página.
+- [`enriquecimiento.md`](./enriquecimiento.md) — **PROPUESTA (no aprobada).** Plan por fases para
+  enriquecer web + Android: datos de mercado propios (server-side), motor de alertas real (hoy es un
+  stub), push nativo y capa nativa Android. Incluye el **no-alcance regulatorio** (señales, copy
+  trading, P&L: prohibidos) y los costos de cada fase.
 
 ## Cómo crece esto
 
