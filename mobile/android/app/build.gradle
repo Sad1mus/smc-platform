@@ -15,8 +15,12 @@ android {
         applicationId "com.smartmoney.smc"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 2
-        versionName "1.1.0"
+        // Refleja el binario efectivamente publicado en Play Store (SMC-v1.0.0).
+        // Solo subir cuando haya un cambio nativo real que amerite un build nuevo:
+        // el shell carga la web de producción por server.url, así que un deploy web
+        // NO necesita binario nuevo.
+        versionCode 1
+        versionName "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
